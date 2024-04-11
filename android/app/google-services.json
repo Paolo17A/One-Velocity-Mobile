@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "983202572137",
+    "project_id": "one-velocity",
+    "storage_bucket": "one-velocity.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:983202572137:android:e491085f0f228edf767ff8",
+        "android_client_info": {
+          "package_name": "com.example.one_velocity_mobile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFDAg2fCCvhGJmPbZD0To9TPvufuX7k7M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

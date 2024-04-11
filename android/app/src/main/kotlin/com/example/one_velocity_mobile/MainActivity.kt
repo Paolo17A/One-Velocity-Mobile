@@ -1,0 +1,6 @@
+package com.example.one_velocity_mobile
+
+import io.flutter.embedding.android.FlutterActivity
+
+class MainActivity: FlutterActivity() {
+}
