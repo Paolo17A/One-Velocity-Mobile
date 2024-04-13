@@ -69,3 +69,14 @@ void showOtherPics(BuildContext context, {required String selectedImage}) {
             ]),
           )));
 }
+
+Widget snapshotHandler(AsyncSnapshot snapshot) {
+  if (snapshot.connectionState == ConnectionState.waiting) {
+    return const CircularProgressIndicator();
+  } else if (!snapshot.hasData) {
+    return Text('No data found');
+  } else if (snapshot.hasError) {
+    return Text('Error gettin data: ${snapshot.error.toString()}');
+  }
+  return Container();
+}

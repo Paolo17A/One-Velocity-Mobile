@@ -1,5 +1,6 @@
 // ignore_for_file: unnecessary_cast
 
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -7,6 +8,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:one_velocity_mobile/utils/navigator_util.dart';
 
 import '../providers/bookmarks_provider.dart';
@@ -121,6 +123,9 @@ Future logInUser(BuildContext context, WidgetRef ref,
           .doc(FirebaseAuth.instance.currentUser!.uid)
           .update({UserFields.password: passwordController.text});
     }
+    ref
+        .read(profileImageURLProvider)
+        .setImageURL(userData[UserFields.profileImageURL]);
     ref.read(loadingProvider.notifier).toggleLoading(false);
     navigator.pushReplacementNamed(NavigatorRoutes.home);
   } catch (error) {
@@ -239,7 +244,7 @@ Future editClientProfile(BuildContext context, WidgetRef ref,
   }
 }
 
-Future addProfilePic(BuildContext context, WidgetRef ref,
+/*Future addProfilePic(BuildContext context, WidgetRef ref,
     {required Uint8List selectedImage}) async {
   final scaffoldMessenger = ScaffoldMessenger.of(context);
 
@@ -271,6 +276,36 @@ Future addProfilePic(BuildContext context, WidgetRef ref,
         SnackBar(content: Text('Error uploading new profile picture: $error')));
     ref.read(loadingProvider.notifier).toggleLoading(false);
   }
+}*/
+
+Future uploadProfilePicture(BuildContext context, WidgetRef ref) async {
+  try {
+    ImagePicker imagePicker = ImagePicker();
+    final selectedXFile =
+        await imagePicker.pickImage(source: ImageSource.gallery);
+    if (selectedXFile == null) {
+      return;
+    }
+    //  Upload proof of employment to Firebase Storage
+    ref.read(loadingProvider).toggleLoading(true);
+    final storageRef = FirebaseStorage.instance
+        .ref()
+        .child(StorageFields.profilePics)
+        .child(FirebaseAuth.instance.currentUser!.uid);
+    final uploadTask = storageRef.putFile(File(selectedXFile.path));
+    final taskSnapshot = await uploadTask;
+    final String downloadURL = await taskSnapshot.ref.getDownloadURL();
+    await FirebaseFirestore.instance
+        .collection(Collections.users)
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .update({UserFields.profileImageURL: downloadURL});
+    ref.read(profileImageURLProvider).setImageURL(downloadURL);
+    ref.read(loadingProvider).toggleLoading(false);
+  } catch (error) {
+    ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error uploading new profile picture: $error')));
+    ref.read(loadingProvider).toggleLoading(false);
+  }
 }
 
 Future<void> removeProfilePic(BuildContext context, WidgetRef ref) async {
@@ -290,8 +325,8 @@ Future<void> removeProfilePic(BuildContext context, WidgetRef ref) async {
     await storageRef.delete();
     scaffoldMessenger.showSnackBar(
         const SnackBar(content: Text('Successfully removed profile picture.')));
-    ref.read(profileImageURLProvider.notifier).removeImageURL();
-    ref.read(loadingProvider.notifier).toggleLoading(false);
+    ref.read(profileImageURLProvider).removeImageURL();
+    ref.read(loadingProvider).toggleLoading(false);
   } catch (error) {
     scaffoldMessenger.showSnackBar(
         SnackBar(content: Text('Error removing current profile pic: $error')));
@@ -302,11 +337,6 @@ Future<void> removeProfilePic(BuildContext context, WidgetRef ref) async {
 Future addBookmarkedProduct(BuildContext context, WidgetRef ref,
     {required String productID}) async {
   final scaffoldMessenger = ScaffoldMessenger.of(context);
-  if (!hasLoggedInUser()) {
-    scaffoldMessenger.showSnackBar(
-        const SnackBar(content: Text('Please log-in to your account first.')));
-    return;
-  }
   try {
     await FirebaseFirestore.instance
         .collection(Collections.users)
@@ -327,11 +357,6 @@ Future addBookmarkedProduct(BuildContext context, WidgetRef ref,
 Future removeBookmarkedProduct(BuildContext context, WidgetRef ref,
     {required String productID}) async {
   final scaffoldMessenger = ScaffoldMessenger.of(context);
-  if (!hasLoggedInUser()) {
-    scaffoldMessenger.showSnackBar(
-        const SnackBar(content: Text('Please log-in to your account first.')));
-    return;
-  }
   try {
     await FirebaseFirestore.instance
         .collection(Collections.users)

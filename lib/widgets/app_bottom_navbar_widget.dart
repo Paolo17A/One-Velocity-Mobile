@@ -23,7 +23,9 @@ void _processPress(BuildContext context, int selectedIndex, int currentIndex) {
       break;
     case 2:
       Navigator.of(context).pushNamed(NavigatorRoutes.services);
-
+      break;
+    case 3:
+      //Navigator.of(context).pushNamed(NavigatorRoutes.cart);
       break;
   }
 }
@@ -36,21 +38,26 @@ Widget bottomNavigationBar(BuildContext context, {required int index}) {
       selectedFontSize: 0,
       backgroundColor: bottomNavButtonColor,
       selectedItemColor: Colors.white,
+      unselectedItemColor: Colors.white,
       items: [
         //  Self-Assessment
         BottomNavigationBarItem(
-            icon: _buildIcon(Icons.home, 'Home'),
+            icon: _buildIcon(Icons.home, 'Home', index, 0),
             backgroundColor: bottomNavButtonColor,
-            label: 'Plan An Event'),
+            label: ''),
         BottomNavigationBarItem(
-            icon: _buildIcon(Icons.settings, 'Products'),
+            icon: _buildIcon(Icons.settings, 'Products', index, 1),
             backgroundColor: bottomNavButtonColor,
-            label: 'Chats'),
+            label: ''),
         //  Organizations
         BottomNavigationBarItem(
-            icon: _buildIcon(Icons.home_repair_service, 'Services'),
+            icon: _buildIcon(Icons.home_repair_service, 'Services', index, 2),
             backgroundColor: bottomNavButtonColor,
-            label: 'My Account')
+            label: ''),
+        BottomNavigationBarItem(
+            icon: _buildIcon(Icons.shopping_cart, 'Cart', index, 3),
+            backgroundColor: bottomNavButtonColor,
+            label: '')
       ],
       onTap: (int tappedIndex) {
         _processPress(context, tappedIndex, index);
@@ -59,11 +66,18 @@ Widget bottomNavigationBar(BuildContext context, {required int index}) {
   );
 }
 
-Widget _buildIcon(IconData iconData, String label) {
+Widget _buildIcon(
+    IconData iconData, String label, int currentIndex, int thisIndex) {
   return Column(
     children: [
-      Icon(iconData, size: 30),
-      montserratWhiteRegular(label, fontSize: 18)
+      Icon(
+        iconData,
+        size: currentIndex == thisIndex ? 30 : 20,
+        color: currentIndex == thisIndex ? Colors.white : Colors.black,
+      ),
+      currentIndex == thisIndex
+          ? montserratWhiteBold(label, fontSize: 12)
+          : montserratBlackBold(label, fontSize: 12)
     ],
   );
 }

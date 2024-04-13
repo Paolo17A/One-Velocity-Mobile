@@ -9,7 +9,8 @@ ThemeData themeData = ThemeData(
         backgroundColor: CustomColors.blackBeauty,
         titleTextStyle: TextStyle(
             color: Colors.white, fontWeight: FontWeight.bold, fontSize: 30),
-        iconTheme: IconThemeData(color: CustomColors.ultimateGray)),
+        iconTheme: IconThemeData(color: CustomColors.ultimateGray),
+        actionsIconTheme: IconThemeData(color: Colors.white)),
     elevatedButtonTheme: ElevatedButtonThemeData(
         style:
             ElevatedButton.styleFrom(backgroundColor: CustomColors.grenadine)));

@@ -40,7 +40,13 @@ Drawer appDrawer(BuildContext context, {required String route}) {
                     label: 'Log-In',
                     onPress: () =>
                         Navigator.of(context).pushNamed(NavigatorRoutes.login)),
-              _drawerTile(context, label: 'About', onPress: () {}),
+              if (hasLoggedInUser())
+                _drawerTile(context,
+                    label: 'Bookmarks',
+                    onPress: () => route == NavigatorRoutes.bookmarks
+                        ? null
+                        : Navigator.of(context)
+                            .pushNamed(NavigatorRoutes.bookmarks)),
               _drawerTile(context,
                   label: 'Help',
                   onPress: () => route == NavigatorRoutes.help
