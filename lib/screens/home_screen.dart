@@ -85,7 +85,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                       horizontal: 10),
                                   child: itemEntry(context,
                                       itemDoc: item,
-                                      onPress: () {},
+                                      onPress: () =>
+                                          NavigatorRoutes.selectedProduct(
+                                              context, ref,
+                                              productID: item.id),
                                       fontColor: Colors.white),
                                 ),
                               ],

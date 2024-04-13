@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:one_velocity_mobile/utils/firebase_util.dart';
 
 import '../screens/home_screen.dart';
 import '../utils/color_util.dart';
@@ -25,7 +26,7 @@ void _processPress(BuildContext context, int selectedIndex, int currentIndex) {
       Navigator.of(context).pushNamed(NavigatorRoutes.services);
       break;
     case 3:
-      //Navigator.of(context).pushNamed(NavigatorRoutes.cart);
+      Navigator.of(context).pushNamed(NavigatorRoutes.cart);
       break;
   }
 }
@@ -54,10 +55,11 @@ Widget bottomNavigationBar(BuildContext context, {required int index}) {
             icon: _buildIcon(Icons.home_repair_service, 'Services', index, 2),
             backgroundColor: bottomNavButtonColor,
             label: ''),
-        BottomNavigationBarItem(
-            icon: _buildIcon(Icons.shopping_cart, 'Cart', index, 3),
-            backgroundColor: bottomNavButtonColor,
-            label: '')
+        if (hasLoggedInUser())
+          BottomNavigationBarItem(
+              icon: _buildIcon(Icons.shopping_cart, 'Cart', index, 3),
+              backgroundColor: bottomNavButtonColor,
+              label: '')
       ],
       onTap: (int tappedIndex) {
         _processPress(context, tappedIndex, index);

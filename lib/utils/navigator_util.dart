@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:one_velocity_mobile/screens/bookmarks_screen.dart';
+import 'package:one_velocity_mobile/screens/cart_screen.dart';
+import 'package:one_velocity_mobile/screens/checkout_screen.dart';
 import 'package:one_velocity_mobile/screens/forgot_password_screen.dart';
+import 'package:one_velocity_mobile/screens/selected_product_screen.dart';
 
 import '../screens/edit_profile_screen.dart';
 import '../screens/help_screen.dart';
@@ -19,8 +23,15 @@ class NavigatorRoutes {
   static const String profile = 'profile';
   static const String editProfile = 'editProfile';
   static const String products = 'products';
+  static void selectedProduct(BuildContext context, WidgetRef ref,
+      {required String productID}) {
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => SelectedProductScreen(productID: productID)));
+  }
+
   static const String services = 'services';
   static const String cart = 'cart';
+  static const String checkout = 'checkout';
   static const String bookmarks = 'bookmarks';
   static const String help = 'help';
 }
@@ -34,6 +45,8 @@ final Map<String, WidgetBuilder> routes = {
   NavigatorRoutes.editProfile: (context) => const EditProfileScreen(),
   NavigatorRoutes.products: (context) => const ProductsScreen(),
   NavigatorRoutes.services: (context) => const ServicesScreen(),
+  NavigatorRoutes.cart: (context) => const CartScreen(),
+  NavigatorRoutes.checkout: (context) => const CheckoutScreen(),
   NavigatorRoutes.bookmarks: (context) => const BookMarksScreen(),
   NavigatorRoutes.help: (context) => const HelpScreen(),
 };

@@ -70,19 +70,21 @@ class _ProductsScreenState extends ConsumerState<ProductsScreen> {
   Widget _availableProducts() {
     return Column(
       children: [
-        all20Pix(
-            child: allProductDocs.isNotEmpty
-                ? Wrap(
-                    alignment: WrapAlignment.spaceEvenly,
-                    spacing: 10,
-                    runSpacing: 10,
-                    children: allProductDocs.asMap().entries.map((item) {
-                      DocumentSnapshot thisProduct = allProductDocs[item.key];
-                      //allProductDocs[item.key + ((currentPage - 1) * 20)];
-                      return itemEntry(context,
-                          itemDoc: thisProduct, onPress: () {});
-                    }).toList())
-                : montserratBlackBold('NO PRODUCTS AVAILABLE', fontSize: 44)),
+        allProductDocs.isNotEmpty
+            ? Wrap(
+                alignment: WrapAlignment.spaceEvenly,
+                spacing: 10,
+                runSpacing: 10,
+                children: allProductDocs.asMap().entries.map((item) {
+                  DocumentSnapshot thisProduct = allProductDocs[item.key];
+                  //allProductDocs[item.key + ((currentPage - 1) * 20)];
+                  return itemEntry(context,
+                      itemDoc: thisProduct,
+                      onPress: () => NavigatorRoutes.selectedProduct(
+                          context, ref,
+                          productID: thisProduct.id));
+                }).toList())
+            : montserratBlackBold('NO PRODUCTS AVAILABLE', fontSize: 44),
       ],
     );
   }

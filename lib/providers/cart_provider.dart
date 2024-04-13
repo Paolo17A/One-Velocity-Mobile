@@ -22,6 +22,9 @@ class CartNotifier extends ChangeNotifier {
 
   void removeCartItem(DocumentSnapshot item) {
     cartItems.remove(item);
+    if (item.id == selectedCartItem) {
+      setSelectedCartItem('', 0, 0);
+    }
     notifyListeners();
   }
 

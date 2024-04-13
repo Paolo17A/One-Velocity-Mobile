@@ -1,7 +1,6 @@
 // ignore_for_file: unnecessary_cast
 
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -244,40 +243,6 @@ Future editClientProfile(BuildContext context, WidgetRef ref,
   }
 }
 
-/*Future addProfilePic(BuildContext context, WidgetRef ref,
-    {required Uint8List selectedImage}) async {
-  final scaffoldMessenger = ScaffoldMessenger.of(context);
-
-  try {
-    ref.read(loadingProvider.notifier).toggleLoading(true);
-
-    final storageRef = FirebaseStorage.instance
-        .ref()
-        .child(StorageFields.profilePics)
-        .child(FirebaseAuth.instance.currentUser!.uid);
-
-    final uploadTask = storageRef.putData(selectedImage);
-    final taskSnapshot = await uploadTask;
-    final downloadURL = await taskSnapshot.ref.getDownloadURL();
-
-    // Update the user's data in Firestore with the image URL
-    await FirebaseFirestore.instance
-        .collection(Collections.users)
-        .doc(FirebaseAuth.instance.currentUser!.uid)
-        .update({
-      UserFields.profileImageURL: downloadURL,
-    });
-    scaffoldMessenger.showSnackBar(const SnackBar(
-        content: Text('Successfully added new profile picture')));
-    ref.read(profileImageURLProvider.notifier).setImageURL(downloadURL);
-    ref.read(loadingProvider.notifier).toggleLoading(false);
-  } catch (error) {
-    scaffoldMessenger.showSnackBar(
-        SnackBar(content: Text('Error uploading new profile picture: $error')));
-    ref.read(loadingProvider.notifier).toggleLoading(false);
-  }
-}*/
-
 Future uploadProfilePicture(BuildContext context, WidgetRef ref) async {
   try {
     ImagePicker imagePicker = ImagePicker();
@@ -338,6 +303,11 @@ Future addBookmarkedProduct(BuildContext context, WidgetRef ref,
     {required String productID}) async {
   final scaffoldMessenger = ScaffoldMessenger.of(context);
   try {
+    if (!hasLoggedInUser()) {
+      scaffoldMessenger.showSnackBar(
+          SnackBar(content: Text('Please log-in to your account first.')));
+      return;
+    }
     await FirebaseFirestore.instance
         .collection(Collections.users)
         .doc(FirebaseAuth.instance.currentUser!.uid)
@@ -358,6 +328,11 @@ Future removeBookmarkedProduct(BuildContext context, WidgetRef ref,
     {required String productID}) async {
   final scaffoldMessenger = ScaffoldMessenger.of(context);
   try {
+    if (!hasLoggedInUser()) {
+      scaffoldMessenger.showSnackBar(
+          SnackBar(content: Text('Please log-in to your account first.')));
+      return;
+    }
     await FirebaseFirestore.instance
         .collection(Collections.users)
         .doc(FirebaseAuth.instance.currentUser!.uid)
@@ -526,9 +501,14 @@ Future<List<DocumentSnapshot>> getAllPurchaseDocs() async {
   return purchases.docs.reversed.toList();
 }
 
-Future purchaseSelectedCartItem(BuildContext context, WidgetRef ref,
-    {required Uint8List? proofOfPayment}) async {
+Future purchaseSelectedCartItem(BuildContext context, WidgetRef ref) async {
   final scaffoldMessenger = ScaffoldMessenger.of(context);
+  ImagePicker imagePicker = ImagePicker();
+  final selectedXFile =
+      await imagePicker.pickImage(source: ImageSource.gallery);
+  if (selectedXFile == null) {
+    return;
+  }
   try {
     ref.read(loadingProvider.notifier).toggleLoading(true);
     //  1. Upload the proof of payment image to Firebase Storage
@@ -537,8 +517,8 @@ Future purchaseSelectedCartItem(BuildContext context, WidgetRef ref,
         .ref()
         .child(StorageFields.payments)
         .child('$paymentID.png');
-    final uploadTask = storageRef.putData(proofOfPayment!);
-    final taskSnapshot = await uploadTask.whenComplete(() {});
+    final uploadTask = storageRef.putFile(File(selectedXFile.path));
+    final taskSnapshot = await uploadTask;
     final downloadURL = await taskSnapshot.ref.getDownloadURL();
 
     //  2. Generate a purchase document for the selected cart item
@@ -592,6 +572,8 @@ Future purchaseSelectedCartItem(BuildContext context, WidgetRef ref,
     scaffoldMessenger.showSnackBar(const SnackBar(
         content:
             Text('Successfully settled payment and created purchase order')));
+    Navigator.of(context).pop();
+    ref.read(cartProvider).setSelectedCartItem('', 0, 0);
     ref.read(loadingProvider.notifier).toggleLoading(false);
   } catch (error) {
     scaffoldMessenger.showSnackBar(
