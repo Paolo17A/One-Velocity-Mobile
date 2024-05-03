@@ -45,6 +45,7 @@ dependencies:
   flutter_launcher_icons: ^0.13.1
   image_picker: ^1.0.8
   dropdown_search: ^5.0.6
+  flutter_unity_widget: ^2022.2.1
 
 dev_dependencies:
   flutter_test:

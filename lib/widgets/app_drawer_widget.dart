@@ -47,6 +47,13 @@ Drawer appDrawer(BuildContext context, {required String route}) {
                         ? null
                         : Navigator.of(context)
                             .pushNamed(NavigatorRoutes.bookmarks)),
+              if (hasLoggedInUser())
+                _drawerTile(context,
+                    label: '3D Customization',
+                    onPress: () => route == NavigatorRoutes.help
+                        ? null
+                        : Navigator.of(context)
+                            .pushNamed(NavigatorRoutes.unity)),
               _drawerTile(context,
                   label: 'Help',
                   onPress: () => route == NavigatorRoutes.help

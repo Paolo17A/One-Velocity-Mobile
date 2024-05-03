@@ -41,3 +41,6 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+/android/unityLibrary/
+unity/OneVelocity3D/Library
+unity/OneVelocity3D/Temp
