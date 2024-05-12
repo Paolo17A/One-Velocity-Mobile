@@ -109,6 +109,9 @@ extern void CarController_Start_m15C0896D5EB70572BF27815FE41FF8E52DA22145 (void)
 extern void CarController__ctor_mED29536AC2B7697D76B32073704A86307FDCA1FF (void);
 extern void CarCore_InitializeCarScene_m1FEEFA1FC7C96E6DBB68493D5BDC20FC9C681943 (void);
 extern void CarCore_SetSelectedWheel_m4CDCF35C505096573C5AE88DB1246C2D7C752A00 (void);
+extern void CarCore_DisplayProperCar_m163EEEFC6DCE82A32353BCB2A60E70CB6BA7829F (void);
+extern void CarCore_IncrementCarIndex_m9BB682DF246B3A9EE8861BED584CB167F9F5435F (void);
+extern void CarCore_DecrementCarIndex_mEDAB04EA3E0C1BC2CFA92D9D185664A744BD5D1B (void);
 extern void CarCore_SendMessageToFlutter_mD621B4835A49000778B9699B7817C3ECC7A7AB03 (void);
 extern void CarCore__ctor_m6DE4C146929F32917E166CC6DCD1EBA36C8F8B26 (void);
 extern void SwipeRotate_Update_m9B34F96EBA309273F028FD664BD5D7CAFA396B4F (void);
@@ -1322,7 +1325,7 @@ extern void MessageHandlerDelegate__ctor_m287CBD25D77011FC5A52D1090F6CC31353AB63
 extern void MessageHandlerDelegate_Invoke_mD1EC9E1841D5014C40A26D4C4BA076482FFC8A4B (void);
 extern void MessageHandlerDelegate_BeginInvoke_m0CC5C5B29E11DD03F1726B49E4B1E516479AC58D (void);
 extern void MessageHandlerDelegate_EndInvoke_mAD2746E001DB9A3D18A1D806610542321FE0CF16 (void);
-static Il2CppMethodPointer s_methodPointers[1323] = 
+static Il2CppMethodPointer s_methodPointers[1326] = 
 {
 	NULL,
 	NULL,
@@ -1429,6 +1432,9 @@ static Il2CppMethodPointer s_methodPointers[1323] =
 	CarController__ctor_mED29536AC2B7697D76B32073704A86307FDCA1FF,
 	CarCore_InitializeCarScene_m1FEEFA1FC7C96E6DBB68493D5BDC20FC9C681943,
 	CarCore_SetSelectedWheel_m4CDCF35C505096573C5AE88DB1246C2D7C752A00,
+	CarCore_DisplayProperCar_m163EEEFC6DCE82A32353BCB2A60E70CB6BA7829F,
+	CarCore_IncrementCarIndex_m9BB682DF246B3A9EE8861BED584CB167F9F5435F,
+	CarCore_DecrementCarIndex_mEDAB04EA3E0C1BC2CFA92D9D185664A744BD5D1B,
 	CarCore_SendMessageToFlutter_mD621B4835A49000778B9699B7817C3ECC7A7AB03,
 	CarCore__ctor_m6DE4C146929F32917E166CC6DCD1EBA36C8F8B26,
 	SwipeRotate_Update_m9B34F96EBA309273F028FD664BD5D7CAFA396B4F,
@@ -2648,7 +2654,7 @@ static Il2CppMethodPointer s_methodPointers[1323] =
 	MessageHandlerDelegate_BeginInvoke_m0CC5C5B29E11DD03F1726B49E4B1E516479AC58D,
 	MessageHandlerDelegate_EndInvoke_mAD2746E001DB9A3D18A1D806610542321FE0CF16,
 };
-static const int32_t s_InvokerIndices[1323] = 
+static const int32_t s_InvokerIndices[1326] = 
 {
 	0,
 	0,
@@ -2755,6 +2761,9 @@ static const int32_t s_InvokerIndices[1323] =
 	2935,
 	2935,
 	2557,
+	2935,
+	2935,
+	2935,
 	2935,
 	2935,
 	2935,
@@ -3978,7 +3987,7 @@ static const Il2CppTokenRangePair s_rgctxIndices[3] =
 {
 	{ 0x02000002, { 0, 29 } },
 	{ 0x02000074, { 29, 11 } },
-	{ 0x06000511, { 40, 2 } },
+	{ 0x06000514, { 40, 2 } },
 };
 extern const uint32_t g_rgctx_U3CU3Ef__AnonymousType0_4_t93FD0713D40011506D6B5581D9D5064D1A1A31B8;
 extern const uint32_t g_rgctx_U3CidU3Ej__TPar_tB4283D6614B0A1B9713411CF590AE6445EC76C76;
@@ -4071,7 +4080,7 @@ IL2CPP_EXTERN_C const Il2CppCodeGenModule g_AssemblyU2DCSharp_CodeGenModule;
 const Il2CppCodeGenModule g_AssemblyU2DCSharp_CodeGenModule = 
 {
 	"Assembly-CSharp.dll",
-	1323,
+	1326,
 	s_methodPointers,
 	0,
 	NULL,

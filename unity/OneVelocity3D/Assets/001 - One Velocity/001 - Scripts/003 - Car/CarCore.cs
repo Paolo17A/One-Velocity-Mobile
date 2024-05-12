@@ -11,6 +11,10 @@ public class CarCore : MonoBehaviour
     [SerializeField][ReadOnly] private WheelDataHandler SelectedWheel;
     [SerializeField] private UnityMessageManager UnityMessageManager;
 
+    [Header("SELECTED CAR VARIABLES")]
+    [SerializeField] private List<GameObject> CarModels;
+    [SerializeField] private int CurrentCarIndex;
+
     [Header("SELECTED WHEEL VARIABLES")]
     [SerializeField] private TextMeshProUGUI SelectedWheelNameTMP;
     [SerializeField] private TextMeshProUGUI PriceTMP;
@@ -36,6 +40,29 @@ public class CarCore : MonoBehaviour
         foreach (var wheel in allWheelHandlers)
             wheel.HideWheel();
         SelectedWheel.DisplayWheel();
+    }
+
+    public void DisplayProperCar()
+    {
+        foreach (var car in CarModels)
+            car.SetActive(false);
+        CarModels[CurrentCarIndex].SetActive(true);
+    }
+
+    public void IncrementCarIndex()
+    {
+       CurrentCarIndex++;
+        if (CarModels.Count == CurrentCarIndex)
+            CurrentCarIndex = 0;
+        DisplayProperCar();
+    }
+
+    public void DecrementCarIndex()
+    {
+        CurrentCarIndex--;
+        if (CurrentCarIndex == -1)
+            CurrentCarIndex = CarModels.Count - 1;
+        DisplayProperCar();
     }
 
     public void SendMessageToFlutter()

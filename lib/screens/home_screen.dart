@@ -8,6 +8,7 @@ import '../providers/loading_provider.dart';
 import '../utils/color_util.dart';
 import '../utils/firebase_util.dart';
 import '../utils/navigator_util.dart';
+import '../utils/string_util.dart';
 import '../widgets/app_bar_widget.dart';
 import '../widgets/app_bottom_navbar_widget.dart';
 import '../widgets/app_drawer_widget.dart';
@@ -24,6 +25,8 @@ class HomeScreen extends ConsumerStatefulWidget {
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   List<DocumentSnapshot> productDocs = [];
+  List<DocumentSnapshot> wheelProductDocs = [];
+  List<DocumentSnapshot> batteryProductDocs = [];
   @override
   void initState() {
     super.initState();
@@ -31,7 +34,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       ref.read(loadingProvider.notifier).toggleLoading(true);
 
       productDocs = await getAllProducts();
-
+      wheelProductDocs = productDocs.where((productDoc) {
+        final productData = productDoc.data() as Map<dynamic, dynamic>;
+        return productData[ProductFields.category] == ProductCategories.wheel;
+      }).toList();
+      batteryProductDocs = productDocs.where((productDoc) {
+        final productData = productDoc.data() as Map<dynamic, dynamic>;
+        return productData[ProductFields.category] == ProductCategories.battery;
+      }).toList();
       ref.read(loadingProvider.notifier).toggleLoading(false);
     });
   }
@@ -51,6 +61,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               child: all20Pix(
                   child: Column(
                 children: [
+                  if (wheelProductDocs.isNotEmpty) _wheelProducts(),
+                  if (batteryProductDocs.isNotEmpty) _batteryProducts(),
                   _topProducts(),
                   const Divider(color: CustomColors.blackBeauty),
                 ],
@@ -60,9 +72,92 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     );
   }
 
+  Widget _wheelProducts() {
+    wheelProductDocs.shuffle();
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        montserratBlackBold('WHEELS', fontSize: 25),
+        SizedBox(
+          width: MediaQuery.of(context).size.width,
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: wheelProductDocs.isNotEmpty
+                    ? MainAxisAlignment.start
+                    : MainAxisAlignment.center,
+                children: wheelProductDocs
+                    .take(6)
+                    .toList()
+                    .map((item) => Row(
+                          children: [
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10),
+                              child: itemEntry(context,
+                                  itemDoc: item,
+                                  onPress: () =>
+                                      NavigatorRoutes.selectedProduct(
+                                          context, ref,
+                                          productID: item.id),
+                                  fontColor: Colors.white),
+                            ),
+                          ],
+                        ))
+                    .toList()),
+          ),
+        ),
+        const Gap(10),
+      ],
+    );
+  }
+
+  Widget _batteryProducts() {
+    batteryProductDocs.shuffle();
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        montserratBlackBold('BATTERIES', fontSize: 25),
+        SizedBox(
+          width: MediaQuery.of(context).size.width,
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: batteryProductDocs.isNotEmpty
+                    ? MainAxisAlignment.start
+                    : MainAxisAlignment.center,
+                children: batteryProductDocs
+                    .take(6)
+                    .toList()
+                    .map((item) => Row(
+                          children: [
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10),
+                              child: itemEntry(context,
+                                  itemDoc: item,
+                                  onPress: () =>
+                                      NavigatorRoutes.selectedProduct(
+                                          context, ref,
+                                          productID: item.id),
+                                  fontColor: Colors.white),
+                            ),
+                          ],
+                        ))
+                    .toList()),
+          ),
+        ),
+        const Gap(10),
+      ],
+    );
+  }
+
   Widget _topProducts() {
     productDocs.shuffle();
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         all20Pix(child: montserratBlackBold('TOP PRODUCTS', fontSize: 25)),
         SizedBox(

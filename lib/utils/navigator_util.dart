@@ -13,6 +13,7 @@ import '../screens/home_screen.dart';
 import '../screens/login_screen.dart';
 import '../screens/products_screen.dart';
 import '../screens/profile_screen.dart';
+import '../screens/quotation_screen.dart';
 import '../screens/register_screen.dart';
 import '../screens/services_screen.dart';
 
@@ -36,6 +37,10 @@ class NavigatorRoutes {
   static const String bookmarks = 'bookmarks';
   static const String help = 'help';
   static const String unity = 'unity';
+  static void quotation(BuildContext context, {required String quotationURL}) {
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => QuotationScreen(quotationURL: quotationURL)));
+  }
 }
 
 final Map<String, WidgetBuilder> routes = {

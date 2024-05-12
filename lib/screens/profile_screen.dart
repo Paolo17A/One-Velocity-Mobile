@@ -201,11 +201,33 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                       montserratWhiteRegular('Status: $status', fontSize: 15),
                       montserratWhiteBold(
                           'PHP ${(price * quantity).toStringAsFixed(2)}'),
+                      if (status == PurchaseStatuses.pickedUp)
+                        _downloadInvoiceFutureBuilder(purchaseDoc.id)
                     ],
                   ),
                 ],
               ),
             )));
+      },
+    );
+  }
+
+  Widget _downloadInvoiceFutureBuilder(String purchaseID) {
+    return FutureBuilder(
+      future: getThisPaymentDoc(purchaseID),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting ||
+            !snapshot.hasData ||
+            snapshot.hasError) return snapshotHandler(snapshot);
+        final paymentData = snapshot.data!.data() as Map<dynamic, dynamic>;
+        String invoiceURL = paymentData[PaymentFields.invoiceURL];
+        return TextButton(
+            onPressed: () =>
+                NavigatorRoutes.quotation(context, quotationURL: invoiceURL),
+            child: montserratWhiteRegular('View Invoice',
+                fontSize: 12,
+                textAlign: TextAlign.left,
+                decoration: TextDecoration.underline));
       },
     );
   }

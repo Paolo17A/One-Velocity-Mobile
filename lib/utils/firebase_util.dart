@@ -358,6 +358,22 @@ Future<List<DocumentSnapshot>> getAllProducts() async {
   return products.docs;
 }
 
+Future<List<DocumentSnapshot>> getAllWheelProducts() async {
+  final products = await FirebaseFirestore.instance
+      .collection(Collections.products)
+      .where(ProductFields.category, isEqualTo: ProductCategories.wheel)
+      .get();
+  return products.docs;
+}
+
+Future<List<DocumentSnapshot>> getAllBattryProducts() async {
+  final products = await FirebaseFirestore.instance
+      .collection(Collections.products)
+      .where(ProductFields.category, isEqualTo: ProductCategories.battery)
+      .get();
+  return products.docs;
+}
+
 Future<DocumentSnapshot> getThisProductDoc(String productID) async {
   return await FirebaseFirestore.instance
       .collection(Collections.products)
@@ -631,4 +647,14 @@ Future markPurchaseAsPickedUp(BuildContext context, WidgetRef ref,
         SnackBar(content: Text('Error marking purchase picked up: $error')));
     ref.read(loadingProvider.notifier).toggleLoading(false);
   }
+}
+
+//==============================================================================
+//==PAYMENTS====================================================================
+//==============================================================================
+Future<DocumentSnapshot> getThisPaymentDoc(String paymentID) async {
+  return FirebaseFirestore.instance
+      .collection(Collections.payments)
+      .doc(paymentID)
+      .get();
 }
