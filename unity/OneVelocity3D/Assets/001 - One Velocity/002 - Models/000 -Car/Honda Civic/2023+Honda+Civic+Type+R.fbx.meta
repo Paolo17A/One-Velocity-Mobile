@@ -1,0 +1,384 @@
+fileFormatVersion: 2
+guid: c5ffd758cc89c7347857d6d52d298801
+ModelImporter:
+  serializedVersion: 22200
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Color_M08
+    second: {fileID: 2100000, guid: dc0356ef4d5c91d4aa67180c7e91206e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_2023_Honda_Civic_Type_R_204204204
+    second: {fileID: 2100000, guid: e8621f2f6acb70548873d79f4e44fec4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_2023_Honda_Civic_Type_R_204204204_1
+    second: {fileID: 2100000, guid: d02ba5d14364a4942b202304b5fd149f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_2023_Honda_Civic_Type_R_204204204_2
+    second: {fileID: 2100000, guid: eeba629021fc14d4497d988adb36830d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_2023_Honda_Civic_Type_R_204204204_3
+    second: {fileID: 2100000, guid: 92f936c35bb31ff458fe7e728c4031a7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_2023_Honda_Civic_Type_R_204204204_4
+    second: {fileID: 2100000, guid: e6c8349c7791ef546bf7f8044c29e342, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_2023_Honda_Civic_Type_R_A_CVents
+    second: {fileID: 2100000, guid: 607f2345afd1372428a53a167a5355c7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_2023_Honda_Civic_Type_R_BadgeProtector
+    second: {fileID: 2100000, guid: addb8775644a7524da27a68e0787f056, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_2023_Honda_Civic_Type_R_Black1
+    second: {fileID: 2100000, guid: 6253f825b31f1984a9e594240352c4a4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_2023_Honda_Civic_Type_R_BlackChrome
+    second: {fileID: 2100000, guid: 7bd817565a0e87e4687f2204e528062f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_2023_Honda_Civic_Type_R_BlackChrome_2
+    second: {fileID: 2100000, guid: 7cae524922670d34eafa04003f304a4a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_2023_Honda_Civic_Type_R_BlackGrille
+    second: {fileID: 2100000, guid: f79d22667df77d746826703d4bbf6315, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_2023_Honda_Civic_Type_R_BlackGrille1
+    second: {fileID: 2100000, guid: 99549d67e429b6248a3ac4881ce5698e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_2023_Honda_Civic_Type_R_BlackTrims
+    second: {fileID: 2100000, guid: c0f8436f383348e4a9eec2ff77432d5c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_2023_Honda_Civic_Type_R_BrakeLightsGlass
+    second: {fileID: 2100000, guid: ca8d087ff833a984ba6f50aaf010827f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_2023_Honda_Civic_Type_R_BrakeLightsGlass1
+    second: {fileID: 2100000, guid: 38c459e5c58e6b044bac75969ef50b20, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_2023_Honda_Civic_Type_R_Buttons2
+    second: {fileID: 2100000, guid: 6dbe11ff5c8a7fe44943c84a5e1f1815, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_2023_Honda_Civic_Type_R_ChromeBadge
+    second: {fileID: 2100000, guid: f7a02d615cd7a7946a94fe91061e72ba, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_2023_Honda_Civic_Type_R_ChromeTrims
+    second: {fileID: 2100000, guid: 86afc59d721ea5047a6393a11e34ceca, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_2023_Honda_Civic_Type_R_DRLs
+    second: {fileID: 2100000, guid: 30ca67e763041f242a4f47b37ec00cf1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_2023_Honda_Civic_Type_R_DarkChrome
+    second: {fileID: 2100000, guid: 416d9d4480b967d479a89880ab0d6051, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_2023_Honda_Civic_Type_R_DarkRed
+    second: {fileID: 2100000, guid: 81cab9de92974f748a9048879dd00a07, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_2023_Honda_Civic_Type_R_Default_Material
+    second: {fileID: 2100000, guid: 734823db5c67f5347a8a2acc7694adca, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_2023_Honda_Civic_Type_R_Defogging
+    second: {fileID: 2100000, guid: 825a9524dcfae7340b91b959072ff8f5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_2023_Honda_Civic_Type_R_Digital_Cluster_2
+    second: {fileID: 2100000, guid: 8c4db5daad1a35742900058facb37322, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_2023_Honda_Civic_Type_R_Exhausts1
+    second: {fileID: 2100000, guid: a62502c1a9ea61748889d1e680723d07, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_2023_Honda_Civic_Type_R_Exhausts2
+    second: {fileID: 2100000, guid: 043d81adb6b2a0840b5fa819b6200134, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_2023_Honda_Civic_Type_R_HeadLightsGlass
+    second: {fileID: 2100000, guid: f1aa76fcd5e18d946977486cb5bd54c4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_2023_Honda_Civic_Type_R_Historic_Champonship_White
+    second: {fileID: 2100000, guid: 9df2283a914848344b01792728defeb8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_2023_Honda_Civic_Type_R_INTBadge
+    second: {fileID: 2100000, guid: 7c96192b54c2e08439f09a4f61d59081, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_2023_Honda_Civic_Type_R_Icons
+    second: {fileID: 2100000, guid: 8611b75d6fb0d9a41b21de021b8621f0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_2023_Honda_Civic_Type_R_Icons2
+    second: {fileID: 2100000, guid: c64b448b5f9f076409df8d224ecfc1ce, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_2023_Honda_Civic_Type_R_Icons3
+    second: {fileID: 2100000, guid: c6684e5d0fbb191468bdfacfae1eeee3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_2023_Honda_Civic_Type_R_Icons_2
+    second: {fileID: 2100000, guid: 5fd8ced3e8cb15c42b70232946dc6392, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_2023_Honda_Civic_Type_R_Interior
+    second: {fileID: 2100000, guid: dce36cba9cc07744db944f23eb5806e9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_2023_Honda_Civic_Type_R_MeshGrille
+    second: {fileID: 2100000, guid: 8c6ce4ac68a41cd4dad612d91d378e16, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_2023_Honda_Civic_Type_R_Mirrors
+    second: {fileID: 2100000, guid: c0b599d65c71f0f498a39adcb6ce74e2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_2023_Honda_Civic_Type_R_Misc1
+    second: {fileID: 2100000, guid: 53ecfd73a7c1c6f4ab5a176174cd0383, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_2023_Honda_Civic_Type_R_RedBadge
+    second: {fileID: 2100000, guid: deba2a0c8e012184d92c8afe71c6eb09, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_2023_Honda_Civic_Type_R_RedCallipers
+    second: {fileID: 2100000, guid: 6eb11594b714989419ac12cf8f9ef353, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_2023_Honda_Civic_Type_R_RedCarpet
+    second: {fileID: 2100000, guid: c52c0a2fa71de40458ad1bddb666e26b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_2023_Honda_Civic_Type_R_RedMain
+    second: {fileID: 2100000, guid: 18ff192c8a7bbe54ab3814c71e8523d1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_2023_Honda_Civic_Type_R_RedSeats
+    second: {fileID: 2100000, guid: b5923a638846a3745b4389b17c20d476, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_2023_Honda_Civic_Type_R_Reflectors
+    second: {fileID: 2100000, guid: 7d291f19738c60342a9e41671c10adbf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_2023_Honda_Civic_Type_R_Rims
+    second: {fileID: 2100000, guid: 3fad3e35526a6f84aa4378dc84beae9a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_2023_Honda_Civic_Type_R_Rotors
+    second: {fileID: 2100000, guid: 09eec8d9dfcd5234590bd7a370e2c6a0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_2023_Honda_Civic_Type_R_Rotors1
+    second: {fileID: 2100000, guid: 0eb3423262b090840a1191575300d5fc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_2023_Honda_Civic_Type_R_RotorsScrew
+    second: {fileID: 2100000, guid: a59a8197a016bb64f8dfc49b59ff7720, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_2023_Honda_Civic_Type_R_Speakers
+    second: {fileID: 2100000, guid: 34aa69e2e3675504db2a8126017c40ef, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_2023_Honda_Civic_Type_R_Stitching
+    second: {fileID: 2100000, guid: ffaf31f6abda61342bb8a8d878dab985, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_2023_Honda_Civic_Type_R_Sunshade
+    second: {fileID: 2100000, guid: 1796d28bf8bfde945987e1d958f42b03, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_2023_Honda_Civic_Type_R_Tires
+    second: {fileID: 2100000, guid: 3dac795e72060ad4db09ee882f896adc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_2023_Honda_Civic_Type_R_Touchscreen
+    second: {fileID: 2100000, guid: ebf5041a54271d041a4020cc7e4ce48b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_2023_Honda_Civic_Type_R_UnderCarrier
+    second: {fileID: 2100000, guid: 0285cf7149204bb4c92ef73a77f668a8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_2023_Honda_Civic_Type_R_Windows
+    second: {fileID: 2100000, guid: aad883b75b6f0ae49a114e9b9e89d447, type: 2}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 10
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    strictVertexDataChecks: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 10
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
