@@ -77,7 +77,10 @@ class _ServicesScreenState extends ConsumerState<ServicesScreen> {
                     children: allServiceDocs.asMap().entries.map((item) {
                       DocumentSnapshot thisService = allServiceDocs[item.key];
                       return itemEntry(context,
-                          itemDoc: thisService, onPress: () {});
+                          itemDoc: thisService,
+                          onPress: () => NavigatorRoutes.selectedService(
+                              context,
+                              serviceID: thisService.id));
                     }).toList())
                 : montserratBlackBold('NO SERVICES AVAILABLE', fontSize: 44)),
       ],

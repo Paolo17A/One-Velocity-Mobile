@@ -394,6 +394,22 @@ Future<List<DocumentSnapshot>> getSelectedProductDocs(
 }
 
 //==============================================================================
+//==SERVICES====================================================================
+//==============================================================================
+Future<List<DocumentSnapshot>> getAllServices() async {
+  final services =
+      await FirebaseFirestore.instance.collection(Collections.services).get();
+  return services.docs;
+}
+
+Future<DocumentSnapshot> getThisServiceDoc(String serviceID) async {
+  return await FirebaseFirestore.instance
+      .collection(Collections.services)
+      .doc(serviceID)
+      .get();
+}
+
+//==============================================================================
 //==CART--======================================================================
 //==============================================================================
 Future<List<DocumentSnapshot>> getCartEntries(BuildContext context) async {
@@ -481,15 +497,6 @@ Future changeCartItemQuantity(BuildContext context, WidgetRef ref,
     scaffoldMessenger.showSnackBar(
         SnackBar(content: Text('Error changing item quantity: $error')));
   }
-}
-
-//==============================================================================
-//==SERVICES====================================================================
-//==============================================================================
-Future<List<DocumentSnapshot>> getAllServices() async {
-  final services =
-      await FirebaseFirestore.instance.collection(Collections.services).get();
-  return services.docs;
 }
 
 //==============================================================================
@@ -657,4 +664,100 @@ Future<DocumentSnapshot> getThisPaymentDoc(String paymentID) async {
       .collection(Collections.payments)
       .doc(paymentID)
       .get();
+}
+
+//==============================================================================
+//==BOOKING=====================================================================
+//==============================================================================
+Future<DocumentSnapshot> getThisBookingDoc(String bookingID) async {
+  return await FirebaseFirestore.instance
+      .collection(Collections.bookings)
+      .doc(bookingID)
+      .get();
+}
+
+Future<List<DocumentSnapshot>> getUserBookingDocs() async {
+  final bookings = await FirebaseFirestore.instance
+      .collection(Collections.bookings)
+      .where(BookingFields.clientID,
+          isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+      .get();
+  return bookings.docs.reversed.map((e) => e as DocumentSnapshot).toList();
+}
+
+Future createNewBookingRequest(BuildContext context, WidgetRef ref,
+    {required String serviceID, required DateTime datePicked}) async {
+  final scaffoldMessenger = ScaffoldMessenger.of(context);
+  try {
+    ref.read(loadingProvider.notifier).toggleLoading(true);
+    await FirebaseFirestore.instance.collection(Collections.bookings).add({
+      BookingFields.serviceID: serviceID,
+      BookingFields.clientID: FirebaseAuth.instance.currentUser!.uid,
+      BookingFields.dateCreated: DateTime.now(),
+      BookingFields.dateRequested: datePicked,
+      BookingFields.serviceStatus: ServiceStatuses.pendingApproval
+    });
+
+    scaffoldMessenger.showSnackBar(
+        SnackBar(content: Text('Successfully requested for this service.')));
+    ref.read(loadingProvider.notifier).toggleLoading(false);
+  } catch (error) {
+    scaffoldMessenger.showSnackBar(SnackBar(
+        content: Text('Error creating new service booking request: $error')));
+    ref.read(loadingProvider.notifier).toggleLoading(false);
+  }
+}
+
+Future settleBookingRequestPayment(BuildContext context, WidgetRef ref,
+    {required String bookingID}) async {
+  final scaffoldMessenger = ScaffoldMessenger.of(context);
+  final navigator = Navigator.of(context);
+  try {
+    ref.read(loadingProvider.notifier).toggleLoading(true);
+    //  1. Generate a payment document in Firestore
+    await FirebaseFirestore.instance
+        .collection(Collections.payments)
+        .doc(bookingID)
+        .set({
+      PaymentFields.clientID: FirebaseAuth.instance.currentUser!.uid,
+      PaymentFields.paidAmount: ref.read(cartProvider).selectedCartItemSRP,
+      PaymentFields.paymentVerified: false,
+      PaymentFields.paymentStatus: PaymentStatuses.pending,
+      PaymentFields.paymentMethod: ref.read(cartProvider).selectedPaymentMethod,
+      PaymentFields.dateCreated: DateTime.now(),
+      PaymentFields.dateApproved: DateTime(1970),
+      PaymentFields.invoiceURL: '',
+      PaymentFields.paymentType: PaymentTypes.service
+    });
+
+    //  3. Upload the proof of payment image to Firebase Storage
+    final storageRef = FirebaseStorage.instance
+        .ref()
+        .child(StorageFields.payments)
+        .child('${bookingID}.png');
+    final uploadTask =
+        storageRef.putFile(ref.read(cartProvider).proofOfPaymentFile!);
+    final taskSnapshot = await uploadTask;
+    final downloadURL = await taskSnapshot.ref.getDownloadURL();
+    await FirebaseFirestore.instance
+        .collection(Collections.payments)
+        .doc(bookingID)
+        .update({PaymentFields.proofOfPayment: downloadURL});
+
+    //  2. Change bookings status
+    await FirebaseFirestore.instance
+        .collection(Collections.bookings)
+        .doc(bookingID)
+        .update(
+            {BookingFields.serviceStatus: ServiceStatuses.processingPayment});
+    scaffoldMessenger.showSnackBar(SnackBar(
+        content: Text('Successfully settled booking request payment!')));
+    navigator.pop();
+    navigator.pushReplacementNamed(NavigatorRoutes.bookings);
+    ref.read(loadingProvider.notifier).toggleLoading(false);
+  } catch (error) {
+    scaffoldMessenger.showSnackBar(SnackBar(
+        content: Text('Error seetling booking request payment: $error')));
+    ref.read(loadingProvider.notifier).toggleLoading(false);
+  }
 }

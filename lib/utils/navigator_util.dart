@@ -7,6 +7,7 @@ import 'package:one_velocity_mobile/screens/forgot_password_screen.dart';
 import 'package:one_velocity_mobile/screens/selected_product_screen.dart';
 import 'package:one_velocity_mobile/screens/unity_screen.dart';
 
+import '../screens/booking_history_screen.dart';
 import '../screens/edit_profile_screen.dart';
 import '../screens/help_screen.dart';
 import '../screens/home_screen.dart';
@@ -15,6 +16,7 @@ import '../screens/products_screen.dart';
 import '../screens/profile_screen.dart';
 import '../screens/quotation_screen.dart';
 import '../screens/register_screen.dart';
+import '../screens/selected_service_screen.dart';
 import '../screens/services_screen.dart';
 
 class NavigatorRoutes {
@@ -31,9 +33,16 @@ class NavigatorRoutes {
         builder: (context) => SelectedProductScreen(productID: productID)));
   }
 
+  static void selectedService(BuildContext context,
+      {required String serviceID}) {
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => SelectedServiceScreen(serviceID: serviceID)));
+  }
+
   static const String services = 'services';
   static const String cart = 'cart';
   static const String checkout = 'checkout';
+  static const bookings = 'bookings';
   static const String bookmarks = 'bookmarks';
   static const String help = 'help';
   static const String unity = 'unity';
@@ -55,6 +64,7 @@ final Map<String, WidgetBuilder> routes = {
   NavigatorRoutes.cart: (context) => const CartScreen(),
   NavigatorRoutes.checkout: (context) => const CheckoutScreen(),
   NavigatorRoutes.bookmarks: (context) => const BookMarksScreen(),
+  NavigatorRoutes.bookings: (context) => const BookingHistoryScreen(),
   NavigatorRoutes.help: (context) => const HelpScreen(),
   NavigatorRoutes.unity: (context) => const UnityScreen()
 };

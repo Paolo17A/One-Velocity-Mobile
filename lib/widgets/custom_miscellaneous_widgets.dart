@@ -1,6 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
+import 'package:intl/intl.dart';
 
 import '../utils/color_util.dart';
+import '../utils/firebase_util.dart';
+import '../utils/string_util.dart';
 import 'custom_padding_widgets.dart';
 import 'text_widgets.dart';
 
@@ -76,7 +81,66 @@ Widget snapshotHandler(AsyncSnapshot snapshot) {
   } else if (!snapshot.hasData) {
     return Text('No data found');
   } else if (snapshot.hasError) {
-    return Text('Error gettin data: ${snapshot.error.toString()}');
+    return Text('Error getting data: ${snapshot.error.toString()}');
   }
   return Container();
+}
+
+Widget bookingHistoryEntry(DocumentSnapshot bookingDoc,
+    {String userType = UserTypes.client}) {
+  final bookingData = bookingDoc.data() as Map<dynamic, dynamic>;
+  String serviceStatus = bookingData[BookingFields.serviceStatus];
+  String serviceID = bookingData[BookingFields.serviceID];
+  DateTime dateCreated =
+      (bookingData[BookingFields.dateCreated] as Timestamp).toDate();
+  DateTime dateRequsted =
+      (bookingData[BookingFields.dateRequested] as Timestamp).toDate();
+
+  return FutureBuilder(
+    future: getThisServiceDoc(serviceID),
+    builder: (context, snapshot) {
+      if (snapshot.connectionState == ConnectionState.waiting ||
+          !snapshot.hasData ||
+          snapshot.hasError) return snapshotHandler(snapshot);
+
+      final serviceData = snapshot.data!.data() as Map<dynamic, dynamic>;
+      List<dynamic> imageURLs = serviceData[ServiceFields.imageURLs];
+      String name = serviceData[ServiceFields.name];
+      num price = serviceData[ServiceFields.price];
+      return Container(
+        decoration: BoxDecoration(border: Border.all(color: Colors.white)),
+        padding: const EdgeInsets.all(10),
+        child: Row(
+          children: [
+            Image.network(imageURLs[0],
+                width: 90, height: 90, fit: BoxFit.cover),
+            Gap(10),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                montserratWhiteBold(name, fontSize: 25),
+                montserratWhiteRegular('Status: $serviceStatus', fontSize: 15),
+                montserratWhiteRegular(
+                    'Date Booked: ${DateFormat('MMM dd, yyyy').format(dateCreated)}',
+                    fontSize: 15),
+                montserratWhiteRegular(
+                    'Date Requested: ${DateFormat('MMM dd, yyyy').format(dateRequsted)}',
+                    fontSize: 15),
+                Gap(15),
+                montserratWhiteBold('SRP: PHP ${formatPrice(price.toDouble())}',
+                    fontSize: 15),
+                if (serviceStatus == ServiceStatuses.pendingPayment)
+                  ElevatedButton(
+                      onPressed: () {
+                        /*NavigatorRoutes.settleBooking(context,
+                            bookingID: bookingDoc.id);*/
+                      },
+                      child: montserratWhiteRegular('SETTLE PAYMENT'))
+              ],
+            ),
+          ],
+        ),
+      );
+    },
+  );
 }

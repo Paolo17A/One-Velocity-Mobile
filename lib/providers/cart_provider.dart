@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../utils/string_util.dart';
 
@@ -9,6 +12,23 @@ class CartNotifier extends ChangeNotifier {
   String selectedPaymentMethod = '';
   String selectedCartItem = '';
   num selectedCartItemSRP = 0;
+  File? proofOfPaymentFile;
+
+  void setProofOfPaymentFile() async {
+    ImagePicker imagePicker = ImagePicker();
+    final selectedXFile =
+        await imagePicker.pickImage(source: ImageSource.gallery);
+    if (selectedXFile == null) {
+      return;
+    }
+    proofOfPaymentFile = File(selectedXFile.path);
+    notifyListeners();
+  }
+
+  void resetProofOfPaymentFile() async {
+    proofOfPaymentFile = null;
+    notifyListeners();
+  }
 
   void setCartItems(List<DocumentSnapshot> items) {
     cartItems = items;

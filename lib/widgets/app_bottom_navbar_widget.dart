@@ -28,6 +28,9 @@ void _processPress(BuildContext context, int selectedIndex, int currentIndex) {
     case 3:
       Navigator.of(context).pushNamed(NavigatorRoutes.cart);
       break;
+    case 4:
+      Navigator.of(context).pushNamed(NavigatorRoutes.bookings);
+      break;
   }
 }
 
@@ -58,6 +61,11 @@ Widget bottomNavigationBar(BuildContext context, {required int index}) {
         if (hasLoggedInUser())
           BottomNavigationBarItem(
               icon: _buildIcon(Icons.shopping_cart, 'Cart', index, 3),
+              backgroundColor: bottomNavButtonColor,
+              label: ''),
+        if (hasLoggedInUser())
+          BottomNavigationBarItem(
+              icon: _buildIcon(Icons.receipt, 'Bookings', index, 4),
               backgroundColor: bottomNavButtonColor,
               label: '')
       ],
