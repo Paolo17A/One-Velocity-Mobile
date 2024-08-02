@@ -18,6 +18,7 @@ import '../screens/quotation_screen.dart';
 import '../screens/register_screen.dart';
 import '../screens/selected_service_screen.dart';
 import '../screens/services_screen.dart';
+import '../screens/settle_booking_screen.dart';
 
 class NavigatorRoutes {
   static const String home = 'home';
@@ -37,6 +38,11 @@ class NavigatorRoutes {
       {required String serviceID}) {
     Navigator.of(context).push(MaterialPageRoute(
         builder: (context) => SelectedServiceScreen(serviceID: serviceID)));
+  }
+
+  static void settleBooking(BuildContext context, {required String bookingID}) {
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => SettleBookingScreen(bookingID: bookingID)));
   }
 
   static const String services = 'services';

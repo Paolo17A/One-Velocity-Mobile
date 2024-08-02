@@ -27,6 +27,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   List<DocumentSnapshot> productDocs = [];
   List<DocumentSnapshot> wheelProductDocs = [];
   List<DocumentSnapshot> batteryProductDocs = [];
+  List<DocumentSnapshot> serviceDocs = [];
+
   @override
   void initState() {
     super.initState();
@@ -42,6 +44,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         final productData = productDoc.data() as Map<dynamic, dynamic>;
         return productData[ProductFields.category] == ProductCategories.battery;
       }).toList();
+      serviceDocs = await getAllServices();
+
       ref.read(loadingProvider.notifier).toggleLoading(false);
     });
   }
@@ -65,6 +69,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   if (batteryProductDocs.isNotEmpty) _batteryProducts(),
                   _topProducts(),
                   const Divider(color: CustomColors.blackBeauty),
+                  _topServices()
                 ],
               )),
             )),
@@ -193,6 +198,46 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         Center(
                             child: montserratBlackBold(
                                 'NO AVAILABLE PRODUCTS TO DISPLAY'))
+                      ]),
+          ),
+        ),
+        const Gap(10),
+      ],
+    );
+  }
+
+  Widget _topServices() {
+    serviceDocs.shuffle();
+    return Column(
+      children: [
+        all20Pix(child: montserratBlackBold('TOP SERVICES', fontSize: 25)),
+        Container(
+          width: MediaQuery.of(context).size.width,
+          //color: Colors.blue,
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: serviceDocs.isNotEmpty
+                    ? MainAxisAlignment.start
+                    : MainAxisAlignment.center,
+                children: serviceDocs.isNotEmpty
+                    ? serviceDocs
+                        .take(6)
+                        .toList()
+                        .map((item) => Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10),
+                              child: itemEntry(context,
+                                  itemDoc: item,
+                                  onPress: () =>
+                                      NavigatorRoutes.selectedService(context,
+                                          serviceID: item.id),
+                                  fontColor: Colors.white),
+                            ))
+                        .toList()
+                    : [
+                        montserratBlackBold('NO AVAILABLE SERVICES TO DISPLAY')
                       ]),
           ),
         ),

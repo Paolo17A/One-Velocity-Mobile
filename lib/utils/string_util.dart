@@ -71,6 +71,7 @@ class PaymentFields {
   static const String dateApproved = 'dateApproved';
   static const String invoiceURL = 'invoiceURL';
   static const String paymentType = 'paymentType';
+  static const String purchaseIDs = 'purchaseIDs';
 }
 
 class PaymentTypes {

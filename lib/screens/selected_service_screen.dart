@@ -71,7 +71,7 @@ class _SelectedServiceScreenState extends ConsumerState<SelectedServiceScreen> {
 
   Widget _serviceContainer() {
     return SizedBox(
-      width: double.infinity,
+      width: MediaQuery.of(context).size.width,
       child: vertical20Pix(
         child: Column(
           //crossAxisAlignment: CrossAxisAlignment.start,
@@ -84,7 +84,7 @@ class _SelectedServiceScreenState extends ConsumerState<SelectedServiceScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    //crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       montserratBlackBold(name, fontSize: 60),
                       montserratBlackBold('PHP ${price.toStringAsFixed(2)}',

@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 
 import '../utils/color_util.dart';
 import '../utils/firebase_util.dart';
+import '../utils/navigator_util.dart';
 import '../utils/string_util.dart';
 import 'custom_padding_widgets.dart';
 import 'text_widgets.dart';
@@ -132,8 +133,8 @@ Widget bookingHistoryEntry(DocumentSnapshot bookingDoc,
                 if (serviceStatus == ServiceStatuses.pendingPayment)
                   ElevatedButton(
                       onPressed: () {
-                        /*NavigatorRoutes.settleBooking(context,
-                            bookingID: bookingDoc.id);*/
+                        NavigatorRoutes.settleBooking(context,
+                            bookingID: bookingDoc.id);
                       },
                       child: montserratWhiteRegular('SETTLE PAYMENT'))
               ],

@@ -22,6 +22,7 @@ class OneVelocity extends StatelessWidget {
         title: 'One Velocity',
         theme: themeData,
         routes: routes,
+        debugShowCheckedModeBanner: false,
         initialRoute: NavigatorRoutes.home);
   }
 }

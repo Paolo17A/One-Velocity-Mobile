@@ -709,7 +709,7 @@ Future createNewBookingRequest(BuildContext context, WidgetRef ref,
 }
 
 Future settleBookingRequestPayment(BuildContext context, WidgetRef ref,
-    {required String bookingID}) async {
+    {required String bookingID, required List<dynamic> purchaseIDs}) async {
   final scaffoldMessenger = ScaffoldMessenger.of(context);
   final navigator = Navigator.of(context);
   try {
@@ -727,7 +727,8 @@ Future settleBookingRequestPayment(BuildContext context, WidgetRef ref,
       PaymentFields.dateCreated: DateTime.now(),
       PaymentFields.dateApproved: DateTime(1970),
       PaymentFields.invoiceURL: '',
-      PaymentFields.paymentType: PaymentTypes.service
+      PaymentFields.paymentType: PaymentTypes.service,
+      PaymentFields.purchaseIDs: purchaseIDs
     });
 
     //  3. Upload the proof of payment image to Firebase Storage
