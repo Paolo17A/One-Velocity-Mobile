@@ -164,6 +164,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     String status = purchaseData[PurchaseFields.purchaseStatus];
     String productID = purchaseData[PurchaseFields.productID];
     num quantity = purchaseData[PurchaseFields.quantity];
+    String paymentID = purchaseData[PurchaseFields.paymentID];
 
     return FutureBuilder(
       future: getThisProductDoc(productID),
@@ -193,7 +194,13 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      montserratWhiteBold(name, fontSize: 25),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.5,
+                        child: montserratWhiteBold(name,
+                            textAlign: TextAlign.left,
+                            fontSize: 25,
+                            textOverflow: TextOverflow.ellipsis),
+                      ),
                       montserratWhiteRegular('SRP: ${price.toStringAsFixed(2)}',
                           fontSize: 15),
                       montserratWhiteRegular('Quantity: ${quantity.toString()}',
@@ -202,7 +209,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                       montserratWhiteBold(
                           'PHP ${(price * quantity).toStringAsFixed(2)}'),
                       if (status == PurchaseStatuses.pickedUp)
-                        _downloadInvoiceFutureBuilder(purchaseDoc.id)
+                        _downloadInvoiceFutureBuilder(paymentID)
                     ],
                   ),
                 ],
@@ -212,22 +219,28 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     );
   }
 
-  Widget _downloadInvoiceFutureBuilder(String purchaseID) {
+  Widget _downloadInvoiceFutureBuilder(String paymentID) {
     return FutureBuilder(
-      future: getThisPaymentDoc(purchaseID),
+      future: getThisPaymentDoc(paymentID),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting ||
             !snapshot.hasData ||
             snapshot.hasError) return snapshotHandler(snapshot);
         final paymentData = snapshot.data!.data() as Map<dynamic, dynamic>;
         String invoiceURL = paymentData[PaymentFields.invoiceURL];
-        return TextButton(
-            onPressed: () =>
-                NavigatorRoutes.quotation(context, quotationURL: invoiceURL),
-            child: montserratWhiteRegular('View Invoice',
-                fontSize: 12,
-                textAlign: TextAlign.left,
-                decoration: TextDecoration.underline));
+        return Container(
+          height: 40,
+          decoration: BoxDecoration(
+              border: Border.all(color: Colors.white),
+              borderRadius: BorderRadius.circular(10)),
+          child: TextButton(
+              onPressed: () =>
+                  NavigatorRoutes.quotation(context, quotationURL: invoiceURL),
+              child: montserratWhiteRegular('View Invoice',
+                  fontSize: 12,
+                  textAlign: TextAlign.left,
+                  decoration: TextDecoration.underline)),
+        );
       },
     );
   }

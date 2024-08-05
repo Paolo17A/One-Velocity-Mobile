@@ -86,6 +86,7 @@ class PurchaseFields {
   static const String purchaseStatus = 'purchaseStatus';
   static const String datePickedUp = 'datePickedUp';
   static const String rating = 'rating';
+  static const String paymentID = 'paymentID';
 }
 
 class ServiceFields {

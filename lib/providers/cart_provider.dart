@@ -9,9 +9,8 @@ import '../utils/string_util.dart';
 
 class CartNotifier extends ChangeNotifier {
   List<DocumentSnapshot> cartItems = [];
+  List<String> selectedCartItemIDs = [];
   String selectedPaymentMethod = '';
-  String selectedCartItem = '';
-  num selectedCartItemSRP = 0;
   File? proofOfPaymentFile;
 
   void setProofOfPaymentFile() async {
@@ -42,9 +41,23 @@ class CartNotifier extends ChangeNotifier {
 
   void removeCartItem(DocumentSnapshot item) {
     cartItems.remove(item);
-    if (item.id == selectedCartItem) {
-      setSelectedCartItem('', 0, 0);
-    }
+    notifyListeners();
+  }
+
+  void selectCartItem(String item) {
+    if (selectedCartItemIDs.contains(item)) return;
+    selectedCartItemIDs.add(item);
+    notifyListeners();
+  }
+
+  void deselectCartItem(String item) {
+    if (!selectedCartItemIDs.contains(item)) return;
+    selectedCartItemIDs.remove(item);
+    notifyListeners();
+  }
+
+  void resetSelectedCartItems() {
+    selectedCartItemIDs.clear();
     notifyListeners();
   }
 
@@ -58,18 +71,6 @@ class CartNotifier extends ChangeNotifier {
   void setSelectedPaymentMethod(String paymentMethod) {
     selectedPaymentMethod = paymentMethod;
     notifyListeners();
-  }
-
-  void setSelectedCartItem(String cartID, num srp, num quantity) {
-    selectedCartItem = cartID;
-    selectedCartItemSRP = srp;
-    notifyListeners();
-  }
-
-  DocumentSnapshot? getSelectedCartDoc() {
-    return cartItems
-        .where((element) => element.id == selectedCartItem)
-        .firstOrNull;
   }
 }
 

@@ -13,5 +13,6 @@ public class CarController : MonoBehaviour
     private void Start()
     {
         carCore.InitializeCarScene();
+        carCore.TogglePanel();
     }
 }

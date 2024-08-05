@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_unity_widget/flutter_unity_widget.dart';
 import 'package:one_velocity_mobile/providers/loading_provider.dart';
+import 'package:one_velocity_mobile/utils/string_util.dart';
 import 'package:one_velocity_mobile/widgets/app_bar_widget.dart';
 import 'package:one_velocity_mobile/widgets/custom_miscellaneous_widgets.dart';
 
@@ -43,7 +44,13 @@ class _UnityScreenState extends ConsumerState<UnityScreen> {
 
   void onUnityMessage(message) async {
     ref.read(loadingProvider).toggleLoading(true);
-    await addProductToCart(context, ref, productID: message);
+    List<String> splitMessages = message.split('/');
+    if (splitMessages.first == PaymentTypes.product) {
+      await addProductToCart(context, ref, productID: splitMessages.last);
+    } else {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('Paint job gagawin palang')));
+    }
     ref.read(loadingProvider).toggleLoading(false);
   }
 

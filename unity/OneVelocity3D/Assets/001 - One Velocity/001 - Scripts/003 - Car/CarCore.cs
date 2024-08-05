@@ -9,6 +9,7 @@ public class CarCore : MonoBehaviour
 {
     //=============================================================================================
     [SerializeField][ReadOnly] private WheelDataHandler SelectedWheel;
+    [SerializeField][ReadOnly] private ColorSelector SelectedColorSelector;
     [SerializeField] private UnityMessageManager UnityMessageManager;
 
     [Header("SELECTED CAR VARIABLES")]
@@ -22,7 +23,25 @@ public class CarCore : MonoBehaviour
 
     [Header("AVAILABLE WHEELS")]
     [SerializeField] private List<WheelDataHandler> allWheelHandlers;
+
+    [Header("SELECTED COLOR")]
+    [SerializeField] private Material SelectedMaterial;
+
+    [Header("PROPER PANELS")]
+    [SerializeField][ReadOnly] private bool isDisplayingWheels;
+    [SerializeField] private GameObject WheelsPanel;
+    [SerializeField] private GameObject PaintJobPanel;
+    [SerializeField] private TextMeshProUGUI PurchaseTMP;
     //=============================================================================================
+
+    private void Awake()
+    {
+        SelectedMaterial.color = Color.white;
+    }
+    private void OnApplicationQuit()
+    {
+        SelectedMaterial.color = Color.white;
+    }
 
     public void InitializeCarScene()
     {
@@ -40,6 +59,15 @@ public class CarCore : MonoBehaviour
         foreach (var wheel in allWheelHandlers)
             wheel.HideWheel();
         SelectedWheel.DisplayWheel();
+    }
+
+    public void SetSelectedPaintJob(ColorSelector colorSelector)
+    {
+        SelectedColorSelector = colorSelector;
+        SelectedWheelNameTMP.text = SelectedColorSelector.paintJobData.name;
+        PriceTMP.text = "PHP " + SelectedColorSelector.paintJobData.price.ToString("n0");
+        AddToCartBtn.interactable = true;
+        SetSelectedMaterialColor(SelectedColorSelector.paintJobData.color);
     }
 
     public void DisplayProperCar()
@@ -65,8 +93,43 @@ public class CarCore : MonoBehaviour
         DisplayProperCar();
     }
 
+    public void SetSelectedMaterialColor(Color color)
+    {
+        SelectedMaterial.color = color; 
+    }
+
+    public void SelectRed()
+    {
+        SetSelectedMaterialColor(new Color(255,0,0));
+    }
+
+    public void SelectCyan()
+    {
+        SetSelectedMaterialColor(new Color(0, 255, 255));
+    }
+
+    public void TogglePanel()
+    {
+        isDisplayingWheels = !isDisplayingWheels;
+        if (isDisplayingWheels)
+        {
+            WheelsPanel.SetActive(true);
+            PaintJobPanel.SetActive(false);
+            PurchaseTMP.text = "BUY\nWHEEL";
+        }
+        else
+        {
+            WheelsPanel.SetActive(false);
+            PaintJobPanel.SetActive(true);
+            PurchaseTMP.text = "AVAIL\nPAINT JOB";
+        }
+    }
+
     public void SendMessageToFlutter()
     {
-        UnityMessageManager.SendMessageToFlutter(SelectedWheel.wheelData.productID);
+        if(isDisplayingWheels)
+            UnityMessageManager.SendMessageToFlutter("PRODUCT/" + SelectedWheel.wheelData.productID);
+        else
+            UnityMessageManager.SendMessageToFlutter("SERVICE/" + SelectedColorSelector.paintJobData.serviceName);
     }
 }

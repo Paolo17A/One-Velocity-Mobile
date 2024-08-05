@@ -31,6 +31,8 @@ class _SettleBookingScreenState extends ConsumerState<SettleBookingScreen> {
   String description = '';
   DateTime? dateCreated;
   DateTime? dateRequsted;
+  num servicePrice = 0;
+
   @override
   void initState() {
     super.initState();
@@ -58,7 +60,7 @@ class _SettleBookingScreenState extends ConsumerState<SettleBookingScreen> {
         final serviceData = serviceDoc.data() as Map<dynamic, dynamic>;
         serviceName = serviceData[ServiceFields.name];
         imageURLs = serviceData[ServiceFields.imageURLs];
-        ref.read(cartProvider).selectedCartItemSRP =
+        servicePrice =
             double.parse(serviceData[ServiceFields.price].toString());
         description = serviceData[ServiceFields.description];
 
@@ -108,7 +110,7 @@ class _SettleBookingScreenState extends ConsumerState<SettleBookingScreen> {
                           children: [
                             montserratBlackBold(serviceName, fontSize: 24),
                             montserratBlackRegular(
-                                'SRP: PHP ${ref.read(cartProvider).selectedCartItemSRP.toStringAsFixed(2)}',
+                                'SRP: PHP ${servicePrice.toStringAsFixed(2)}',
                                 fontSize: 16),
                             vertical10Pix(
                               child: Column(

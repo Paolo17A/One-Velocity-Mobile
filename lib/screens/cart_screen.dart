@@ -23,6 +23,9 @@ class CartScreen extends ConsumerStatefulWidget {
 }
 
 class _CartScreenState extends ConsumerState<CartScreen> {
+  List<DocumentSnapshot> associatedProductDocs = [];
+  num paidAmount = 0;
+
   @override
   void initState() {
     super.initState();
@@ -31,6 +34,12 @@ class _CartScreenState extends ConsumerState<CartScreen> {
       final scaffoldMessenger = ScaffoldMessenger.of(context);
       try {
         ref.read(cartProvider).setCartItems(await getCartEntries(context));
+        associatedProductDocs = await getSelectedProductDocs(
+            ref.read(cartProvider).cartItems.map((cartDoc) {
+          final cartData = cartDoc.data() as Map<dynamic, dynamic>;
+          return cartData[CartFields.productID].toString();
+        }).toList());
+        setState(() {});
         ref.read(loadingProvider.notifier).toggleLoading(false);
       } catch (error) {
         scaffoldMessenger.showSnackBar(
@@ -45,8 +54,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
     ref.watch(loadingProvider);
     ref.watch(cartProvider);
     return PopScope(
-      onPopInvoked: (didPop) =>
-          ref.read(cartProvider).setSelectedCartItem('', 0, 0),
+      onPopInvoked: (didPop) => ref.read(cartProvider).resetSelectedCartItems(),
       child: Scaffold(
         appBar: appBarWidget(),
         bottomNavigationBar: _checkoutBar(),
@@ -60,29 +68,18 @@ class _CartScreenState extends ConsumerState<CartScreen> {
   }
 
   Widget _checkoutBar() {
-    DocumentSnapshot? selectedCartDoc =
-        ref.read(cartProvider).getSelectedCartDoc();
-    num totalAmount = 0;
-    if (selectedCartDoc != null) {
-      final cartData = selectedCartDoc.data() as Map<dynamic, dynamic>;
-      totalAmount = cartData[CartFields.quantity] *
-          ref.read(cartProvider).selectedCartItemSRP;
-    }
     return BottomAppBar(
       color: CustomColors.blackBeauty,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Flexible(
-              flex: 2,
-              child: montserratWhiteBold(
-                  'Total: PHP ${totalAmount.toStringAsFixed(2)}')),
+          Flexible(flex: 2, child: _totalAmountWidget()),
           Flexible(
               //flex: 2,
               child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                       disabledBackgroundColor: CustomColors.ultimateGray),
-                  onPressed: ref.read(cartProvider).selectedCartItem.isEmpty
+                  onPressed: ref.read(cartProvider).selectedCartItemIDs.isEmpty
                       ? null
                       : () => Navigator.of(context)
                           .pushNamed(NavigatorRoutes.checkout),
@@ -90,6 +87,39 @@ class _CartScreenState extends ConsumerState<CartScreen> {
         ],
       ),
     );
+  }
+
+  Widget _totalAmountWidget() {
+    //  1. Get every associated cart DocumentSnapshot
+    List<DocumentSnapshot> selectedCartDocs = [];
+    for (var cartID in ref.read(cartProvider).selectedCartItemIDs) {
+      selectedCartDocs.add(ref
+          .read(cartProvider)
+          .cartItems
+          .where((element) => element.id == cartID)
+          .first);
+    }
+    //  2. get list of associated products
+    num totalAmount = 0;
+    //  Go through every selected cart item
+    for (var cartDoc in selectedCartDocs) {
+      final cartData = cartDoc.data() as Map<dynamic, dynamic>;
+      String productID = cartData[CartFields.productID];
+      num quantity = cartData[CartFields.quantity];
+      DocumentSnapshot? productDoc = associatedProductDocs
+          .where((item) => item.id == productID)
+          .firstOrNull;
+      if (productDoc == null) {
+        continue;
+      }
+      final productData = productDoc.data() as Map<dynamic, dynamic>;
+      num price = productData[ProductFields.price];
+      totalAmount += quantity * price;
+    }
+    paidAmount = totalAmount;
+    return montserratWhiteBold(
+        'TOTAL AMOUNT:\nPHP ${formatPrice(totalAmount.toDouble())}',
+        textAlign: TextAlign.left);
   }
 
   Widget _cartEntries() {
@@ -113,128 +143,137 @@ class _CartScreenState extends ConsumerState<CartScreen> {
   Widget _cartEntry(DocumentSnapshot cartDoc) {
     final cartData = cartDoc.data() as Map<dynamic, dynamic>;
     int quantity = cartData[CartFields.quantity];
-    return FutureBuilder(
-        future: getThisProductDoc(cartData[CartFields.productID]),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting ||
-              !snapshot.hasData ||
-              snapshot.hasError) return snapshotHandler(snapshot);
-          final productData = snapshot.data!.data() as Map<dynamic, dynamic>;
-          String name = productData[ProductFields.name];
-          List<dynamic> imageURLs = productData[ProductFields.imageURLs];
-          num price = productData[ProductFields.price];
-          num remainingQuantity = productData[ProductFields.quantity];
-
-          return vertical10Pix(
-              child: Container(
-                  decoration: BoxDecoration(color: CustomColors.ultimateGray),
-                  padding: EdgeInsets.all(10),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Radio<String>(
-                          value: cartDoc.id,
-                          groupValue: ref.read(cartProvider).selectedCartItem,
-                          onChanged: (_) {
-                            ref.read(cartProvider).setSelectedCartItem(
-                                cartDoc.id, price, quantity);
-                          }),
-                      GestureDetector(
-                        onTap: () => NavigatorRoutes.selectedProduct(
-                            context, ref,
-                            productID: cartData[CartFields.productID]),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+    DocumentSnapshot? associatedProductDoc =
+        associatedProductDocs.where((productDoc) {
+      return productDoc.id == cartData[CartFields.productID].toString();
+    }).firstOrNull;
+    if (associatedProductDoc == null)
+      return Container();
+    else {
+      String name = associatedProductDoc[ProductFields.name];
+      List<dynamic> imageURLs = associatedProductDoc[ProductFields.imageURLs];
+      num price = associatedProductDoc[ProductFields.price];
+      num remainingQuantity = associatedProductDoc[ProductFields.quantity];
+      return vertical10Pix(
+          child: Container(
+              decoration: BoxDecoration(color: CustomColors.ultimateGray),
+              padding: EdgeInsets.all(10),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Checkbox(
+                      value: ref
+                          .read(cartProvider)
+                          .selectedCartItemIDs
+                          .contains(cartDoc.id),
+                      onChanged: (newVal) {
+                        if (newVal == null) return;
+                        setState(() {
+                          if (newVal) {
+                            ref.read(cartProvider).selectCartItem(cartDoc.id);
+                          } else {
+                            ref.read(cartProvider).deselectCartItem(cartDoc.id);
+                          }
+                        });
+                      }),
+                  GestureDetector(
+                    onTap: () => NavigatorRoutes.selectedProduct(context, ref,
+                        productID: cartData[CartFields.productID]),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Column(
                           children: [
-                            Column(
-                              children: [
-                                CircleAvatar(
-                                    backgroundImage: NetworkImage(imageURLs[0]),
-                                    backgroundColor: Colors.transparent,
-                                    radius: 30),
-                                Gap(12),
-                                ElevatedButton(
-                                    onPressed: () => displayDeleteEntryDialog(
+                            CircleAvatar(
+                                backgroundImage: NetworkImage(imageURLs[0]),
+                                backgroundColor: Colors.transparent,
+                                radius: 30),
+                            Gap(12),
+                            ElevatedButton(
+                                onPressed: () => displayDeleteEntryDialog(
                                         context,
                                         message:
                                             'Are you sure you wish to remove ${name} from your cart?',
-                                        deleteEntry: () => removeCartItem(
-                                            context, ref,
-                                            cartDoc: cartDoc)),
-                                    child: Icon(
-                                      Icons.delete,
-                                      color: Colors.white,
-                                    ))
-                              ],
-                            ),
-                            Gap(20),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                montserratWhiteBold(name,
-                                    fontSize: 16,
-                                    textOverflow: TextOverflow.ellipsis),
-                                montserratWhiteBold(
-                                    'SRP: ${price.toStringAsFixed(2)}',
-                                    fontSize: 14),
-                                montserratWhiteRegular(
-                                    'Remaining Quantity: $remainingQuantity',
-                                    fontSize: 14),
-                                Gap(20),
-                                Row(
-                                  children: [
-                                    InkWell(
-                                      onTap: quantity == 1
-                                          ? null
-                                          : () => changeCartItemQuantity(
-                                              context, ref,
-                                              cartEntryDoc: cartDoc,
-                                              isIncreasing: false),
-                                      child: Container(
-                                          width: 50,
-                                          decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  color: CustomColors
-                                                      .nimbusCloud)),
-                                          child: montserratWhiteBold('-')),
-                                    ),
-                                    Container(
-                                        width: 50,
-                                        decoration: BoxDecoration(
-                                            border: Border.all(
-                                                color:
-                                                    CustomColors.nimbusCloud)),
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 10, vertical: 4),
-                                          child: montserratWhiteBold(
-                                              quantity.toString(),
-                                              fontSize: 15),
-                                        )),
-                                    InkWell(
-                                      onTap: quantity == remainingQuantity
-                                          ? null
-                                          : () => changeCartItemQuantity(
-                                              context, ref,
-                                              cartEntryDoc: cartDoc,
-                                              isIncreasing: true),
-                                      child: Container(
-                                          width: 50,
-                                          decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  color: CustomColors
-                                                      .nimbusCloud)),
-                                          child: montserratWhiteBold('+')),
-                                    )
-                                  ],
-                                ),
-                              ],
-                            )
+                                        deleteEntry: () {
+                                      if (ref
+                                          .read(cartProvider)
+                                          .selectedCartItemIDs
+                                          .contains(cartDoc.id)) {
+                                        ref
+                                            .read(cartProvider)
+                                            .deselectCartItem(cartDoc.id);
+                                      }
+                                      removeCartItem(context, ref,
+                                          cartDoc: cartDoc);
+                                    }),
+                                child: Icon(Icons.delete, color: Colors.white))
                           ],
                         ),
-                      ),
-                    ],
-                  )));
-        });
+                        Gap(20),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            montserratWhiteBold(name,
+                                fontSize: 16,
+                                textOverflow: TextOverflow.ellipsis),
+                            montserratWhiteBold(
+                                'SRP: ${price.toStringAsFixed(2)}',
+                                fontSize: 14),
+                            montserratWhiteRegular(
+                                'Remaining Quantity: $remainingQuantity',
+                                fontSize: 14),
+                            Gap(20),
+                            Row(
+                              children: [
+                                InkWell(
+                                  onTap: quantity == 1
+                                      ? null
+                                      : () => changeCartItemQuantity(
+                                          context, ref,
+                                          cartEntryDoc: cartDoc,
+                                          isIncreasing: false),
+                                  child: Container(
+                                      width: 50,
+                                      decoration: BoxDecoration(
+                                          border: Border.all(
+                                              color: CustomColors.nimbusCloud)),
+                                      child: montserratWhiteBold('-')),
+                                ),
+                                Container(
+                                    width: 50,
+                                    decoration: BoxDecoration(
+                                        border: Border.all(
+                                            color: CustomColors.nimbusCloud)),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 10, vertical: 4),
+                                      child: montserratWhiteBold(
+                                          quantity.toString(),
+                                          fontSize: 15),
+                                    )),
+                                InkWell(
+                                  onTap: quantity == remainingQuantity
+                                      ? null
+                                      : () => changeCartItemQuantity(
+                                          context, ref,
+                                          cartEntryDoc: cartDoc,
+                                          isIncreasing: true),
+                                  child: Container(
+                                      width: 50,
+                                      decoration: BoxDecoration(
+                                          border: Border.all(
+                                              color: CustomColors.nimbusCloud)),
+                                      child: montserratWhiteBold('+')),
+                                )
+                              ],
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              )));
+    }
   }
 }
