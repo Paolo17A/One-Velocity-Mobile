@@ -69,7 +69,7 @@ class _ProductsScreenState extends ConsumerState<ProductsScreen> {
 
   Widget productsHeader() {
     return Row(children: [
-      montserratBlackBold(
+      blackSarabunBold(
           '${selectedCategory == 'VIEW ALL' ? 'ALL AVAILABLE PRODUCTS' : '$selectedCategory PRODUCTS'}',
           fontSize: 20)
     ]);
@@ -122,7 +122,7 @@ class _ProductsScreenState extends ConsumerState<ProductsScreen> {
                           context, ref,
                           productID: thisProduct.id));
                 }).toList())
-            : montserratBlackBold('NO PRODUCTS AVAILABLE', fontSize: 16),
+            : blackSarabunBold('NO PRODUCTS AVAILABLE', fontSize: 16),
       ],
     );
   }

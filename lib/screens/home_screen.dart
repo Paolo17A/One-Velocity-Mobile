@@ -82,7 +82,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        montserratBlackBold('WHEELS', fontSize: 25),
+        blackSarabunBold('WHEELS', fontSize: 25),
         SizedBox(
           width: MediaQuery.of(context).size.width,
           child: SingleChildScrollView(
@@ -123,7 +123,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        montserratBlackBold('BATTERIES', fontSize: 25),
+        blackSarabunBold('BATTERIES', fontSize: 25),
         SizedBox(
           width: MediaQuery.of(context).size.width,
           child: SingleChildScrollView(
@@ -164,7 +164,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        all20Pix(child: montserratBlackBold('TOP PRODUCTS', fontSize: 25)),
+        all20Pix(child: blackSarabunBold('TOP PRODUCTS', fontSize: 25)),
         SizedBox(
           width: MediaQuery.of(context).size.width,
           child: SingleChildScrollView(
@@ -196,7 +196,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         .toList()
                     : [
                         Center(
-                            child: montserratBlackBold(
+                            child: blackSarabunBold(
                                 'NO AVAILABLE PRODUCTS TO DISPLAY'))
                       ]),
           ),
@@ -210,7 +210,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     serviceDocs.shuffle();
     return Column(
       children: [
-        all20Pix(child: montserratBlackBold('TOP SERVICES', fontSize: 25)),
+        all20Pix(child: blackSarabunBold('TOP SERVICES', fontSize: 25)),
         Container(
           width: MediaQuery.of(context).size.width,
           //color: Colors.blue,
@@ -236,9 +236,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                   fontColor: Colors.white),
                             ))
                         .toList()
-                    : [
-                        montserratBlackBold('NO AVAILABLE SERVICES TO DISPLAY')
-                      ]),
+                    : [blackSarabunBold('NO AVAILABLE SERVICES TO DISPLAY')]),
           ),
         ),
         const Gap(10),

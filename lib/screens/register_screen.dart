@@ -69,7 +69,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                 ImagePaths.logo,
                 scale: 4,
               )),
-              montserratBlackBold('REGISTER', fontSize: 32),
+              blackSarabunBold('REGISTER', fontSize: 32),
               Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: CustomTextField(

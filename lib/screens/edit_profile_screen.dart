@@ -95,7 +95,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
   }
 
   Widget _editProfileHeader() {
-    return montserratBlackBold('EDIT PROFILE', fontSize: 40);
+    return blackSarabunBold('EDIT PROFILE', fontSize: 40);
   }
 
   Widget _firstNameControllerWidget() {

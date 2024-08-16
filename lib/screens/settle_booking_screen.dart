@@ -94,7 +94,7 @@ class _SettleBookingScreenState extends ConsumerState<SettleBookingScreen> {
                   child: all20Pix(
                 child: Column(
                   children: [
-                    montserratBlackBold('SETTLE BOOKING', fontSize: 28),
+                    blackSarabunBold('SETTLE BOOKING', fontSize: 28),
                     if (imageURLs.isNotEmpty)
                       Image.network(
                         imageURLs[0],
@@ -108,8 +108,8 @@ class _SettleBookingScreenState extends ConsumerState<SettleBookingScreen> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            montserratBlackBold(serviceName, fontSize: 24),
-                            montserratBlackRegular(
+                            blackSarabunBold(serviceName, fontSize: 24),
+                            blackSarabunRegular(
                                 'SRP: PHP ${servicePrice.toStringAsFixed(2)}',
                                 fontSize: 16),
                             vertical10Pix(
@@ -117,11 +117,11 @@ class _SettleBookingScreenState extends ConsumerState<SettleBookingScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   if (dateCreated != null)
-                                    montserratBlackRegular(
+                                    blackSarabunRegular(
                                         'Date Booked: ${DateFormat('MMM dd, yyyy').format(dateCreated!)}',
                                         fontSize: 14),
                                   if (dateRequsted != null)
-                                    montserratBlackRegular(
+                                    blackSarabunRegular(
                                         'Date Requested: ${DateFormat('MMM dd, yyyy').format(dateRequsted!)}',
                                         fontSize: 14),
                                 ],
@@ -151,7 +151,7 @@ class _SettleBookingScreenState extends ConsumerState<SettleBookingScreen> {
         child: Column(
       children: [
         Row(
-          children: [montserratBlackBold('PAYMENT METHOD')],
+          children: [blackSarabunBold('PAYMENT METHOD')],
         ),
         Container(
           decoration: BoxDecoration(
@@ -174,12 +174,12 @@ class _SettleBookingScreenState extends ConsumerState<SettleBookingScreen> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                montserratBlackBold('SEND YOUR PAYMENT HERE'),
+                blackSarabunBold('SEND YOUR PAYMENT HERE'),
                 if (ref.read(cartProvider).selectedPaymentMethod == 'GCASH')
-                  montserratBlackBold('GCASH: +639221234567', fontSize: 14)
+                  blackSarabunBold('GCASH: +639221234567', fontSize: 14)
                 else if (ref.read(cartProvider).selectedPaymentMethod ==
                     'PAYMAYA')
-                  montserratBlackBold('PAYMAYA: +639221234567', fontSize: 14)
+                  blackSarabunBold('PAYMAYA: +639221234567', fontSize: 14)
               ],
             )
           ],
@@ -197,7 +197,7 @@ class _SettleBookingScreenState extends ConsumerState<SettleBookingScreen> {
               : () => ref.read(cartProvider).setProofOfPaymentFile(),
           style: ElevatedButton.styleFrom(
               disabledBackgroundColor: CustomColors.ultimateGray),
-          child: montserratWhiteBold('SELECT PROOF OF PAYMENT')),
+          child: whiteSarabunBold('SELECT PROOF OF PAYMENT')),
     );
   }
 
@@ -218,7 +218,7 @@ class _SettleBookingScreenState extends ConsumerState<SettleBookingScreen> {
                 onPressed: () => settleBookingRequestPayment(context, ref,
                     purchaseIDs: [widget.bookingID],
                     bookingID: widget.bookingID),
-                child: montserratWhiteBold('SETTLE PAYMENT')),
+                child: whiteSarabunBold('SETTLE PAYMENT')),
           ),
         )
       ],

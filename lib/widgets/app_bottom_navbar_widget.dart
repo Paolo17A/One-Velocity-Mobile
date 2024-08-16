@@ -86,8 +86,8 @@ Widget _buildIcon(
         color: currentIndex == thisIndex ? Colors.white : Colors.black,
       ),
       currentIndex == thisIndex
-          ? montserratWhiteBold(label, fontSize: 12)
-          : montserratBlackBold(label, fontSize: 12)
+          ? whiteSarabunBold(label, fontSize: 12)
+          : blackSarabunBold(label, fontSize: 12)
     ],
   );
 }

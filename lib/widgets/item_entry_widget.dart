@@ -30,7 +30,7 @@ Widget itemEntry(BuildContext context,
                 padding: const EdgeInsets.all(4),
                 child: Column(
                   children: [
-                    montserratWhiteBold(itemName,
+                    whiteSarabunBold(itemName,
                         textOverflow: TextOverflow.ellipsis),
                     _productPrice(price)
                   ],
@@ -62,8 +62,7 @@ Widget _productPrice(num price) {
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          montserratWhiteRegular('PHP ${price.toStringAsFixed(2)}',
-              fontSize: 14),
+          whiteSarabunRegular('PHP ${price.toStringAsFixed(2)}', fontSize: 14),
         ],
       ),
     ],

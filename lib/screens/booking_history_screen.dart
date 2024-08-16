@@ -70,7 +70,7 @@ class _BookingHistoryScreenState extends ConsumerState<BookingHistoryScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          montserratBlackBold('SERVICE BOOKING HISTORY', fontSize: 24),
+          blackSarabunBold('SERVICE BOOKING HISTORY', fontSize: 24),
           const Divider(color: Colors.white),
           ref.read(bookingsProvider).bookingDocs.isNotEmpty
               ? ListView.builder(
@@ -80,8 +80,8 @@ class _BookingHistoryScreenState extends ConsumerState<BookingHistoryScreen> {
                   itemBuilder: (context, index) => bookingHistoryEntry(
                       ref.read(bookingsProvider).bookingDocs[index]))
               : Center(
-                  child: montserratWhiteBold(
-                      'NO SERVICE BOOKING HISTORY AVAILABLE'),
+                  child:
+                      whiteSarabunBold('NO SERVICE BOOKING HISTORY AVAILABLE'),
                 )
         ],
       ),

@@ -59,7 +59,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 ImagePaths.logo,
                 scale: 4,
               )),
-              montserratBlackBold('LOG-IN', fontSize: 32),
+              blackSarabunBold('LOG-IN', fontSize: 32),
               const Gap(24),
               CustomTextField(
                   text: 'Email Address',
@@ -85,13 +85,13 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               TextButton(
                   onPressed: () => Navigator.of(context)
                       .pushNamed(NavigatorRoutes.forgotPassword),
-                  child: montserratBlackBold('Forgot Password?',
-                      fontSize: 16, textDecoration: TextDecoration.underline)),
+                  child: blackSarabunBold('Forgot Password?',
+                      fontSize: 16, decoration: TextDecoration.underline)),
               TextButton(
                   onPressed: () => Navigator.of(context)
                       .pushReplacementNamed(NavigatorRoutes.register),
-                  child: montserratBlackBold('Don\'t have an account?',
-                      fontSize: 16, textDecoration: TextDecoration.underline))
+                  child: blackSarabunBold('Don\'t have an account?',
+                      fontSize: 16, decoration: TextDecoration.underline))
             ])));
   }
 }

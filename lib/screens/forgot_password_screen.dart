@@ -43,7 +43,7 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
                 child: all20Pix(
                     child: Column(
                   children: [
-                    montserratBlackBold('RESET PASSWORD', fontSize: 26),
+                    blackSarabunBold('RESET PASSWORD', fontSize: 26),
                     Gap(20),
                     Container(
                       decoration: BoxDecoration(
@@ -62,7 +62,7 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
                                 onPressed: () => sendResetPasswordEmail(
                                     context, ref,
                                     emailController: emailController),
-                                child: montserratWhiteRegular(
+                                child: whiteSarabunRegular(
                                     'SEND PASSWORD RESET EMAIL',
                                     fontSize: 16)),
                           )

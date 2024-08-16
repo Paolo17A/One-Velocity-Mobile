@@ -13,7 +13,7 @@ PreferredSizeWidget appBarWidget({bool mayPop = true, List<Widget>? actions}) {
         children: [
           Image.asset('assets/images/one_velocity.jpg', scale: 15),
           const Gap(8),
-          montserratWhiteRegular('One Velocity', fontSize: 20)
+          whiteSarabunRegular('One Velocity', fontSize: 20)
         ],
       ),
       actions: actions);

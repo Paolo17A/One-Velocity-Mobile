@@ -89,9 +89,9 @@ class _SelectedProductScreenState extends ConsumerState<SelectedProductScreen> {
     return Column(
       children: [
         if (imageURLs.isNotEmpty) _itemImagesDisplay(),
-        montserratBlackBold(name, fontSize: 32),
-        montserratBlackBold('PHP ${price.toStringAsFixed(2)}', fontSize: 20),
-        montserratBlackRegular('Category: $category', fontSize: 16),
+        blackSarabunBold(name, fontSize: 32),
+        blackSarabunBold('PHP ${price.toStringAsFixed(2)}', fontSize: 20),
+        blackSarabunRegular('Category: $category', fontSize: 16),
         Divider(color: CustomColors.blackBeauty),
         SizedBox(
           height: 40,
@@ -104,11 +104,11 @@ class _SelectedProductScreenState extends ConsumerState<SelectedProductScreen> {
                   shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.zero),
                   disabledBackgroundColor: Colors.blueGrey),
-              child: montserratWhiteRegular('ADD TO CART',
+              child: whiteSarabunRegular('ADD TO CART',
                   textAlign: TextAlign.center)),
         ),
         vertical10Pix(
-            child: montserratBlackBold('Remaining Quantity: $quantity',
+            child: blackSarabunBold('Remaining Quantity: $quantity',
                 fontSize: 16)),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -128,7 +128,7 @@ class _SelectedProductScreenState extends ConsumerState<SelectedProductScreen> {
                         .contains(widget.productID)
                     ? Icons.bookmark
                     : Icons.bookmark_outline)),
-            montserratBlackRegular(ref
+            blackSarabunRegular(ref
                     .read(bookmarksProvider)
                     .bookmarkedProducts
                     .contains(widget.productID)
@@ -137,7 +137,7 @@ class _SelectedProductScreenState extends ConsumerState<SelectedProductScreen> {
           ],
         ),
         Divider(color: CustomColors.blackBeauty),
-        all20Pix(child: montserratBlackRegular(description)),
+        all20Pix(child: blackSarabunRegular(description)),
       ],
     );
   }

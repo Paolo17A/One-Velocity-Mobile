@@ -84,12 +84,12 @@ class _CheckoutScreenState extends ConsumerState<CheckoutScreen> {
                   child: all20Pix(
                 child: Column(
                   children: [
-                    montserratBlackBold('PRODUCT CHECKOUT', fontSize: 28),
+                    blackSarabunBold('PRODUCT CHECKOUT', fontSize: 28),
                     Column(
                         children: productEntries
                             .map((productEntry) => _productEntry(productEntry))
                             .toList()),
-                    montserratBlackRegular(
+                    blackSarabunRegular(
                         'TOTAL: PHP ${formatPrice(totalAmount.toDouble())}'),
                     Divider(color: CustomColors.blackBeauty),
                     _paymentMethod(),
@@ -122,13 +122,13 @@ class _CheckoutScreenState extends ConsumerState<CheckoutScreen> {
                     width: 50, height: 50, fit: BoxFit.cover),
               Gap(4),
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                montserratBlackBold(productEntry[ProductFields.name],
+                blackSarabunBold(productEntry[ProductFields.name],
                     fontSize: 16, textOverflow: TextOverflow.ellipsis),
-                montserratBlackRegular(
+                blackSarabunRegular(
                     'Quanitity: ${productEntry[CartFields.quantity]}',
                     fontSize: 12,
                     textAlign: TextAlign.left),
-                montserratBlackRegular(
+                blackSarabunRegular(
                     'SRP: PHP ${formatPrice(productEntry[ProductFields.price].toDouble())}',
                     fontSize: 12,
                     textAlign: TextAlign.left),
@@ -143,7 +143,7 @@ class _CheckoutScreenState extends ConsumerState<CheckoutScreen> {
         child: Column(
       children: [
         Row(
-          children: [montserratBlackBold('PAYMENT METHOD')],
+          children: [blackSarabunBold('PAYMENT METHOD')],
         ),
         Container(
           decoration: BoxDecoration(
@@ -166,12 +166,12 @@ class _CheckoutScreenState extends ConsumerState<CheckoutScreen> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                montserratBlackBold('SEND YOUR PAYMENT HERE'),
+                blackSarabunBold('SEND YOUR PAYMENT HERE'),
                 if (ref.read(cartProvider).selectedPaymentMethod == 'GCASH')
-                  montserratBlackBold('GCASH: +639221234567', fontSize: 14)
+                  blackSarabunBold('GCASH: +639221234567', fontSize: 14)
                 else if (ref.read(cartProvider).selectedPaymentMethod ==
                     'PAYMAYA')
-                  montserratBlackBold('PAYMAYA: +639221234567', fontSize: 14)
+                  blackSarabunBold('PAYMAYA: +639221234567', fontSize: 14)
               ],
             )
           ],
@@ -190,7 +190,7 @@ class _CheckoutScreenState extends ConsumerState<CheckoutScreen> {
                   paidAmount: totalAmount),
           style: ElevatedButton.styleFrom(
               disabledBackgroundColor: CustomColors.ultimateGray),
-          child: montserratWhiteBold('MAKE PAYMENT')),
+          child: whiteSarabunBold('MAKE PAYMENT')),
     );
   }
 }

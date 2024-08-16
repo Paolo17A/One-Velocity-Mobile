@@ -76,7 +76,7 @@ Drawer appDrawer(BuildContext context, {required String route}) {
 Widget _drawerTile(BuildContext context,
     {required String label, required Function onPress}) {
   return ListTile(
-    title: montserratWhiteBold(label, fontSize: 16),
+    title: whiteSarabunBold(label, fontSize: 16),
     onTap: () {
       Navigator.of(context).pop();
       onPress();

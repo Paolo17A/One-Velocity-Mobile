@@ -83,7 +83,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                       ? null
                       : () => Navigator.of(context)
                           .pushNamed(NavigatorRoutes.checkout),
-                  child: montserratWhiteRegular('CHECKOUT', fontSize: 10)))
+                  child: whiteSarabunRegular('CHECKOUT', fontSize: 10)))
         ],
       ),
     );
@@ -117,7 +117,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
       totalAmount += quantity * price;
     }
     paidAmount = totalAmount;
-    return montserratWhiteBold(
+    return whiteSarabunBold(
         'TOTAL AMOUNT:\nPHP ${formatPrice(totalAmount.toDouble())}',
         textAlign: TextAlign.left);
   }
@@ -126,7 +126,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        montserratBlackBold('CART ITEMS', fontSize: 40),
+        blackSarabunBold('CART ITEMS', fontSize: 40),
         ref.read(cartProvider).cartItems.isNotEmpty
             ? ListView.builder(
                 shrinkWrap: true,
@@ -135,7 +135,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                 itemBuilder: (context, index) {
                   return _cartEntry(ref.read(cartProvider).cartItems[index]);
                 })
-            : montserratBlackBold('YOU DO NOT HAVE ANY ITEMS IN YOUR CART')
+            : blackSarabunBold('YOU DO NOT HAVE ANY ITEMS IN YOUR CART')
       ],
     );
   }
@@ -213,13 +213,12 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            montserratWhiteBold(name,
+                            whiteSarabunBold(name,
                                 fontSize: 16,
                                 textOverflow: TextOverflow.ellipsis),
-                            montserratWhiteBold(
-                                'SRP: ${price.toStringAsFixed(2)}',
+                            whiteSarabunBold('SRP: ${price.toStringAsFixed(2)}',
                                 fontSize: 14),
-                            montserratWhiteRegular(
+                            whiteSarabunRegular(
                                 'Remaining Quantity: $remainingQuantity',
                                 fontSize: 14),
                             Gap(20),
@@ -237,7 +236,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                                       decoration: BoxDecoration(
                                           border: Border.all(
                                               color: CustomColors.nimbusCloud)),
-                                      child: montserratWhiteBold('-')),
+                                      child: whiteSarabunBold('-')),
                                 ),
                                 Container(
                                     width: 50,
@@ -247,7 +246,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                                     child: Padding(
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 10, vertical: 4),
-                                      child: montserratWhiteBold(
+                                      child: whiteSarabunBold(
                                           quantity.toString(),
                                           fontSize: 15),
                                     )),
@@ -263,7 +262,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                                       decoration: BoxDecoration(
                                           border: Border.all(
                                               color: CustomColors.nimbusCloud)),
-                                      child: montserratWhiteBold('+')),
+                                      child: whiteSarabunBold('+')),
                                 )
                               ],
                             ),

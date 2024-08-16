@@ -61,7 +61,7 @@ class _HelpScreenState extends ConsumerState<HelpScreen> {
                     : SizedBox(
                         height: MediaQuery.of(context).size.height,
                         child: Center(
-                            child: montserratBlackBold('NO FAQS CREATED',
+                            child: blackSarabunBold('NO FAQS CREATED',
                                 fontSize: 38)),
                       )),
           )),
@@ -81,10 +81,8 @@ class _HelpScreenState extends ConsumerState<HelpScreen> {
       collapsedShape:
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      title: montserratWhiteBold(question, fontSize: 16),
-      children: [
-        vertical20Pix(child: montserratWhiteBold(answer, fontSize: 16))
-      ],
+      title: whiteSarabunBold(question, fontSize: 16),
+      children: [vertical20Pix(child: whiteSarabunBold(answer, fontSize: 16))],
     ));
   }
 }

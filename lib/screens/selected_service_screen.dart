@@ -86,8 +86,8 @@ class _SelectedServiceScreenState extends ConsumerState<SelectedServiceScreen> {
                   Column(
                     //crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      montserratBlackBold(name, fontSize: 60),
-                      montserratBlackBold('PHP ${price.toStringAsFixed(2)}',
+                      blackSarabunBold(name, fontSize: 60),
+                      blackSarabunBold('PHP ${price.toStringAsFixed(2)}',
                           fontSize: 40),
                       const Gap(30),
                       SizedBox(
@@ -121,15 +121,14 @@ class _SelectedServiceScreenState extends ConsumerState<SelectedServiceScreen> {
                                           datePicked: datePicked);
                                     }
                                   : null,
-                              child: montserratWhiteRegular(
-                                  'REQUEST THIS SERVICE',
+                              child: whiteSarabunRegular('REQUEST THIS SERVICE',
                                   textAlign: TextAlign.center))),
                     ],
                   ),
-                  montserratBlackBold(
+                  blackSarabunBold(
                       'Is Available: ${isAvailable ? 'YES' : ' NO'}',
                       fontSize: 16),
-                  all20Pix(child: montserratBlackRegular(description)),
+                  all20Pix(child: blackSarabunRegular(description)),
                 ],
               ),
             )

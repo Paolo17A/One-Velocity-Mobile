@@ -107,17 +107,17 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                     .isNotEmpty)
                   ElevatedButton(
                       onPressed: () => removeProfilePic(context, ref),
-                      child: montserratWhiteRegular('REMOVE\nPROFILE PICTURE',
+                      child: whiteSarabunRegular('REMOVE\nPROFILE PICTURE',
                           fontSize: 14)),
                 ElevatedButton(
                     onPressed: () => uploadProfilePicture(context, ref),
-                    child: montserratWhiteRegular('UPLOAD\nPROFILE PICTURE',
+                    child: whiteSarabunRegular('UPLOAD\nPROFILE PICTURE',
                         fontSize: 14))
               ],
             ),
           ],
         ),
-        montserratBlackBold(formattedName, fontSize: 22),
+        blackSarabunBold(formattedName, fontSize: 22),
         Text('Mobile Number: $mobileNumber',
             style: const TextStyle(color: Colors.black, fontSize: 16))
       ],
@@ -133,7 +133,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          montserratWhiteBold('PURCHASE HISTORY'),
+          whiteSarabunBold('PURCHASE HISTORY'),
           ref.read(purchasesProvider).purchaseDocs.isNotEmpty
               ? ListView.builder(
                   shrinkWrap: true,
@@ -152,8 +152,8 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                         .toList()[index]);
                   })
               : vertical20Pix(
-                  child: montserratBlackBold(
-                      'YOU HAVE NOT MADE ANY PURCHASES YET.'))
+                  child:
+                      blackSarabunBold('YOU HAVE NOT MADE ANY PURCHASES YET.'))
         ],
       ),
     );
@@ -196,17 +196,17 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                     children: [
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.5,
-                        child: montserratWhiteBold(name,
+                        child: whiteSarabunBold(name,
                             textAlign: TextAlign.left,
                             fontSize: 25,
                             textOverflow: TextOverflow.ellipsis),
                       ),
-                      montserratWhiteRegular('SRP: ${price.toStringAsFixed(2)}',
+                      whiteSarabunRegular('SRP: ${price.toStringAsFixed(2)}',
                           fontSize: 15),
-                      montserratWhiteRegular('Quantity: ${quantity.toString()}',
+                      whiteSarabunRegular('Quantity: ${quantity.toString()}',
                           fontSize: 15),
-                      montserratWhiteRegular('Status: $status', fontSize: 15),
-                      montserratWhiteBold(
+                      whiteSarabunRegular('Status: $status', fontSize: 15),
+                      whiteSarabunBold(
                           'PHP ${(price * quantity).toStringAsFixed(2)}'),
                       if (status == PurchaseStatuses.pickedUp)
                         _downloadInvoiceFutureBuilder(paymentID)
@@ -236,7 +236,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
           child: TextButton(
               onPressed: () =>
                   NavigatorRoutes.quotation(context, quotationURL: invoiceURL),
-              child: montserratWhiteRegular('View Invoice',
+              child: whiteSarabunRegular('View Invoice',
                   fontSize: 12,
                   textAlign: TextAlign.left,
                   decoration: TextDecoration.underline)),

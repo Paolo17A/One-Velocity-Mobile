@@ -60,9 +60,8 @@ class _ServicesScreenState extends ConsumerState<ServicesScreen> {
   }
 
   Widget servicesHeader() {
-    return Row(children: [
-      montserratBlackBold('ALL AVAILABLE SERVICES', fontSize: 24)
-    ]);
+    return Row(
+        children: [blackSarabunBold('ALL AVAILABLE SERVICES', fontSize: 24)]);
   }
 
   Widget _availableServices() {
@@ -82,7 +81,7 @@ class _ServicesScreenState extends ConsumerState<ServicesScreen> {
                               context,
                               serviceID: thisService.id));
                     }).toList())
-                : montserratBlackBold('NO SERVICES AVAILABLE', fontSize: 44)),
+                : blackSarabunBold('NO SERVICES AVAILABLE', fontSize: 44)),
       ],
     );
   }

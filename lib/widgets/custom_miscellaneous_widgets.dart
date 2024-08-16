@@ -70,7 +70,7 @@ void showOtherPics(BuildContext context, {required String selectedImage}) {
               vertical10Pix(
                 child: ElevatedButton(
                     onPressed: () => Navigator.of(context).pop(),
-                    child: montserratWhiteRegular('CLOSE')),
+                    child: whiteSarabunRegular('CLOSE')),
               )
             ]),
           )));
@@ -119,16 +119,16 @@ Widget bookingHistoryEntry(DocumentSnapshot bookingDoc,
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                montserratWhiteBold(name, fontSize: 25),
-                montserratWhiteRegular('Status: $serviceStatus', fontSize: 15),
-                montserratWhiteRegular(
+                whiteSarabunBold(name, fontSize: 25),
+                whiteSarabunRegular('Status: $serviceStatus', fontSize: 15),
+                whiteSarabunRegular(
                     'Date Booked: ${DateFormat('MMM dd, yyyy').format(dateCreated)}',
                     fontSize: 15),
-                montserratWhiteRegular(
+                whiteSarabunRegular(
                     'Date Requested: ${DateFormat('MMM dd, yyyy').format(dateRequsted)}',
                     fontSize: 15),
                 Gap(15),
-                montserratWhiteBold('SRP: PHP ${formatPrice(price.toDouble())}',
+                whiteSarabunBold('SRP: PHP ${formatPrice(price.toDouble())}',
                     fontSize: 15),
                 if (serviceStatus == ServiceStatuses.pendingPayment)
                   ElevatedButton(
@@ -136,7 +136,7 @@ Widget bookingHistoryEntry(DocumentSnapshot bookingDoc,
                         NavigatorRoutes.settleBooking(context,
                             bookingID: bookingDoc.id);
                       },
-                      child: montserratWhiteRegular('SETTLE PAYMENT'))
+                      child: whiteSarabunRegular('SETTLE PAYMENT'))
               ],
             ),
           ],
