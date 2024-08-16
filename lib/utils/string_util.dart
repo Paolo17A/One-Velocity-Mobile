@@ -2,6 +2,7 @@ import 'dart:math';
 
 class ImagePaths {
   static const String logo = 'assets/images/one_velocity.jpg';
+  static const String home_bg = 'assets/images/home_bg.png';
 }
 
 class UserTypes {

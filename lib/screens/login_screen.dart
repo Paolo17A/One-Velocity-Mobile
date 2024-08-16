@@ -38,11 +38,37 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         appBar: appBarWidget(mayPop: true),
-        body: stackedLoadingContainer(
-          context,
-          ref.read(loadingProvider).isLoading,
-          SingleChildScrollView(
-            child: all20Pix(child: _logInContainer()),
+        resizeToAvoidBottomInset: false,
+        backgroundColor: Colors.white,
+        body: Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  fit: BoxFit.cover, image: AssetImage(ImagePaths.home_bg))),
+          child: Scaffold(
+            backgroundColor: Colors.transparent,
+            body: stackedLoadingContainer(
+                context,
+                ref.read(loadingProvider).isLoading,
+                Container(
+                    width: MediaQuery.of(context).size.width,
+                    child: SingleChildScrollView(
+                      child: all20Pix(
+                        child: Column(
+                          children: [
+                            vertical10Pix(
+                                child: Image.asset(ImagePaths.logo, scale: 5)),
+                            all20Pix(
+                              child: Row(children: [
+                                blackSarabunBold('Where Quality Meets Velocity')
+                              ]),
+                            ),
+                            _logInContainer(),
+                          ],
+                        ),
+                      ),
+                    ))),
           ),
         ),
       ),
@@ -51,14 +77,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   Widget _logInContainer() {
     return SizedBox(
-        width: double.infinity,
-        child: roundedWhiteContainer(context,
-            child: Column(children: [
-              vertical20Pix(
-                  child: Image.asset(
-                ImagePaths.logo,
-                scale: 4,
-              )),
+        width: MediaQuery.of(context).size.width * 0.8,
+        child: roundedNimbusContainer(context,
+            child: Column(mainAxisSize: MainAxisSize.min, children: [
               blackSarabunBold('LOG-IN', fontSize: 32),
               const Gap(24),
               CustomTextField(

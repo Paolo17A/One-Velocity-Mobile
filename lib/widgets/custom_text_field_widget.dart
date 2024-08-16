@@ -57,7 +57,7 @@ class _LiliwECommerceTextFieldState extends State<CustomTextField> {
             floatingLabelBehavior: FloatingLabelBehavior.never,
             fillColor: widget.fillColor ?? Colors.white.withOpacity(0.4),
             border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(30),
                 borderSide: const BorderSide(color: Colors.black, width: 3.0)),
             contentPadding:
                 const EdgeInsets.symmetric(vertical: 10, horizontal: 10),

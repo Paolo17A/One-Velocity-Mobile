@@ -54,6 +54,16 @@ Widget roundedWhiteContainer(BuildContext context, {required Widget child}) {
       child: child);
 }
 
+Widget roundedNimbusContainer(BuildContext context, {required Widget child}) {
+  return Container(
+      width: MediaQuery.of(context).size.width * 0.5,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          color: CustomColors.nimbusCloud),
+      padding: const EdgeInsets.all(20),
+      child: child);
+}
+
 void showOtherPics(BuildContext context, {required String selectedImage}) {
   showDialog(
       context: context,

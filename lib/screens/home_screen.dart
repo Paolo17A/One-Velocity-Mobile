@@ -56,23 +56,26 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     return PopScope(
       canPop: false,
       child: Scaffold(
-        appBar: appBarWidget(),
-        drawer: appDrawer(context, route: NavigatorRoutes.home),
-        bottomNavigationBar: bottomNavigationBar(context, index: 0),
-        body: switchedLoadingContainer(
-            ref.read(loadingProvider).isLoading,
-            SingleChildScrollView(
-              child: all20Pix(
-                  child: Column(
-                children: [
-                  if (wheelProductDocs.isNotEmpty) _wheelProducts(),
-                  if (batteryProductDocs.isNotEmpty) _batteryProducts(),
-                  _topProducts(),
-                  const Divider(color: CustomColors.blackBeauty),
-                  _topServices()
-                ],
+        appBar: topAppBar(),
+        body: Scaffold(
+          appBar: appBarWidget(),
+          drawer: appDrawer(context, route: NavigatorRoutes.home),
+          bottomNavigationBar: bottomNavigationBar(context, index: 0),
+          body: switchedLoadingContainer(
+              ref.read(loadingProvider).isLoading,
+              SingleChildScrollView(
+                child: all20Pix(
+                    child: Column(
+                  children: [
+                    if (wheelProductDocs.isNotEmpty) _wheelProducts(),
+                    if (batteryProductDocs.isNotEmpty) _batteryProducts(),
+                    _topProducts(),
+                    const Divider(color: CustomColors.blackBeauty),
+                    _topServices()
+                  ],
+                )),
               )),
-            )),
+        ),
       ),
     );
   }
