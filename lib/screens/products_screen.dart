@@ -8,8 +8,8 @@ import '../utils/firebase_util.dart';
 import '../utils/navigator_util.dart';
 import '../utils/string_util.dart';
 import '../widgets/app_bar_widget.dart';
-import '../widgets/app_bottom_navbar_widget.dart';
 import '../widgets/app_drawer_widget.dart';
+import '../widgets/custom_button_widgets.dart';
 import '../widgets/custom_miscellaneous_widgets.dart';
 import '../widgets/custom_padding_widgets.dart';
 import '../widgets/dropdown_widget.dart';
@@ -49,21 +49,26 @@ class _ProductsScreenState extends ConsumerState<ProductsScreen> {
   Widget build(BuildContext context) {
     ref.watch(loadingProvider);
     return Scaffold(
-      appBar: appBarWidget(),
-      drawer: appDrawer(context, route: NavigatorRoutes.products),
-      bottomNavigationBar: bottomNavigationBar(context, index: 1),
-      body: switchedLoadingContainer(
-          ref.read(loadingProvider).isLoading,
-          SingleChildScrollView(
-            child: all20Pix(
-                child: Column(
-              children: [
-                productsHeader(),
-                _productCategoryWidget(),
-                _availableProducts()
-              ],
+      appBar: topAppBar(),
+      body: Scaffold(
+        appBar: appBarWidget(
+            actions: hasLoggedInUser()
+                ? [popUpMenu(context, currentPath: NavigatorRoutes.products)]
+                : [loginButton(context)]),
+        drawer: appDrawer(context, ref, route: NavigatorRoutes.products),
+        body: switchedLoadingContainer(
+            ref.read(loadingProvider).isLoading,
+            SingleChildScrollView(
+              child: all20Pix(
+                  child: Column(
+                children: [
+                  productsHeader(),
+                  _productCategoryWidget(),
+                  _availableProducts()
+                ],
+              )),
             )),
-          )),
+      ),
     );
   }
 
@@ -111,9 +116,9 @@ class _ProductsScreenState extends ConsumerState<ProductsScreen> {
       children: [
         filteredProductDocs.isNotEmpty
             ? Wrap(
-                alignment: WrapAlignment.spaceEvenly,
-                spacing: 10,
-                runSpacing: 10,
+                alignment: WrapAlignment.start,
+                spacing: 40,
+                runSpacing: 40,
                 children: filteredProductDocs.asMap().entries.map((item) {
                   DocumentSnapshot thisProduct = allProductDocs[item.key];
                   return itemEntry(context,

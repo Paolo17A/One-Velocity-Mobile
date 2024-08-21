@@ -13,16 +13,17 @@ import '../utils/color_util.dart';
 import '../utils/delete_entry_dialog_util.dart';
 import '../utils/firebase_util.dart';
 import '../utils/string_util.dart';
+import '../widgets/custom_button_widgets.dart';
 import '../widgets/text_widgets.dart';
 
-class CartScreen extends ConsumerStatefulWidget {
-  const CartScreen({super.key});
+class ProductCartScreen extends ConsumerStatefulWidget {
+  const ProductCartScreen({super.key});
 
   @override
-  ConsumerState<CartScreen> createState() => _CartScreenState();
+  ConsumerState<ProductCartScreen> createState() => _ProductCartScreenState();
 }
 
-class _CartScreenState extends ConsumerState<CartScreen> {
+class _ProductCartScreenState extends ConsumerState<ProductCartScreen> {
   List<DocumentSnapshot> associatedProductDocs = [];
   num paidAmount = 0;
 
@@ -33,11 +34,13 @@ class _CartScreenState extends ConsumerState<CartScreen> {
       ref.read(loadingProvider.notifier).toggleLoading(true);
       final scaffoldMessenger = ScaffoldMessenger.of(context);
       try {
-        ref.read(cartProvider).setCartItems(await getCartEntries(context));
+        ref
+            .read(cartProvider)
+            .setCartItems(await getProductCartEntries(context));
         associatedProductDocs = await getSelectedProductDocs(
             ref.read(cartProvider).cartItems.map((cartDoc) {
           final cartData = cartDoc.data() as Map<dynamic, dynamic>;
-          return cartData[CartFields.productID].toString();
+          return cartData[CartFields.itemID].toString();
         }).toList());
         setState(() {});
         ref.read(loadingProvider.notifier).toggleLoading(false);
@@ -56,13 +59,22 @@ class _CartScreenState extends ConsumerState<CartScreen> {
     return PopScope(
       onPopInvoked: (didPop) => ref.read(cartProvider).resetSelectedCartItems(),
       child: Scaffold(
-        appBar: appBarWidget(),
-        bottomNavigationBar: _checkoutBar(),
-        body: switchedLoadingContainer(
-            ref.read(loadingProvider).isLoading,
-            SingleChildScrollView(
-              child: all20Pix(child: _cartEntries()),
-            )),
+        appBar: topAppBar(),
+        body: Scaffold(
+          appBar: appBarWidget(
+              actions: hasLoggedInUser()
+                  ? [
+                      popUpMenu(context,
+                          currentPath: NavigatorRoutes.productCart)
+                    ]
+                  : [loginButton(context)]),
+          bottomNavigationBar: _checkoutBar(),
+          body: switchedLoadingContainer(
+              ref.read(loadingProvider).isLoading,
+              SingleChildScrollView(
+                child: all20Pix(child: _cartEntries()),
+              )),
+        ),
       ),
     );
   }
@@ -104,7 +116,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
     //  Go through every selected cart item
     for (var cartDoc in selectedCartDocs) {
       final cartData = cartDoc.data() as Map<dynamic, dynamic>;
-      String productID = cartData[CartFields.productID];
+      String productID = cartData[CartFields.itemID];
       num quantity = cartData[CartFields.quantity];
       DocumentSnapshot? productDoc = associatedProductDocs
           .where((item) => item.id == productID)
@@ -145,7 +157,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
     int quantity = cartData[CartFields.quantity];
     DocumentSnapshot? associatedProductDoc =
         associatedProductDocs.where((productDoc) {
-      return productDoc.id == cartData[CartFields.productID].toString();
+      return productDoc.id == cartData[CartFields.itemID].toString();
     }).firstOrNull;
     if (associatedProductDoc == null)
       return Container();
@@ -178,7 +190,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                       }),
                   GestureDetector(
                     onTap: () => NavigatorRoutes.selectedProduct(context, ref,
-                        productID: cartData[CartFields.productID]),
+                        productID: cartData[CartFields.itemID]),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

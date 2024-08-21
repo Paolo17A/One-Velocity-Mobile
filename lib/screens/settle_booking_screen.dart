@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
-import 'package:intl/intl.dart';
 
 import '../providers/cart_provider.dart';
 import '../providers/loading_provider.dart';
@@ -26,12 +25,10 @@ class SettleBookingScreen extends ConsumerStatefulWidget {
 }
 
 class _SettleBookingScreenState extends ConsumerState<SettleBookingScreen> {
-  String serviceName = '';
-  List<dynamic> imageURLs = [];
-  String description = '';
+  List<DocumentSnapshot> serviceDocs = [];
   DateTime? dateCreated;
   DateTime? dateRequsted;
-  num servicePrice = 0;
+  num totalServicePrice = 0;
 
   @override
   void initState() {
@@ -55,16 +52,14 @@ class _SettleBookingScreenState extends ConsumerState<SettleBookingScreen> {
           return;
         }
 
-        final serviceID = bookingData[BookingFields.serviceID];
-        final serviceDoc = await getThisServiceDoc(serviceID);
-        final serviceData = serviceDoc.data() as Map<dynamic, dynamic>;
-        serviceName = serviceData[ServiceFields.name];
-        imageURLs = serviceData[ServiceFields.imageURLs];
-        servicePrice =
-            double.parse(serviceData[ServiceFields.price].toString());
-        description = serviceData[ServiceFields.description];
-
+        List<dynamic> serviceIDs = bookingData[BookingFields.serviceIDs];
+        serviceDocs = await getSelectedServiceDocs(serviceIDs);
+        for (var serviceDoc in serviceDocs) {
+          final serviceData = serviceDoc.data() as Map<dynamic, dynamic>;
+          totalServicePrice += serviceData[ServiceFields.price];
+        }
         ref.read(cartProvider).setSelectedPaymentMethod('');
+
         ref.read(cartProvider).resetProofOfPaymentFile();
         ref.read(loadingProvider.notifier).toggleLoading(false);
       } catch (error) {
@@ -85,63 +80,84 @@ class _SettleBookingScreenState extends ConsumerState<SettleBookingScreen> {
         ref.read(cartProvider).resetProofOfPaymentFile();
       },
       child: Scaffold(
-        appBar: appBarWidget(),
-        body: switchedLoadingContainer(
-            ref.read(loadingProvider).isLoading,
-            SizedBox(
-              width: double.infinity,
-              child: SingleChildScrollView(
-                  child: all20Pix(
-                child: Column(
+        appBar: topAppBar(),
+        body: Scaffold(
+          appBar: appBarWidget(),
+          body: switchedLoadingContainer(
+              ref.read(loadingProvider).isLoading,
+              SizedBox(
+                width: MediaQuery.of(context).size.width,
+                child: SingleChildScrollView(
+                    child: all20Pix(
+                  child: Column(
+                    children: [
+                      _serviceDataWidgets(),
+                      Divider(color: CustomColors.blackBeauty),
+                      _paymentMethod(),
+                      if (ref
+                          .read(cartProvider)
+                          .selectedPaymentMethod
+                          .isNotEmpty)
+                        _uploadPayment(),
+                      _makePaymentButton(),
+                      if (ref.read(cartProvider).proofOfPaymentFile != null)
+                        _checkoutButton()
+                    ],
+                  ),
+                )),
+              )),
+        ),
+      ),
+    );
+  }
+
+  Widget _serviceDataWidgets() {
+    return SizedBox(
+      width: double.infinity,
+      child: all10Pix(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            blackSarabunBold('REQUESTED SERVICES: ', fontSize: 32),
+            Column(
+                children: serviceDocs.map((serviceDoc) {
+              final serviceData = serviceDoc.data() as Map<dynamic, dynamic>;
+              String name = serviceData[ServiceFields.name];
+              List<dynamic> imageURLs = serviceData[ServiceFields.imageURLs];
+              num price = serviceData[ServiceFields.price];
+              String description = serviceData[ServiceFields.description];
+              return vertical10Pix(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    blackSarabunBold('SETTLE BOOKING', fontSize: 28),
                     if (imageURLs.isNotEmpty)
-                      Image.network(
-                        imageURLs[0],
-                        width: MediaQuery.of(context).size.width * 0.6,
-                        height: MediaQuery.of(context).size.width * 0.6,
-                        fit: BoxFit.cover,
-                      ),
+                      Container(
+                          decoration: BoxDecoration(border: Border.all()),
+                          child: Image.network(imageURLs[0],
+                              width: 100, height: 100, fit: BoxFit.cover)),
                     Gap(20),
-                    Row(
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            blackSarabunBold(serviceName, fontSize: 24),
-                            blackSarabunRegular(
-                                'SRP: PHP ${servicePrice.toStringAsFixed(2)}',
-                                fontSize: 16),
-                            vertical10Pix(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  if (dateCreated != null)
-                                    blackSarabunRegular(
-                                        'Date Booked: ${DateFormat('MMM dd, yyyy').format(dateCreated!)}',
-                                        fontSize: 14),
-                                  if (dateRequsted != null)
-                                    blackSarabunRegular(
-                                        'Date Requested: ${DateFormat('MMM dd, yyyy').format(dateRequsted!)}',
-                                        fontSize: 14),
-                                ],
-                              ),
-                            ),
-                          ],
+                        blackSarabunBold(name, fontSize: 20),
+                        blackSarabunRegular(
+                            'PHP: ${formatPrice(price.toDouble())}',
+                            fontSize: 20),
+                        Gap(12),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.55,
+                          child: blackSarabunRegular(description,
+                              textAlign: TextAlign.left,
+                              textOverflow: TextOverflow.ellipsis),
                         ),
                       ],
                     ),
-                    Divider(color: CustomColors.blackBeauty),
-                    _paymentMethod(),
-                    if (ref.read(cartProvider).selectedPaymentMethod.isNotEmpty)
-                      _uploadPayment(),
-                    _makePaymentButton(),
-                    if (ref.read(cartProvider).proofOfPaymentFile != null)
-                      _checkoutButton()
                   ],
                 ),
-              )),
-            )),
+              );
+            }).toList())
+          ],
+        ),
       ),
     );
   }
@@ -217,7 +233,8 @@ class _SettleBookingScreenState extends ConsumerState<SettleBookingScreen> {
             child: ElevatedButton(
                 onPressed: () => settleBookingRequestPayment(context, ref,
                     purchaseIDs: [widget.bookingID],
-                    bookingID: widget.bookingID),
+                    bookingID: widget.bookingID,
+                    servicePrice: totalServicePrice),
                 child: whiteSarabunBold('SETTLE PAYMENT')),
           ),
         )

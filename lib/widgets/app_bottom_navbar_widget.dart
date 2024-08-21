@@ -26,7 +26,7 @@ void _processPress(BuildContext context, int selectedIndex, int currentIndex) {
       Navigator.of(context).pushNamed(NavigatorRoutes.services);
       break;
     case 3:
-      Navigator.of(context).pushNamed(NavigatorRoutes.cart);
+      Navigator.of(context).pushNamed(NavigatorRoutes.productCart);
       break;
     case 4:
       Navigator.of(context).pushNamed(NavigatorRoutes.bookings);

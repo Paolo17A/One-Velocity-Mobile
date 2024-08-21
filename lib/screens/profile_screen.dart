@@ -1,7 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gap/gap.dart';
 import 'package:one_velocity_mobile/providers/profile_image_url_provider.dart';
 import 'package:one_velocity_mobile/providers/purchases_provider.dart';
 
@@ -65,25 +63,27 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     ref.watch(profileImageURLProvider);
     ref.watch(purchasesProvider);
     return Scaffold(
-      appBar: appBarWidget(actions: [
-        IconButton(
-            onPressed: () =>
-                Navigator.of(context).pushNamed(NavigatorRoutes.editProfile),
-            icon: Icon(Icons.edit))
-      ]),
-      drawer: appDrawer(context, route: NavigatorRoutes.profile),
-      body: switchedLoadingContainer(
-          ref.read(loadingProvider).isLoading,
-          SingleChildScrollView(
-            child: all20Pix(
-                child: Column(
-              children: [
-                profileDetails(),
-                const Divider(color: CustomColors.blackBeauty),
-                purchaseHistory()
-              ],
+      appBar: topAppBar(),
+      body: Scaffold(
+        appBar: appBarWidget(actions: [
+          IconButton(
+              onPressed: () =>
+                  Navigator.of(context).pushNamed(NavigatorRoutes.editProfile),
+              icon: Icon(Icons.edit))
+        ]),
+        drawer: appDrawer(context, ref, route: NavigatorRoutes.profile),
+        body: switchedLoadingContainer(
+            ref.read(loadingProvider).isLoading,
+            SingleChildScrollView(
+              child: all20Pix(
+                  child: Column(
+                children: [
+                  profileDetails(),
+                  const Divider(color: CustomColors.blackBeauty),
+                ],
+              )),
             )),
-          )),
+      ),
     );
   }
 
@@ -121,127 +121,6 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
         Text('Mobile Number: $mobileNumber',
             style: const TextStyle(color: Colors.black, fontSize: 16))
       ],
-    );
-  }
-
-  Widget purchaseHistory() {
-    return Container(
-      decoration: BoxDecoration(
-          color: CustomColors.blackBeauty,
-          borderRadius: BorderRadius.circular(20)),
-      padding: EdgeInsets.all(10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          whiteSarabunBold('PURCHASE HISTORY'),
-          ref.read(purchasesProvider).purchaseDocs.isNotEmpty
-              ? ListView.builder(
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemCount: ref
-                      .read(purchasesProvider)
-                      .purchaseDocs
-                      .reversed
-                      .toList()
-                      .length,
-                  itemBuilder: (context, index) {
-                    return _purchaseHistoryEntry(ref
-                        .read(purchasesProvider)
-                        .purchaseDocs
-                        .reversed
-                        .toList()[index]);
-                  })
-              : vertical20Pix(
-                  child:
-                      blackSarabunBold('YOU HAVE NOT MADE ANY PURCHASES YET.'))
-        ],
-      ),
-    );
-  }
-
-  Widget _purchaseHistoryEntry(DocumentSnapshot purchaseDoc) {
-    final purchaseData = purchaseDoc.data() as Map<dynamic, dynamic>;
-    String status = purchaseData[PurchaseFields.purchaseStatus];
-    String productID = purchaseData[PurchaseFields.productID];
-    num quantity = purchaseData[PurchaseFields.quantity];
-    String paymentID = purchaseData[PurchaseFields.paymentID];
-
-    return FutureBuilder(
-      future: getThisProductDoc(productID),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting ||
-            !snapshot.hasData ||
-            snapshot.hasError) return snapshotHandler(snapshot);
-
-        final productData = snapshot.data!.data() as Map<dynamic, dynamic>;
-        List<dynamic> imageURLs = productData[ProductFields.imageURLs];
-        String name = productData[ProductFields.name];
-        num price = productData[ProductFields.price];
-        return GestureDetector(
-            onTap: () {},
-            child: all10Pix(
-                child: Container(
-              decoration: const BoxDecoration(color: CustomColors.ultimateGray),
-              padding: EdgeInsets.all(10),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CircleAvatar(
-                      backgroundColor: Colors.transparent,
-                      backgroundImage: NetworkImage(imageURLs[0]),
-                      radius: 30),
-                  Gap(4),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.5,
-                        child: whiteSarabunBold(name,
-                            textAlign: TextAlign.left,
-                            fontSize: 25,
-                            textOverflow: TextOverflow.ellipsis),
-                      ),
-                      whiteSarabunRegular('SRP: ${price.toStringAsFixed(2)}',
-                          fontSize: 15),
-                      whiteSarabunRegular('Quantity: ${quantity.toString()}',
-                          fontSize: 15),
-                      whiteSarabunRegular('Status: $status', fontSize: 15),
-                      whiteSarabunBold(
-                          'PHP ${(price * quantity).toStringAsFixed(2)}'),
-                      if (status == PurchaseStatuses.pickedUp)
-                        _downloadInvoiceFutureBuilder(paymentID)
-                    ],
-                  ),
-                ],
-              ),
-            )));
-      },
-    );
-  }
-
-  Widget _downloadInvoiceFutureBuilder(String paymentID) {
-    return FutureBuilder(
-      future: getThisPaymentDoc(paymentID),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting ||
-            !snapshot.hasData ||
-            snapshot.hasError) return snapshotHandler(snapshot);
-        final paymentData = snapshot.data!.data() as Map<dynamic, dynamic>;
-        String invoiceURL = paymentData[PaymentFields.invoiceURL];
-        return Container(
-          height: 40,
-          decoration: BoxDecoration(
-              border: Border.all(color: Colors.white),
-              borderRadius: BorderRadius.circular(10)),
-          child: TextButton(
-              onPressed: () =>
-                  NavigatorRoutes.quotation(context, quotationURL: invoiceURL),
-              child: whiteSarabunRegular('View Invoice',
-                  fontSize: 12,
-                  textAlign: TextAlign.left,
-                  decoration: TextDecoration.underline)),
-        );
-      },
     );
   }
 }

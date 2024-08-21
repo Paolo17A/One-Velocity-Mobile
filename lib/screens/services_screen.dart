@@ -7,8 +7,8 @@ import '../providers/loading_provider.dart';
 import '../utils/firebase_util.dart';
 import '../utils/navigator_util.dart';
 import '../widgets/app_bar_widget.dart';
-import '../widgets/app_bottom_navbar_widget.dart';
 import '../widgets/app_drawer_widget.dart';
+import '../widgets/custom_button_widgets.dart';
 import '../widgets/custom_miscellaneous_widgets.dart';
 import '../widgets/custom_padding_widgets.dart';
 import '../widgets/item_entry_widget.dart';
@@ -43,19 +43,24 @@ class _ServicesScreenState extends ConsumerState<ServicesScreen> {
   Widget build(BuildContext context) {
     ref.watch(loadingProvider);
     return Scaffold(
-      appBar: appBarWidget(),
-      drawer: appDrawer(context, route: NavigatorRoutes.services),
-      bottomNavigationBar: bottomNavigationBar(context, index: 2),
-      body: switchedLoadingContainer(
-          ref.read(loadingProvider).isLoading,
-          SingleChildScrollView(
-            child: all20Pix(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [servicesHeader(), _availableServices()],
+      appBar: topAppBar(),
+      body: Scaffold(
+        appBar: appBarWidget(
+            actions: hasLoggedInUser()
+                ? [popUpMenu(context, currentPath: NavigatorRoutes.services)]
+                : [loginButton(context)]),
+        drawer: appDrawer(context, ref, route: NavigatorRoutes.services),
+        body: switchedLoadingContainer(
+            ref.read(loadingProvider).isLoading,
+            SingleChildScrollView(
+              child: all20Pix(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [servicesHeader(), _availableServices()],
+                ),
               ),
-            ),
-          )),
+            )),
+      ),
     );
   }
 
@@ -71,8 +76,8 @@ class _ServicesScreenState extends ConsumerState<ServicesScreen> {
             child: allServiceDocs.isNotEmpty
                 ? Wrap(
                     alignment: WrapAlignment.spaceEvenly,
-                    spacing: 10,
-                    runSpacing: 10,
+                    spacing: 40,
+                    runSpacing: 40,
                     children: allServiceDocs.asMap().entries.map((item) {
                       DocumentSnapshot thisService = allServiceDocs[item.key];
                       return itemEntry(context,

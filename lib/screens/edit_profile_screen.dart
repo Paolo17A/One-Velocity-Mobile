@@ -59,37 +59,41 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        appBar: appBarWidget(),
-        body: stackedLoadingContainer(
-            context,
-            ref.read(loadingProvider).isLoading,
-            SingleChildScrollView(
-              child: Column(
-                children: [
-                  all20Pix(
-                    child: Column(
-                      children: [
-                        Column(
-                          //crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            _editProfileHeader(),
-                            _firstNameControllerWidget(),
-                            _lasttNameControllerWidget(),
-                            _mobileNumberControllerWidget()
-                          ],
-                        ),
-                        submitButton(context,
-                            label: 'SAVE CHANGES',
-                            onPress: () => editClientProfile(context, ref,
-                                firstNameController: firstNameController,
-                                lastNameController: lastNameController,
-                                mobileNumberController: mobileNumberController))
-                      ],
+        appBar: topAppBar(),
+        body: Scaffold(
+          appBar: appBarWidget(),
+          body: stackedLoadingContainer(
+              context,
+              ref.read(loadingProvider).isLoading,
+              SingleChildScrollView(
+                child: Column(
+                  children: [
+                    all20Pix(
+                      child: Column(
+                        children: [
+                          Column(
+                            //crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              _editProfileHeader(),
+                              _firstNameControllerWidget(),
+                              _lasttNameControllerWidget(),
+                              _mobileNumberControllerWidget()
+                            ],
+                          ),
+                          submitButton(context,
+                              label: 'SAVE CHANGES',
+                              onPress: () => editClientProfile(context, ref,
+                                  firstNameController: firstNameController,
+                                  lastNameController: lastNameController,
+                                  mobileNumberController:
+                                      mobileNumberController))
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            )),
+                  ],
+                ),
+              )),
+        ),
       ),
     );
   }

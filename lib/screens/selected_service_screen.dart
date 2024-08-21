@@ -6,7 +6,6 @@ import '../providers/pages_provider.dart';
 import '../utils/firebase_util.dart';
 import '../utils/string_util.dart';
 import '../widgets/app_bar_widget.dart';
-import '../widgets/app_bottom_navbar_widget.dart';
 import '../widgets/custom_miscellaneous_widgets.dart';
 import '../widgets/custom_padding_widgets.dart';
 import '../widgets/text_widgets.dart';
@@ -60,7 +59,6 @@ class _SelectedServiceScreenState extends ConsumerState<SelectedServiceScreen> {
     currentImageIndex = ref.watch(pagesProvider.notifier).getCurrentPage();
     return Scaffold(
       appBar: appBarWidget(),
-      bottomNavigationBar: bottomNavigationBar(context, index: 2),
       body: switchedLoadingContainer(
           ref.read(loadingProvider).isLoading,
           SingleChildScrollView(
@@ -87,7 +85,7 @@ class _SelectedServiceScreenState extends ConsumerState<SelectedServiceScreen> {
                     //crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       blackSarabunBold(name, fontSize: 60),
-                      blackSarabunBold('PHP ${price.toStringAsFixed(2)}',
+                      blackSarabunBold('PHP ${formatPrice(price.toDouble())}',
                           fontSize: 40),
                       const Gap(30),
                       SizedBox(
@@ -106,19 +104,8 @@ class _SelectedServiceScreenState extends ConsumerState<SelectedServiceScreen> {
                                                     'Please log-in to your account first.')));
                                         return;
                                       }
-                                      DateTime? datePicked =
-                                          await showDatePicker(
-                                              context: context,
-                                              firstDate: DateTime.now()
-                                                  .add(Duration(days: 1)),
-                                              lastDate: DateTime.now()
-                                                  .add(Duration(days: 7)));
-                                      if (datePicked == null) {
-                                        return;
-                                      }
-                                      createNewBookingRequest(context, ref,
-                                          serviceID: widget.serviceID,
-                                          datePicked: datePicked);
+                                      addServiceToCart(context, ref,
+                                          serviceID: widget.serviceID);
                                     }
                                   : null,
                               child: whiteSarabunRegular('REQUEST THIS SERVICE',

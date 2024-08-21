@@ -46,22 +46,33 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        appBar: appBarWidget(mayPop: true),
-        body: stackedLoadingContainer(
-          context,
-          ref.read(loadingProvider).isLoading,
-          SingleChildScrollView(
-            child: all20Pix(child: _registerContainer()),
-          ),
-        ),
-      ),
+          appBar: appBarWidget(mayPop: true),
+          resizeToAvoidBottomInset: false,
+          backgroundColor: Colors.white,
+          body: Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    fit: BoxFit.cover, image: AssetImage(ImagePaths.home_bg))),
+            child: Scaffold(
+              backgroundColor: Colors.transparent,
+              body: stackedLoadingContainer(
+                context,
+                ref.read(loadingProvider).isLoading,
+                SingleChildScrollView(
+                  child: all20Pix(child: _registerContainer()),
+                ),
+              ),
+            ),
+          )),
     );
   }
 
   Widget _registerContainer() {
     return SizedBox(
       width: double.infinity,
-      child: roundedWhiteContainer(context,
+      child: roundedNimbusContainer(context,
           child: Column(
             children: [
               vertical20Pix(

@@ -1,7 +1,9 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
+import 'package:one_velocity_mobile/widgets/custom_button_widgets.dart';
 import 'package:one_velocity_mobile/widgets/text_widgets.dart';
 
 import '../providers/loading_provider.dart';
@@ -10,7 +12,6 @@ import '../utils/firebase_util.dart';
 import '../utils/navigator_util.dart';
 import '../utils/string_util.dart';
 import '../widgets/app_bar_widget.dart';
-import '../widgets/app_bottom_navbar_widget.dart';
 import '../widgets/app_drawer_widget.dart';
 import '../widgets/custom_miscellaneous_widgets.dart';
 import '../widgets/custom_padding_widgets.dart';
@@ -28,6 +29,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   List<DocumentSnapshot> wheelProductDocs = [];
   List<DocumentSnapshot> batteryProductDocs = [];
   List<DocumentSnapshot> serviceDocs = [];
+
+  CarouselSliderController wheelsController = CarouselSliderController();
+  CarouselSliderController batteryController = CarouselSliderController();
+  CarouselSliderController allProductsController = CarouselSliderController();
+  CarouselSliderController allServicesController = CarouselSliderController();
 
   @override
   void initState() {
@@ -58,23 +64,23 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       child: Scaffold(
         appBar: topAppBar(),
         body: Scaffold(
-          appBar: appBarWidget(),
-          drawer: appDrawer(context, route: NavigatorRoutes.home),
-          bottomNavigationBar: bottomNavigationBar(context, index: 0),
+          appBar: appBarWidget(
+              actions: hasLoggedInUser()
+                  ? [popUpMenu(context, currentPath: NavigatorRoutes.home)]
+                  : [loginButton(context)]),
+          drawer: appDrawer(context, ref, route: NavigatorRoutes.home),
           body: switchedLoadingContainer(
               ref.read(loadingProvider).isLoading,
               SingleChildScrollView(
-                child: all20Pix(
-                    child: Column(
-                  children: [
-                    if (wheelProductDocs.isNotEmpty) _wheelProducts(),
-                    if (batteryProductDocs.isNotEmpty) _batteryProducts(),
-                    _topProducts(),
-                    const Divider(color: CustomColors.blackBeauty),
-                    _topServices()
-                  ],
-                )),
-              )),
+                  child: Column(
+                children: [
+                  if (wheelProductDocs.isNotEmpty) _wheelProducts(),
+                  if (batteryProductDocs.isNotEmpty) _batteryProducts(),
+                  _topProducts(),
+                  const Divider(color: CustomColors.blackBeauty),
+                  _topServices()
+                ],
+              ))),
         ),
       ),
     );
@@ -82,131 +88,26 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   Widget _wheelProducts() {
     wheelProductDocs.shuffle();
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        blackSarabunBold('WHEELS', fontSize: 25),
-        SizedBox(
-          width: MediaQuery.of(context).size.width,
-          child: SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: wheelProductDocs.isNotEmpty
-                    ? MainAxisAlignment.start
-                    : MainAxisAlignment.center,
-                children: wheelProductDocs
-                    .take(6)
-                    .toList()
-                    .map((item) => Row(
-                          children: [
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 10),
-                              child: itemEntry(context,
-                                  itemDoc: item,
-                                  onPress: () =>
-                                      NavigatorRoutes.selectedProduct(
-                                          context, ref,
-                                          productID: item.id),
-                                  fontColor: Colors.white),
-                            ),
-                          ],
-                        ))
-                    .toList()),
-          ),
-        ),
-        const Gap(10),
-      ],
-    );
+    return itemCarouselTemplate(context, ref,
+        label: 'WHEELS',
+        carouselSliderController: wheelsController,
+        itemDocs: wheelProductDocs);
   }
 
   Widget _batteryProducts() {
     batteryProductDocs.shuffle();
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        blackSarabunBold('BATTERIES', fontSize: 25),
-        SizedBox(
-          width: MediaQuery.of(context).size.width,
-          child: SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: batteryProductDocs.isNotEmpty
-                    ? MainAxisAlignment.start
-                    : MainAxisAlignment.center,
-                children: batteryProductDocs
-                    .take(6)
-                    .toList()
-                    .map((item) => Row(
-                          children: [
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 10),
-                              child: itemEntry(context,
-                                  itemDoc: item,
-                                  onPress: () =>
-                                      NavigatorRoutes.selectedProduct(
-                                          context, ref,
-                                          productID: item.id),
-                                  fontColor: Colors.white),
-                            ),
-                          ],
-                        ))
-                    .toList()),
-          ),
-        ),
-        const Gap(10),
-      ],
-    );
+    return itemCarouselTemplate(context, ref,
+        label: 'BATTERIES',
+        carouselSliderController: batteryController,
+        itemDocs: batteryProductDocs);
   }
 
   Widget _topProducts() {
     productDocs.shuffle();
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        all20Pix(child: blackSarabunBold('TOP PRODUCTS', fontSize: 25)),
-        SizedBox(
-          width: MediaQuery.of(context).size.width,
-          child: SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: productDocs.isNotEmpty
-                    ? MainAxisAlignment.start
-                    : MainAxisAlignment.center,
-                children: productDocs.isNotEmpty
-                    ? productDocs
-                        .take(6)
-                        .toList()
-                        .map((item) => Row(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10),
-                                  child: itemEntry(context,
-                                      itemDoc: item,
-                                      onPress: () =>
-                                          NavigatorRoutes.selectedProduct(
-                                              context, ref,
-                                              productID: item.id),
-                                      fontColor: Colors.white),
-                                ),
-                              ],
-                            ))
-                        .toList()
-                    : [
-                        Center(
-                            child: blackSarabunBold(
-                                'NO AVAILABLE PRODUCTS TO DISPLAY'))
-                      ]),
-          ),
-        ),
-        const Gap(10),
-      ],
-    );
+    return itemCarouselTemplate(context, ref,
+        label: 'TOP PRODUCTS',
+        carouselSliderController: allProductsController,
+        itemDocs: productDocs);
   }
 
   Widget _topServices() {

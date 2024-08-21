@@ -44,8 +44,7 @@ class _CheckoutScreenState extends ConsumerState<CheckoutScreen> {
         //  Get product details
         for (var cartDoc in selectedCartDocs) {
           final cartData = cartDoc.data() as Map<dynamic, dynamic>;
-          final product =
-              await getThisProductDoc(cartData[CartFields.productID]);
+          final product = await getThisProductDoc(cartData[CartFields.itemID]);
           final productData = product.data() as Map<dynamic, dynamic>;
           Map<dynamic, dynamic> productEntry = {
             ProductFields.imageURLs: productData[ProductFields.imageURLs],
@@ -95,7 +94,9 @@ class _CheckoutScreenState extends ConsumerState<CheckoutScreen> {
                     _paymentMethod(),
                     if (ref.read(cartProvider).selectedPaymentMethod.isNotEmpty)
                       _uploadPayment(),
-                    _checkoutButton()
+                    _makePaymentButton(),
+                    if (ref.read(cartProvider).proofOfPaymentFile != null)
+                      _checkoutButton()
                   ],
                 ),
               )),
@@ -180,17 +181,44 @@ class _CheckoutScreenState extends ConsumerState<CheckoutScreen> {
     ));
   }
 
-  Widget _checkoutButton() {
+  Widget _makePaymentButton() {
     return Container(
       height: 60,
       child: ElevatedButton(
           onPressed: ref.read(cartProvider).selectedPaymentMethod.isEmpty
               ? null
-              : () => purchaseSelectedCartItems(context, ref,
-                  paidAmount: totalAmount),
+              : () => ref.read(cartProvider).setProofOfPaymentFile(),
           style: ElevatedButton.styleFrom(
               disabledBackgroundColor: CustomColors.ultimateGray),
-          child: whiteSarabunBold('MAKE PAYMENT')),
+          child: whiteSarabunBold('SELECT PROOF OF PAYMENT')),
     );
+  }
+
+  Widget _checkoutButton() {
+    return vertical20Pix(
+        child: Column(
+      children: [
+        //  Image
+        all10Pix(
+            child: Image.file(ref.read(cartProvider).proofOfPaymentFile!,
+                width: 250, height: 250, fit: BoxFit.cover)),
+        ElevatedButton(
+            onPressed: () => ref.read(cartProvider).resetProofOfPaymentFile(),
+            child: const Icon(Icons.delete, color: Colors.white)),
+        vertical20Pix(
+          child: SizedBox(
+            height: 60,
+            child: ElevatedButton(
+                onPressed: ref.read(cartProvider).selectedPaymentMethod.isEmpty
+                    ? null
+                    : () => purchaseSelectedCartItems(context, ref,
+                        paidAmount: totalAmount),
+                style: ElevatedButton.styleFrom(
+                    disabledBackgroundColor: CustomColors.ultimateGray),
+                child: whiteSarabunBold('SETTLE PAYMENT')),
+          ),
+        )
+      ],
+    ));
   }
 }

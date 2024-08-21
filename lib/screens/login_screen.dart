@@ -103,8 +103,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       emailController: emailController,
                       passwordController: passwordController)),
               const Divider(color: CustomColors.blackBeauty),
-              TextButton(
-                  onPressed: () => Navigator.of(context)
+              GestureDetector(
+                  onTap: () => Navigator.of(context)
                       .pushNamed(NavigatorRoutes.forgotPassword),
                   child: blackSarabunBold('Forgot Password?',
                       fontSize: 16, decoration: TextDecoration.underline)),

@@ -56,8 +56,9 @@ class ProductCategories {
 
 class CartFields {
   static const String clientID = 'clientID';
-  static const String productID = 'productID';
+  static const String itemID = 'itemID';
   static const String quantity = 'quantity';
+  static const String cartType = 'cartType';
 }
 
 class PaymentFields {
@@ -73,6 +74,11 @@ class PaymentFields {
   static const String invoiceURL = 'invoiceURL';
   static const String paymentType = 'paymentType';
   static const String purchaseIDs = 'purchaseIDs';
+}
+
+class CartTypes {
+  static const String product = 'PRODUCT';
+  static const String service = 'SERVICE';
 }
 
 class PaymentTypes {
@@ -126,7 +132,7 @@ class PurchaseStatuses {
 }
 
 class BookingFields {
-  static const String serviceID = 'serviceID';
+  static const String serviceIDs = 'serviceIDs';
   static const String clientID = 'clientID';
   static const String serviceStatus = 'serviceStatus';
   static const String dateCreated = 'dateCreated';

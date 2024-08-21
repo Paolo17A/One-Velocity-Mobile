@@ -22,7 +22,7 @@ class _UnityScreenState extends ConsumerState<UnityScreen> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       ref.read(loadingProvider).toggleLoading(true);
-      ref.read(cartProvider).setCartItems(await getCartEntries(context));
+      ref.read(cartProvider).setCartItems(await getProductCartEntries(context));
     });
   }
 

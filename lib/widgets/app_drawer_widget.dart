@@ -1,18 +1,43 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
+import 'package:one_velocity_mobile/providers/profile_image_url_provider.dart';
+import 'package:one_velocity_mobile/utils/color_util.dart';
+import 'package:one_velocity_mobile/widgets/custom_miscellaneous_widgets.dart';
 
-import '../utils/color_util.dart';
 import '../utils/firebase_util.dart';
 import '../utils/navigator_util.dart';
 import 'text_widgets.dart';
 
-Drawer appDrawer(BuildContext context, {required String route}) {
+Drawer appDrawer(BuildContext context, WidgetRef ref, {required String route}) {
   return Drawer(
     backgroundColor: CustomColors.blackBeauty,
     child: Column(
       children: [
-        const Gap(40),
+        DrawerHeader(
+            margin: EdgeInsets.zero,
+            decoration: BoxDecoration(
+                gradient: LinearGradient(colors: [
+              Color.fromARGB(255, 79, 8, 2),
+              const Color.fromARGB(255, 162, 38, 29)
+            ])),
+            child: Row(
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    buildProfileImage(
+                        profileImageURL:
+                            ref.read(profileImageURLProvider).profileImageURL,
+                        radius: 30),
+                    Gap(18),
+                    whiteSarabunRegular('Name', fontSize: 16),
+                    whiteSarabunRegular('Email Address', fontSize: 12)
+                  ],
+                ),
+              ],
+            )),
         Flexible(
           flex: 1,
           child: ListView(
@@ -23,30 +48,11 @@ Drawer appDrawer(BuildContext context, {required String route}) {
                   onPress: () => route == NavigatorRoutes.home
                       ? null
                       : Navigator.of(context).pushNamed(NavigatorRoutes.home)),
-              const Divider(
-                color: CustomColors.nimbusCloud,
-                indent: 20,
-                endIndent: 20,
-              ),
-              if (hasLoggedInUser())
-                _drawerTile(context,
-                    label: 'Profile',
-                    onPress: () => route == NavigatorRoutes.profile
-                        ? null
-                        : Navigator.of(context)
-                            .pushNamed(NavigatorRoutes.profile))
-              else
+              if (!hasLoggedInUser())
                 _drawerTile(context,
                     label: 'Log-In',
                     onPress: () =>
                         Navigator.of(context).pushNamed(NavigatorRoutes.login)),
-              if (hasLoggedInUser())
-                _drawerTile(context,
-                    label: 'Bookmarks',
-                    onPress: () => route == NavigatorRoutes.bookmarks
-                        ? null
-                        : Navigator.of(context)
-                            .pushNamed(NavigatorRoutes.bookmarks)),
               if (hasLoggedInUser())
                 _drawerTile(context,
                     label: '3D Customization',
@@ -55,13 +61,57 @@ Drawer appDrawer(BuildContext context, {required String route}) {
                         : Navigator.of(context)
                             .pushNamed(NavigatorRoutes.unity)),
               _drawerTile(context,
-                  label: 'Help',
-                  onPress: () => route == NavigatorRoutes.help
+                  label: 'Products',
+                  onPress: () => route == NavigatorRoutes.products
                       ? null
-                      : Navigator.of(context).pushNamed(NavigatorRoutes.help))
+                      : Navigator.of(context)
+                          .pushNamed(NavigatorRoutes.products)),
+              _drawerTile(context,
+                  label: 'Services',
+                  onPress: () => route == NavigatorRoutes.services
+                      ? null
+                      : Navigator.of(context)
+                          .pushNamed(NavigatorRoutes.services)),
+              if (hasLoggedInUser())
+                _drawerTile(context,
+                    label: 'View Cart',
+                    onPress: () => route == NavigatorRoutes.productCart ||
+                            route == NavigatorRoutes.serviceCart
+                        ? null
+                        : showModalBottomSheet(
+                            context: context,
+                            builder: (context) => ListView(
+                                  shrinkWrap: true,
+                                  children: [
+                                    ListTile(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.only(
+                                                topLeft: Radius.circular(20),
+                                                topRight: Radius.circular(20))),
+                                        onTap: () {
+                                          Navigator.of(context).pop();
+                                          Navigator.of(context).pushNamed(
+                                              NavigatorRoutes.productCart);
+                                        },
+                                        title:
+                                            blackSarabunBold('PRODUCTS CART')),
+                                    ListTile(
+                                        onTap: () {
+                                          Navigator.of(context).pop();
+                                          Navigator.of(context).pushNamed(
+                                              NavigatorRoutes.serviceCart);
+                                        },
+                                        title: blackSarabunBold('SERVICE CART'))
+                                  ],
+                                ))),
             ],
           ),
         ),
+        _drawerTile(context,
+            label: 'Help',
+            onPress: () => route == NavigatorRoutes.help
+                ? null
+                : Navigator.of(context).pushNamed(NavigatorRoutes.help)),
         if (hasLoggedInUser())
           _drawerTile(context, label: 'Log-Out', onPress: () {
             FirebaseAuth.instance.signOut().then((value) =>
@@ -76,7 +126,11 @@ Drawer appDrawer(BuildContext context, {required String route}) {
 Widget _drawerTile(BuildContext context,
     {required String label, required Function onPress}) {
   return ListTile(
-    title: whiteSarabunBold(label, fontSize: 16),
+    title: Row(
+      children: [
+        whiteSarabunBold(label, fontSize: 16, textAlign: TextAlign.left),
+      ],
+    ),
     onTap: () {
       Navigator.of(context).pop();
       onPress();

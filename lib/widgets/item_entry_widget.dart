@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:one_velocity_mobile/utils/string_util.dart';
 import 'package:one_velocity_mobile/widgets/custom_padding_widgets.dart';
 import '../utils/color_util.dart';
 import 'text_widgets.dart';
@@ -17,7 +18,12 @@ Widget itemEntry(BuildContext context,
     onTap: () => onPress(),
     child: Container(
       width: 150,
-      decoration: const BoxDecoration(color: CustomColors.ultimateGray),
+      decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border.all(),
+          boxShadow: [
+            BoxShadow(offset: Offset(4, 4), color: CustomColors.ultimateGray)
+          ]),
       child: Column(
         children: [
           _productImage(firstImage),
@@ -30,7 +36,7 @@ Widget itemEntry(BuildContext context,
                 padding: const EdgeInsets.all(4),
                 child: Column(
                   children: [
-                    whiteSarabunBold(itemName,
+                    blackSarabunBold(itemName,
                         textOverflow: TextOverflow.ellipsis),
                     _productPrice(price)
                   ],
@@ -62,7 +68,8 @@ Widget _productPrice(num price) {
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          whiteSarabunRegular('PHP ${price.toStringAsFixed(2)}', fontSize: 14),
+          blackSarabunRegular('PHP ${formatPrice(price.toDouble())}',
+              fontSize: 14),
         ],
       ),
     ],

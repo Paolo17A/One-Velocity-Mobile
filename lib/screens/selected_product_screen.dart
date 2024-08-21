@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:one_velocity_mobile/utils/color_util.dart';
-import 'package:one_velocity_mobile/widgets/app_bottom_navbar_widget.dart';
 
 import '../providers/bookmarks_provider.dart';
 import '../providers/cart_provider.dart';
@@ -57,7 +56,9 @@ class _SelectedProductScreenState extends ConsumerState<SelectedProductScreen> {
               .read(bookmarksProvider)
               .setBookmarkedProducts(userData[UserFields.bookmarkedProducts]);
 
-          ref.read(cartProvider).setCartItems(await getCartEntries(context));
+          ref
+              .read(cartProvider)
+              .setCartItems(await getProductCartEntries(context));
         }
 
         ref.read(loadingProvider.notifier).toggleLoading(false);
@@ -75,13 +76,15 @@ class _SelectedProductScreenState extends ConsumerState<SelectedProductScreen> {
     ref.watch(bookmarksProvider);
     ref.watch(cartProvider);
     return Scaffold(
-      appBar: appBarWidget(),
-      bottomNavigationBar: bottomNavigationBar(context, index: 1),
-      body: switchedLoadingContainer(
-          ref.read(loadingProvider).isLoading,
-          SingleChildScrollView(
-            child: all20Pix(child: _productContainer()),
-          )),
+      appBar: topAppBar(),
+      body: Scaffold(
+        appBar: appBarWidget(),
+        body: switchedLoadingContainer(
+            ref.read(loadingProvider).isLoading,
+            SingleChildScrollView(
+              child: all20Pix(child: _productContainer()),
+            )),
+      ),
     );
   }
 
@@ -90,7 +93,7 @@ class _SelectedProductScreenState extends ConsumerState<SelectedProductScreen> {
       children: [
         if (imageURLs.isNotEmpty) _itemImagesDisplay(),
         blackSarabunBold(name, fontSize: 32),
-        blackSarabunBold('PHP ${price.toStringAsFixed(2)}', fontSize: 20),
+        blackSarabunBold('PHP ${formatPrice(price.toDouble())}', fontSize: 20),
         blackSarabunRegular('Category: $category', fontSize: 16),
         Divider(color: CustomColors.blackBeauty),
         SizedBox(
