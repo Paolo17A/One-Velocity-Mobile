@@ -38,7 +38,7 @@ Widget popUpMenu(BuildContext context, {required String currentPath}) {
   return PopupMenuButton(
       color: CustomColors.blackBeauty,
       onSelected: (value) {
-        if (value == null || currentPath == value) return;
+        if (currentPath == value) return;
         Navigator.of(context).pushNamed(value);
       },
       itemBuilder: (context) => [
@@ -54,6 +54,6 @@ Widget popUpMenu(BuildContext context, {required String currentPath}) {
             PopupMenuItem(
                 value: NavigatorRoutes.bookings,
                 child: whiteSarabunBold('Service Booking History')),
-            PopupMenuItem(child: whiteSarabunBold('Change Password')),
+            //PopupMenuItem(child: whiteSarabunBold('Change Password')),
           ]);
 }

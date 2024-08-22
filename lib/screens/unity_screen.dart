@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_unity_widget/flutter_unity_widget.dart';
@@ -22,7 +23,9 @@ class _UnityScreenState extends ConsumerState<UnityScreen> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       ref.read(loadingProvider).toggleLoading(true);
-      ref.read(cartProvider).setCartItems(await getProductCartEntries(context));
+      List<DocumentSnapshot> products = await getProductCartEntries(context);
+      List<DocumentSnapshot> services = await getServiceCartEntries(context);
+      ref.read(cartProvider).setCartItems([...products, ...services]);
     });
   }
 
@@ -48,8 +51,7 @@ class _UnityScreenState extends ConsumerState<UnityScreen> {
     if (splitMessages.first == PaymentTypes.product) {
       await addProductToCart(context, ref, productID: splitMessages.last);
     } else {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('Paint job gagawin palang')));
+      await addServiceToCart(context, ref, serviceID: splitMessages.last);
     }
     ref.read(loadingProvider).toggleLoading(false);
   }
