@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:one_velocity_mobile/utils/color_util.dart';
 import 'package:one_velocity_mobile/widgets/text_widgets.dart';
 
 import '../providers/loading_provider.dart';
@@ -82,31 +83,46 @@ class _ProductsScreenState extends ConsumerState<ProductsScreen> {
 
   Widget _productCategoryWidget() {
     return vertical20Pix(
-      child: Container(
-        decoration: BoxDecoration(
-            color: Colors.white, borderRadius: BorderRadius.circular(5)),
-        child: dropdownWidget(selectedCategory, (newVal) {
-          setState(() {
-            selectedCategory = newVal!;
-            print(selectedCategory);
-            if (selectedCategory == 'VIEW ALL') {
-              filteredProductDocs = allProductDocs;
-            } else {
-              filteredProductDocs = allProductDocs.where((productDoc) {
-                final productData = productDoc.data() as Map<dynamic, dynamic>;
-                return productData[ProductFields.category] == selectedCategory;
-              }).toList();
-              print('products found: ${filteredProductDocs.length}');
-            }
-          });
-        }, [
-          'VIEW ALL',
-          ProductCategories.wheel,
-          ProductCategories.battery,
-          ProductCategories.accessory,
-          ProductCategories.others
-        ], selectedCategory.isNotEmpty ? selectedCategory : 'Select a category',
-            false),
+      child: Column(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+                color: Colors.white, borderRadius: BorderRadius.circular(5)),
+            child: dropdownWidget(selectedCategory, (newVal) {
+              setState(() {
+                selectedCategory = newVal!;
+                print(selectedCategory);
+                if (selectedCategory == 'VIEW ALL') {
+                  filteredProductDocs = allProductDocs;
+                } else {
+                  filteredProductDocs = allProductDocs.where((productDoc) {
+                    final productData =
+                        productDoc.data() as Map<dynamic, dynamic>;
+                    return productData[ProductFields.category] ==
+                        selectedCategory;
+                  }).toList();
+                  print('products found: ${filteredProductDocs.length}');
+                }
+              });
+            },
+                [
+                  'VIEW ALL',
+                  ProductCategories.wheel,
+                  ProductCategories.battery,
+                  ProductCategories.accessory,
+                  ProductCategories.others
+                ],
+                selectedCategory.isNotEmpty
+                    ? selectedCategory
+                    : 'Select a category',
+                false),
+          ),
+          vertical10Pix(
+              child: Container(
+                  width: double.infinity,
+                  height: 8,
+                  color: CustomColors.grenadine))
+        ],
       ),
     );
   }

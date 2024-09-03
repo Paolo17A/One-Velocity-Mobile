@@ -118,6 +118,8 @@ extern void CarCore_DecrementCarIndex_mEDAB04EA3E0C1BC2CFA92D9D185664A744BD5D1B 
 extern void CarCore_SetSelectedMaterialColor_m1DE30D58007B20C1361EF41AE11A296D050FC7C2 (void);
 extern void CarCore_SelectRed_m3945160468BCB5B0E3E80095E12243F952196D8E (void);
 extern void CarCore_SelectCyan_mB105CEA1AD9F7812F2F6CEFC9AFB4A00227C1DA3 (void);
+extern void CarCore_DisplayWheels_mD8B41A5BF07B3F2BA8FDC592252920F41B1BA3E6 (void);
+extern void CarCore_DisplayPaintJobs_mF253E7CC9624596755E33FB392D505EF41660FAD (void);
 extern void CarCore_TogglePanel_m0F9CB16CC2AB3A9379D31319D8806B6280EECE9A (void);
 extern void CarCore_SendMessageToFlutter_mD621B4835A49000778B9699B7817C3ECC7A7AB03 (void);
 extern void CarCore__ctor_m6DE4C146929F32917E166CC6DCD1EBA36C8F8B26 (void);
@@ -1344,7 +1346,7 @@ extern void MessageHandlerDelegate__ctor_m287CBD25D77011FC5A52D1090F6CC31353AB63
 extern void MessageHandlerDelegate_Invoke_mD1EC9E1841D5014C40A26D4C4BA076482FFC8A4B (void);
 extern void MessageHandlerDelegate_BeginInvoke_m0CC5C5B29E11DD03F1726B49E4B1E516479AC58D (void);
 extern void MessageHandlerDelegate_EndInvoke_mAD2746E001DB9A3D18A1D806610542321FE0CF16 (void);
-static Il2CppMethodPointer s_methodPointers[1345] = 
+static Il2CppMethodPointer s_methodPointers[1347] = 
 {
 	NULL,
 	NULL,
@@ -1460,6 +1462,8 @@ static Il2CppMethodPointer s_methodPointers[1345] =
 	CarCore_SetSelectedMaterialColor_m1DE30D58007B20C1361EF41AE11A296D050FC7C2,
 	CarCore_SelectRed_m3945160468BCB5B0E3E80095E12243F952196D8E,
 	CarCore_SelectCyan_mB105CEA1AD9F7812F2F6CEFC9AFB4A00227C1DA3,
+	CarCore_DisplayWheels_mD8B41A5BF07B3F2BA8FDC592252920F41B1BA3E6,
+	CarCore_DisplayPaintJobs_mF253E7CC9624596755E33FB392D505EF41660FAD,
 	CarCore_TogglePanel_m0F9CB16CC2AB3A9379D31319D8806B6280EECE9A,
 	CarCore_SendMessageToFlutter_mD621B4835A49000778B9699B7817C3ECC7A7AB03,
 	CarCore__ctor_m6DE4C146929F32917E166CC6DCD1EBA36C8F8B26,
@@ -2692,7 +2696,7 @@ static Il2CppMethodPointer s_methodPointers[1345] =
 	MessageHandlerDelegate_BeginInvoke_m0CC5C5B29E11DD03F1726B49E4B1E516479AC58D,
 	MessageHandlerDelegate_EndInvoke_mAD2746E001DB9A3D18A1D806610542321FE0CF16,
 };
-static const int32_t s_InvokerIndices[1345] = 
+static const int32_t s_InvokerIndices[1347] = 
 {
 	0,
 	0,
@@ -2806,6 +2810,8 @@ static const int32_t s_InvokerIndices[1345] =
 	2935,
 	2935,
 	2509,
+	2935,
+	2935,
 	2935,
 	2935,
 	2935,
@@ -4044,7 +4050,7 @@ static const Il2CppTokenRangePair s_rgctxIndices[3] =
 {
 	{ 0x02000002, { 0, 29 } },
 	{ 0x02000076, { 29, 11 } },
-	{ 0x06000527, { 40, 2 } },
+	{ 0x06000529, { 40, 2 } },
 };
 extern const uint32_t g_rgctx_U3CU3Ef__AnonymousType0_4_t93FD0713D40011506D6B5581D9D5064D1A1A31B8;
 extern const uint32_t g_rgctx_U3CidU3Ej__TPar_tB4283D6614B0A1B9713411CF590AE6445EC76C76;
@@ -4137,7 +4143,7 @@ IL2CPP_EXTERN_C const Il2CppCodeGenModule g_AssemblyU2DCSharp_CodeGenModule;
 const Il2CppCodeGenModule g_AssemblyU2DCSharp_CodeGenModule = 
 {
 	"Assembly-CSharp.dll",
-	1345,
+	1347,
 	s_methodPointers,
 	0,
 	NULL,

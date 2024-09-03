@@ -6,6 +6,7 @@ import 'package:one_velocity_mobile/providers/profile_image_url_provider.dart';
 import 'package:one_velocity_mobile/utils/color_util.dart';
 import 'package:one_velocity_mobile/widgets/custom_miscellaneous_widgets.dart';
 
+import '../providers/user_data_provider.dart';
 import '../utils/firebase_util.dart';
 import '../utils/navigator_util.dart';
 import 'text_widgets.dart';
@@ -15,29 +16,42 @@ Drawer appDrawer(BuildContext context, WidgetRef ref, {required String route}) {
     backgroundColor: CustomColors.blackBeauty,
     child: Column(
       children: [
-        DrawerHeader(
-            margin: EdgeInsets.zero,
-            decoration: BoxDecoration(
-                gradient: LinearGradient(colors: [
-              Color.fromARGB(255, 79, 8, 2),
-              const Color.fromARGB(255, 162, 38, 29)
-            ])),
-            child: Row(
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    buildProfileImage(
-                        profileImageURL:
-                            ref.read(profileImageURLProvider).profileImageURL,
-                        radius: 30),
-                    Gap(18),
-                    whiteSarabunRegular('Name', fontSize: 16),
-                    whiteSarabunRegular('Email Address', fontSize: 12)
-                  ],
-                ),
-              ],
-            )),
+        SizedBox(
+          height: !hasLoggedInUser() ? 80 : null,
+          child: DrawerHeader(
+              margin: EdgeInsets.zero,
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(colors: [
+                Color.fromARGB(255, 79, 8, 2),
+                const Color.fromARGB(255, 162, 38, 29)
+              ])),
+              child: Row(
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      if (hasLoggedInUser()) ...[
+                        buildProfileImage(
+                            profileImageURL: ref
+                                .read(profileImageURLProvider)
+                                .profileImageURL,
+                            radius: 30),
+                        Gap(18),
+                        whiteSarabunRegular(ref.read(userDataProvider).name,
+                            fontSize: 16),
+                        whiteSarabunRegular(ref.read(userDataProvider).email,
+                            fontSize: 12)
+                      ] else
+                        TextButton(
+                            onPressed: () => Navigator.of(context)
+                                .pushNamed(NavigatorRoutes.login),
+                            child: whiteSarabunBold('Log-In Now'))
+                    ],
+                  ),
+                ],
+              )),
+        ),
         Flexible(
           flex: 1,
           child: ListView(
@@ -48,11 +62,6 @@ Drawer appDrawer(BuildContext context, WidgetRef ref, {required String route}) {
                   onPress: () => route == NavigatorRoutes.home
                       ? null
                       : Navigator.of(context).pushNamed(NavigatorRoutes.home)),
-              if (!hasLoggedInUser())
-                _drawerTile(context,
-                    label: 'Log-In',
-                    onPress: () =>
-                        Navigator.of(context).pushNamed(NavigatorRoutes.login)),
               if (hasLoggedInUser())
                 _drawerTile(context,
                     label: '3D Customization',
@@ -114,6 +123,9 @@ Drawer appDrawer(BuildContext context, WidgetRef ref, {required String route}) {
                 : Navigator.of(context).pushNamed(NavigatorRoutes.help)),
         if (hasLoggedInUser())
           _drawerTile(context, label: 'Log-Out', onPress: () {
+            ref.read(profileImageURLProvider).setImageURL('');
+            ref.read(userDataProvider).setName('');
+            ref.read(userDataProvider).setEmail('');
             FirebaseAuth.instance.signOut().then((value) =>
                 Navigator.of(context)
                     .pushReplacementNamed(NavigatorRoutes.home));

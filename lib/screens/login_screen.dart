@@ -77,7 +77,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   Widget _logInContainer() {
     return SizedBox(
-        width: MediaQuery.of(context).size.width * 0.8,
+        width: MediaQuery.of(context).size.width * 0.9,
         child: roundedNimbusContainer(context,
             child: Column(mainAxisSize: MainAxisSize.min, children: [
               blackSarabunBold('LOG-IN', fontSize: 32),
@@ -106,12 +106,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               GestureDetector(
                   onTap: () => Navigator.of(context)
                       .pushNamed(NavigatorRoutes.forgotPassword),
-                  child: blackSarabunBold('Forgot Password?',
+                  child: blackSarabunRegular('Forgot Password?',
                       fontSize: 16, decoration: TextDecoration.underline)),
               TextButton(
                   onPressed: () => Navigator.of(context)
                       .pushReplacementNamed(NavigatorRoutes.register),
-                  child: blackSarabunBold('Don\'t have an account?',
+                  child: blackSarabunRegular('Don\'t have an account?',
                       fontSize: 16, decoration: TextDecoration.underline))
             ])));
   }

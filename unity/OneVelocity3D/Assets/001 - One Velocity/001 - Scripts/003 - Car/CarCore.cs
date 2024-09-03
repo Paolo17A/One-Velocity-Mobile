@@ -32,6 +32,8 @@ public class CarCore : MonoBehaviour
     [SerializeField] private GameObject WheelsPanel;
     [SerializeField] private GameObject PaintJobPanel;
     [SerializeField] private TextMeshProUGUI PurchaseTMP;
+    [SerializeField] private Button WheelsBtn;
+    [SerializeField] private Button PaintJobBtn;
     //=============================================================================================
 
     private void Awake()
@@ -64,7 +66,7 @@ public class CarCore : MonoBehaviour
     public void SetSelectedPaintJob(ColorSelector colorSelector)
     {
         SelectedColorSelector = colorSelector;
-        SelectedWheelNameTMP.text = SelectedColorSelector.paintJobData.name;
+        SelectedWheelNameTMP.text = SelectedColorSelector.paintJobData.serviceName;
         PriceTMP.text = "PHP " + SelectedColorSelector.paintJobData.price.ToString("n0");
         AddToCartBtn.interactable = true;
         SetSelectedMaterialColor(SelectedColorSelector.paintJobData.color);
@@ -108,20 +110,49 @@ public class CarCore : MonoBehaviour
         SetSelectedMaterialColor(new Color(0, 255, 255));
     }
 
+    public void DisplayWheels()
+    {
+        isDisplayingWheels = true;
+        WheelsPanel.SetActive(true);
+        PaintJobPanel.SetActive(false);
+        PurchaseTMP.text = "BUY WHEEL";
+        PurchaseTMP.fontSize = 64;
+        WheelsBtn.interactable = false;
+        WheelsBtn.GetComponent<RectTransform>().localScale = Vector3.one;
+        PaintJobBtn.interactable = true;
+        PaintJobBtn.GetComponent<RectTransform>().localScale = new Vector3(0.8f, 0.8f,1);
+    }
+
+    public void DisplayPaintJobs()
+    {
+        isDisplayingWheels = false;
+        WheelsPanel.SetActive(false);
+        PaintJobPanel.SetActive(true);
+        PurchaseTMP.text = "AVAIL PAINT JOB";
+        PurchaseTMP.fontSize = 48;
+        WheelsBtn.interactable = true;
+        WheelsBtn.GetComponent<RectTransform>().localScale = new Vector3(0.8f, 0.8f, 1);
+        PaintJobBtn.interactable = false;
+        PaintJobBtn.GetComponent<RectTransform>().localScale = Vector3.one;
+
+    }
+
     public void TogglePanel()
     {
-        isDisplayingWheels = !isDisplayingWheels;
+        //isDisplayingWheels = !isDisplayingWheels;
         if (isDisplayingWheels)
         {
             WheelsPanel.SetActive(true);
             PaintJobPanel.SetActive(false);
-            PurchaseTMP.text = "BUY\nWHEEL";
+            PurchaseTMP.text = "BUY WHEEL";
+            PurchaseTMP.fontSize = 64;
         }
         else
         {
             WheelsPanel.SetActive(false);
             PaintJobPanel.SetActive(true);
-            PurchaseTMP.text = "AVAIL\nPAINT JOB";
+            PurchaseTMP.text = "AVAIL PAINT JOB";
+            PurchaseTMP.fontSize = 48;
         }
     }
 

@@ -51,6 +51,12 @@ class _HelpScreenState extends ConsumerState<HelpScreen> {
                 ? [popUpMenu(context, currentPath: NavigatorRoutes.help)]
                 : [loginButton(context)]),
         drawer: appDrawer(context, ref, route: NavigatorRoutes.help),
+        floatingActionButton: hasLoggedInUser()
+            ? ElevatedButton(
+                onPressed: () =>
+                    Navigator.of(context).pushNamed(NavigatorRoutes.chat),
+                child: whiteSarabunRegular('Chat with Admin'))
+            : null,
         body: switchedLoadingContainer(
             ref.read(loadingProvider).isLoading,
             SingleChildScrollView(

@@ -7,7 +7,6 @@ import 'package:one_velocity_mobile/widgets/custom_button_widgets.dart';
 import 'package:one_velocity_mobile/widgets/text_widgets.dart';
 
 import '../providers/loading_provider.dart';
-import '../utils/color_util.dart';
 import '../utils/firebase_util.dart';
 import '../utils/navigator_util.dart';
 import '../utils/string_util.dart';
@@ -29,11 +28,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   List<DocumentSnapshot> wheelProductDocs = [];
   List<DocumentSnapshot> batteryProductDocs = [];
   List<DocumentSnapshot> serviceDocs = [];
+  List<String> randomImages = [
+    ImagePaths.spanish,
+    ImagePaths.maintenance,
+    ImagePaths.sale
+  ];
 
-  CarouselSliderController wheelsController = CarouselSliderController();
-  CarouselSliderController batteryController = CarouselSliderController();
-  CarouselSliderController allProductsController = CarouselSliderController();
-  CarouselSliderController allServicesController = CarouselSliderController();
+  CarouselSliderController carouselSliderController =
+      CarouselSliderController();
 
   @override
   void initState() {
@@ -51,6 +53,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         return productData[ProductFields.category] == ProductCategories.battery;
       }).toList();
       serviceDocs = await getAllServices();
+      serviceDocs.where((serviceDoc) {
+        final serviceData = serviceDoc.data() as Map<dynamic, dynamic>;
+        return serviceData[ServiceFields.category] ==
+            ServiceCategories.paintJob;
+      }).toList();
 
       ref.read(loadingProvider.notifier).toggleLoading(false);
     });
@@ -74,11 +81,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               SingleChildScrollView(
                   child: Column(
                 children: [
+                  _randomImagesCarousel(),
                   if (wheelProductDocs.isNotEmpty) _wheelProducts(),
                   if (batteryProductDocs.isNotEmpty) _batteryProducts(),
-                  _topProducts(),
-                  const Divider(color: CustomColors.blackBeauty),
-                  _topServices()
+                  //_topProducts(),
+                  //const Divider(color: CustomColors.blackBeauty),
+                  _topServices(),
+                  Gap(20)
                 ],
               ))),
         ),
@@ -86,35 +95,54 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     );
   }
 
+  Widget _randomImagesCarousel() {
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.95,
+      height: 300,
+      child: CarouselSlider.builder(
+        carouselController: carouselSliderController,
+        itemCount: randomImages.length,
+        disableGesture: false,
+        options:
+            CarouselOptions(viewportFraction: 0.6, enlargeCenterPage: true),
+        itemBuilder: (context, index, realIndex) {
+          return Container(
+            width: 300,
+            height: 300,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                image: DecorationImage(
+                    image: AssetImage(randomImages[index]), fit: BoxFit.fill)),
+          );
+        },
+      ),
+    );
+  }
+
   Widget _wheelProducts() {
     wheelProductDocs.shuffle();
-    return itemCarouselTemplate(context, ref,
-        label: 'WHEELS',
-        carouselSliderController: wheelsController,
-        itemDocs: wheelProductDocs);
+    return slidingProductsTemplate(context, ref,
+        label: 'NEED WHEELS?', itemDocs: wheelProductDocs);
   }
 
   Widget _batteryProducts() {
     batteryProductDocs.shuffle();
-    return itemCarouselTemplate(context, ref,
-        label: 'BATTERIES',
-        carouselSliderController: batteryController,
-        itemDocs: batteryProductDocs);
+    return slidingProductsTemplate(context, ref,
+        label: 'NEED BATTERIES?', itemDocs: batteryProductDocs);
   }
 
   Widget _topProducts() {
     productDocs.shuffle();
-    return itemCarouselTemplate(context, ref,
-        label: 'TOP PRODUCTS',
-        carouselSliderController: allProductsController,
-        itemDocs: productDocs);
+    return slidingProductsTemplate(context, ref,
+        label: 'TOP PRODUCTS', itemDocs: productDocs);
   }
 
   Widget _topServices() {
     serviceDocs.shuffle();
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        all20Pix(child: blackSarabunBold('TOP SERVICES', fontSize: 25)),
+        all20Pix(child: blackSarabunBold('WANT A PAINT JOB?', fontSize: 25)),
         Container(
           width: MediaQuery.of(context).size.width,
           //color: Colors.blue,

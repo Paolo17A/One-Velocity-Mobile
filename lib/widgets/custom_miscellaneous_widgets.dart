@@ -159,29 +159,34 @@ Widget bookingHistoryEntry(DocumentSnapshot bookingDoc,
                     ],
                   ),
                   Gap(10),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      blackSarabunRegular('Status: $serviceStatus',
-                          fontSize: 15),
-                      blackSarabunRegular(
-                          'Date Booked: ${DateFormat('MMM dd, yyyy').format(dateCreated)}',
-                          fontSize: 15),
-                      blackSarabunRegular(
-                          'Date Requested: ${DateFormat('MMM dd, yyyy').format(dateRequsted)}',
-                          fontSize: 15),
-                      Gap(15),
-                      blackSarabunBold(
-                          'Total: PHP ${formatPrice(totalPrice.toDouble())}',
-                          fontSize: 15),
-                      if (serviceStatus == ServiceStatuses.pendingPayment)
-                        ElevatedButton(
-                            onPressed: () => NavigatorRoutes.settleBooking(
-                                context,
-                                bookingID: bookingDoc.id),
-                            child: whiteSarabunRegular('SETTLE PAYMENT'))
-                    ],
+                  SizedBox(
+                    width: 160,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        blackSarabunRegular('Status: $serviceStatus',
+                            fontSize: 13, textAlign: TextAlign.left),
+                        blackSarabunRegular(
+                            'Date Booked: ${DateFormat('MMM dd, yyyy').format(dateCreated)}',
+                            fontSize: 13,
+                            textAlign: TextAlign.left),
+                        blackSarabunRegular(
+                            'Date Requested: ${DateFormat('MMM dd, yyyy').format(dateRequsted)}',
+                            fontSize: 13,
+                            textAlign: TextAlign.left),
+                        Gap(15),
+                        blackSarabunBold(
+                            'Total: PHP ${formatPrice(totalPrice.toDouble())}',
+                            fontSize: 15),
+                        if (serviceStatus == ServiceStatuses.pendingPayment)
+                          ElevatedButton(
+                              onPressed: () => NavigatorRoutes.settleBooking(
+                                  context,
+                                  bookingID: bookingDoc.id),
+                              child: whiteSarabunRegular('SETTLE PAYMENT'))
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -189,6 +194,44 @@ Widget bookingHistoryEntry(DocumentSnapshot bookingDoc,
             ],
           ));
     },
+  );
+}
+
+Widget slidingProductsTemplate(BuildContext context, WidgetRef ref,
+    {required String label, required List<DocumentSnapshot> itemDocs}) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      all20Pix(child: blackSarabunBold(label, fontSize: 25)),
+      Container(
+        width: MediaQuery.of(context).size.width,
+        //color: Colors.blue,
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: itemDocs.isNotEmpty
+                  ? MainAxisAlignment.start
+                  : MainAxisAlignment.center,
+              children: itemDocs.isNotEmpty
+                  ? itemDocs
+                      .take(6)
+                      .toList()
+                      .map((item) => Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: itemEntry(context,
+                                itemDoc: item,
+                                onPress: () => NavigatorRoutes.selectedProduct(
+                                    context, ref,
+                                    productID: item.id),
+                                fontColor: Colors.white),
+                          ))
+                      .toList()
+                  : [blackSarabunBold('NO AVAILABLE PRODUCTS TO DISPLAY')]),
+        ),
+      ),
+      const Gap(10),
+    ],
   );
 }
 

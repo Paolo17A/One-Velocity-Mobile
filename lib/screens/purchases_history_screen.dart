@@ -127,7 +127,7 @@ class _PurchasesHistoryScreenState
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.8,
+                        width: MediaQuery.of(context).size.width * 0.75,
                         child: blackSarabunBold(name,
                             textAlign: TextAlign.left,
                             fontSize: 25,

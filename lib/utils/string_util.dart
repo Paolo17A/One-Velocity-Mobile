@@ -1,8 +1,13 @@
 import 'dart:math';
 
+String adminID = 'Gaz292NpJah1K0IAjqIlAUFPg1Q2';
+
 class ImagePaths {
   static const String logo = 'assets/images/one_velocity.jpg';
   static const String home_bg = 'assets/images/home_bg.png';
+  static const String maintenance = 'assets/images/maintenance.png';
+  static const String sale = 'assets/images/sale.png';
+  static const String spanish = 'assets/images/spanish.png';
 }
 
 class UserTypes {
@@ -19,6 +24,7 @@ class Collections {
   static const String payments = 'payments';
   static const String services = 'services';
   static const String bookings = 'bookings';
+  static const String messages = 'messages';
 }
 
 class UserFields {
@@ -102,6 +108,12 @@ class ServiceFields {
   static const String isAvailable = 'isAvailable';
   static const String price = 'price';
   static const String imageURLs = 'imageURLs';
+  static const String category = 'category';
+}
+
+class ServiceCategories {
+  static const String paintJob = 'PAINT JOB';
+  static const String repair = 'REPAIR';
 }
 
 class PathParameters {
@@ -149,6 +161,19 @@ class ServiceStatuses {
   static const String serviceCompleted = 'SERVICE COMPLETED';
   static const String denied = 'DENIED';
   static const String cancelled = 'CANCELLED';
+}
+
+class MessageFields {
+  static const String messageThread = 'messageThread';
+  static const String messageContent = 'messageContent';
+  static const String dateTimeSent = 'dateTimeSent';
+  static const String dateTimeCreated = 'dateTimeCreated';
+  static const String lastMessageSent = 'lastMessageSent';
+  static const String sender = 'sender';
+  static const String adminID = 'adminID';
+  static const String clientID = 'clientID';
+  static const String adminUnread = 'adminUnread';
+  static const String clientUnread = 'clientUnread';
 }
 
 String generateRandomHexString(int length) {

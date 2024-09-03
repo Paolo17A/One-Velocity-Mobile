@@ -72,21 +72,19 @@ class _ServicesScreenState extends ConsumerState<ServicesScreen> {
   Widget _availableServices() {
     return Column(
       children: [
-        all20Pix(
-            child: allServiceDocs.isNotEmpty
-                ? Wrap(
-                    alignment: WrapAlignment.spaceEvenly,
-                    spacing: 40,
-                    runSpacing: 40,
-                    children: allServiceDocs.asMap().entries.map((item) {
-                      DocumentSnapshot thisService = allServiceDocs[item.key];
-                      return itemEntry(context,
-                          itemDoc: thisService,
-                          onPress: () => NavigatorRoutes.selectedService(
-                              context,
-                              serviceID: thisService.id));
-                    }).toList())
-                : blackSarabunBold('NO SERVICES AVAILABLE', fontSize: 44)),
+        allServiceDocs.isNotEmpty
+            ? Wrap(
+                alignment: WrapAlignment.start,
+                spacing: 40,
+                runSpacing: 40,
+                children: allServiceDocs.asMap().entries.map((item) {
+                  DocumentSnapshot thisService = allServiceDocs[item.key];
+                  return itemEntry(context,
+                      itemDoc: thisService,
+                      onPress: () => NavigatorRoutes.selectedService(context,
+                          serviceID: thisService.id));
+                }).toList())
+            : blackSarabunBold('NO SERVICES AVAILABLE', fontSize: 44),
       ],
     );
   }

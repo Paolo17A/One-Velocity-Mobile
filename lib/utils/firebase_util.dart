@@ -8,6 +8,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:one_velocity_mobile/providers/user_data_provider.dart';
 import 'package:one_velocity_mobile/utils/navigator_util.dart';
 
 import '../providers/bookmarks_provider.dart';
@@ -124,6 +125,9 @@ Future logInUser(BuildContext context, WidgetRef ref,
     ref
         .read(profileImageURLProvider)
         .setImageURL(userData[UserFields.profileImageURL]);
+    ref.read(userDataProvider).setName(
+        '${userData[UserFields.firstName]} ${userData[UserFields.lastName]}');
+    ref.read(userDataProvider).setEmail(userData[UserFields.email]);
     ref.read(loadingProvider.notifier).toggleLoading(false);
     navigator.pushReplacementNamed(NavigatorRoutes.home);
   } catch (error) {
@@ -232,6 +236,8 @@ Future editClientProfile(BuildContext context, WidgetRef ref,
       UserFields.lastName: lastNameController.text.trim(),
       UserFields.mobileNumber: mobileNumberController.text
     });
+    ref.read(userDataProvider).setName(
+        '${firstNameController.text.trim()} ${lastNameController.text.trim()}');
     ref.read(loadingProvider.notifier).toggleLoading(false);
     navigator.pop();
     navigator.pushReplacementNamed(NavigatorRoutes.profile);
@@ -826,4 +832,80 @@ Future settleBookingRequestPayment(BuildContext context, WidgetRef ref,
         content: Text('Error seetling booking request payment: $error')));
     ref.read(loadingProvider.notifier).toggleLoading(false);
   }
+}
+//==============================================================================
+//==MESSAGES====================================================================
+//==============================================================================
+
+Future<String> getChatDocumentId(
+    String currentUserUID, String otherUserUID) async {
+  final userDoc = await getCurrentUserDoc();
+  final currentUserData = userDoc.data() as Map<dynamic, dynamic>;
+  bool isClient = currentUserData[UserFields.userType] == UserTypes.client;
+  final querySnapshot = await FirebaseFirestore.instance
+      .collection(Collections.messages)
+      .where(MessageFields.adminID,
+          isEqualTo: isClient ? otherUserUID : currentUserUID)
+      .where(MessageFields.clientID,
+          isEqualTo: isClient ? currentUserUID : otherUserUID)
+      .get();
+
+  if (querySnapshot.docs.isNotEmpty) {
+    return querySnapshot.docs.first.id;
+  } else {
+    // Chat document doesn't exist yet, create a new one
+    final newChatDocRef =
+        FirebaseFirestore.instance.collection(Collections.messages).doc();
+    await newChatDocRef.set({
+      MessageFields.adminID: isClient ? otherUserUID : currentUserUID,
+      MessageFields.clientID: isClient ? currentUserUID : otherUserUID,
+      MessageFields.dateTimeCreated: DateTime.now(),
+      MessageFields.dateTimeSent: DateTime.now(),
+      MessageFields.adminUnread: 0,
+      MessageFields.clientUnread: 0
+    });
+    return newChatDocRef.id;
+  }
+}
+
+Future submitMessage(
+    {required String message,
+    required bool isClient,
+    required String senderUID,
+    required String otherUID}) async {
+  //final user = FirebaseAuth.instance.currentUser!;
+
+  final checkMessages = await FirebaseFirestore.instance
+      .collection(Collections.messages)
+      .where(MessageFields.adminID, isEqualTo: isClient ? otherUID : senderUID)
+      .where(MessageFields.clientID, isEqualTo: isClient ? senderUID : otherUID)
+      .get();
+  final chatDocument = checkMessages.docs.first;
+  final messageThreadCollection =
+      chatDocument.reference.collection(MessageFields.messageThread);
+  DateTime timeNow = DateTime.now();
+  await messageThreadCollection.add({
+    MessageFields.sender: senderUID,
+    MessageFields.dateTimeSent: timeNow,
+    MessageFields.messageContent: message
+  });
+  await chatDocument.reference.update({
+    MessageFields.lastMessageSent: timeNow,
+    isClient ? MessageFields.adminUnread : MessageFields.clientUnread:
+        FieldValue.increment(1)
+  });
+}
+
+Future setClientMessagesAsRead({required String messageThreadID}) async {
+  await FirebaseFirestore.instance
+      .collection(Collections.messages)
+      .doc(messageThreadID)
+      .update({MessageFields.clientUnread: 0});
+}
+
+Future setAdminMessagesAsRead({required String messageThreadID}) async {
+  await FirebaseFirestore.instance
+      .collection(Collections.messages)
+      .doc(messageThreadID)
+      .update({MessageFields.adminUnread: 0});
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:one_velocity_mobile/screens/bookmarks_screen.dart';
+import 'package:one_velocity_mobile/screens/chat_screen.dart';
 import 'package:one_velocity_mobile/screens/product_cart_screen.dart';
 import 'package:one_velocity_mobile/screens/checkout_screen.dart';
 import 'package:one_velocity_mobile/screens/forgot_password_screen.dart';
@@ -60,6 +61,8 @@ class NavigatorRoutes {
     Navigator.of(context).push(MaterialPageRoute(
         builder: (context) => QuotationScreen(quotationURL: quotationURL)));
   }
+
+  static const String chat = 'chat';
 }
 
 final Map<String, WidgetBuilder> routes = {
@@ -78,5 +81,6 @@ final Map<String, WidgetBuilder> routes = {
   NavigatorRoutes.purchases: (context) => const PurchasesHistoryScreen(),
   NavigatorRoutes.bookings: (context) => const BookingHistoryScreen(),
   NavigatorRoutes.help: (context) => const HelpScreen(),
-  NavigatorRoutes.unity: (context) => const UnityScreen()
+  NavigatorRoutes.unity: (context) => const UnityScreen(),
+  NavigatorRoutes.chat: (context) => const ChatScreen()
 };
