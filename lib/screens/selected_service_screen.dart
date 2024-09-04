@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
+import '../providers/bookmarks_provider.dart';
+import '../providers/cart_provider.dart';
 import '../providers/loading_provider.dart';
 import '../providers/pages_provider.dart';
 import '../utils/firebase_util.dart';
+import '../utils/navigator_util.dart';
 import '../utils/string_util.dart';
 import '../widgets/app_bar_widget.dart';
+import '../widgets/custom_button_widgets.dart';
 import '../widgets/custom_miscellaneous_widgets.dart';
 import '../widgets/custom_padding_widgets.dart';
 import '../widgets/text_widgets.dart';
@@ -42,8 +46,18 @@ class _SelectedServiceScreenState extends ConsumerState<SelectedServiceScreen> {
         price = serviceData[ServiceFields.price];
         isAvailable = serviceData[ServiceFields.isAvailable];
         imageURLs = serviceData[ServiceFields.imageURLs];
-        ref.read(pagesProvider.notifier).setCurrentPage(1);
-        ref.read(pagesProvider.notifier).setMaxPage(imageURLs.length);
+        //  GET USER DATA
+        if (hasLoggedInUser()) {
+          final user = await getCurrentUserDoc();
+          final userData = user.data() as Map<dynamic, dynamic>;
+          ref
+              .read(bookmarksProvider)
+              .setBookmarkedServices(userData[UserFields.bookmarkedServices]);
+
+          ref
+              .read(cartProvider)
+              .setCartItems(await getProductCartEntries(context));
+        }
         ref.read(loadingProvider.notifier).toggleLoading(false);
       } catch (error) {
         scaffoldMessenger.showSnackBar(
@@ -56,14 +70,22 @@ class _SelectedServiceScreenState extends ConsumerState<SelectedServiceScreen> {
   @override
   Widget build(BuildContext context) {
     ref.watch(loadingProvider);
+    ref.watch(bookmarksProvider);
+    ref.watch(cartProvider);
     currentImageIndex = ref.watch(pagesProvider.notifier).getCurrentPage();
     return Scaffold(
-      appBar: appBarWidget(),
-      body: switchedLoadingContainer(
-          ref.read(loadingProvider).isLoading,
-          SingleChildScrollView(
-            child: all20Pix(child: _serviceContainer()),
-          )),
+      appBar: topAppBar(),
+      body: Scaffold(
+        appBar: appBarWidget(
+            actions: hasLoggedInUser()
+                ? [popUpMenu(context, currentPath: NavigatorRoutes.home)]
+                : [loginButton(context)]),
+        body: switchedLoadingContainer(
+            ref.read(loadingProvider).isLoading,
+            SingleChildScrollView(
+              child: all20Pix(child: _serviceContainer()),
+            )),
+      ),
     );
   }
 

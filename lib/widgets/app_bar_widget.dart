@@ -54,6 +54,8 @@ Widget popUpMenu(BuildContext context, {required String currentPath}) {
             PopupMenuItem(
                 value: NavigatorRoutes.bookings,
                 child: whiteSarabunBold('Service Booking History')),
-            //PopupMenuItem(child: whiteSarabunBold('Change Password')),
+            PopupMenuItem(
+                value: NavigatorRoutes.changePassword,
+                child: whiteSarabunBold('Change Password')),
           ]);
 }

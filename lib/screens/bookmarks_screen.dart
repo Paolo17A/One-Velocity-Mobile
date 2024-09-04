@@ -40,10 +40,12 @@ class _BookMarksScreenState extends ConsumerState<BookMarksScreen>
         final userDoc = await getCurrentUserDoc();
         final userData = userDoc.data() as Map<dynamic, dynamic>;
 
-        ref.read(bookmarksProvider).bookmarkedProducts =
-            userData[UserFields.bookmarkedProducts];
-        ref.read(bookmarksProvider).bookmarkedServices =
-            userData[UserFields.bookmarkedServices];
+        ref
+            .read(bookmarksProvider)
+            .setBookmarkedProducts(userData[UserFields.bookmarkedProducts]);
+        ref
+            .read(bookmarksProvider)
+            .setBookmarkedServices(userData[UserFields.bookmarkedServices]);
         ref.read(loadingProvider.notifier).toggleLoading(false);
       } catch (error) {
         scaffoldMessenger.showSnackBar(

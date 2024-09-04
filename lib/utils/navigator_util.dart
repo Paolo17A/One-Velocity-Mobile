@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:one_velocity_mobile/screens/bookmarks_screen.dart';
+import 'package:one_velocity_mobile/screens/change_password_screen.dart';
 import 'package:one_velocity_mobile/screens/chat_screen.dart';
 import 'package:one_velocity_mobile/screens/product_cart_screen.dart';
 import 'package:one_velocity_mobile/screens/checkout_screen.dart';
@@ -63,6 +64,7 @@ class NavigatorRoutes {
   }
 
   static const String chat = 'chat';
+  static const String changePassword = 'changePassword';
 }
 
 final Map<String, WidgetBuilder> routes = {
@@ -82,5 +84,6 @@ final Map<String, WidgetBuilder> routes = {
   NavigatorRoutes.bookings: (context) => const BookingHistoryScreen(),
   NavigatorRoutes.help: (context) => const HelpScreen(),
   NavigatorRoutes.unity: (context) => const UnityScreen(),
-  NavigatorRoutes.chat: (context) => const ChatScreen()
+  NavigatorRoutes.chat: (context) => const ChatScreen(),
+  NavigatorRoutes.changePassword: (context) => const ChangePasswordScreen()
 };

@@ -6,8 +6,10 @@ import '../providers/bookmarks_provider.dart';
 import '../providers/cart_provider.dart';
 import '../providers/loading_provider.dart';
 import '../utils/firebase_util.dart';
+import '../utils/navigator_util.dart';
 import '../utils/string_util.dart';
 import '../widgets/app_bar_widget.dart';
+import '../widgets/custom_button_widgets.dart';
 import '../widgets/custom_miscellaneous_widgets.dart';
 import '../widgets/custom_padding_widgets.dart';
 import '../widgets/text_widgets.dart';
@@ -78,7 +80,10 @@ class _SelectedProductScreenState extends ConsumerState<SelectedProductScreen> {
     return Scaffold(
       appBar: topAppBar(),
       body: Scaffold(
-        appBar: appBarWidget(),
+        appBar: appBarWidget(
+            actions: hasLoggedInUser()
+                ? [popUpMenu(context, currentPath: NavigatorRoutes.home)]
+                : [loginButton(context)]),
         body: switchedLoadingContainer(
             ref.read(loadingProvider).isLoading,
             SingleChildScrollView(
