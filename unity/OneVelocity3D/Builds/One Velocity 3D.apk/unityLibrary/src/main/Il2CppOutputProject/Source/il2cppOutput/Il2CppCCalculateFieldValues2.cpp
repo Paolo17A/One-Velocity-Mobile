@@ -14842,7 +14842,9 @@ struct CinemachineVirtualCameraBase_tAD070AA799E9D3990F0B2DA9AC5889CF138261DE  :
 struct ColorSelector_t715168799F5EFEBCBD200E8A7DE868340FDD054D  : public MonoBehaviour_t532A11E69716D348D8AA7F854AFCBFCB8AD17F71
 {
 	CarCore_tF7BD50CC11C1D8BF6C0884133A3C39EEBC964A57* ___CarCore;
+	Image_tBC1D03F63BF71132E9A5E472B8742F172A011E7E* ___CarColorImage;
 	TextMeshProUGUI_t101091AF4B578BB534C92E9D1EEAF0611636D957* ___LabelTMP;
+	TextMeshProUGUI_t101091AF4B578BB534C92E9D1EEAF0611636D957* ___PriceTMP;
 	PaintJobData_t14B68A218832BCCFEA6563F10FAE5766048E6886* ___paintJobData;
 };
 struct EventTrigger_tAEBFB7A16CA99343EA87722F78884BF8646BAE1B  : public MonoBehaviour_t532A11E69716D348D8AA7F854AFCBFCB8AD17F71
@@ -20331,9 +20333,9 @@ IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable6908[1] =
 IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable6909[16] = 
 {
 	static_cast<int32_t>(offsetof(CarCore_tF7BD50CC11C1D8BF6C0884133A3C39EEBC964A57, ___SelectedWheel)),static_cast<int32_t>(offsetof(CarCore_tF7BD50CC11C1D8BF6C0884133A3C39EEBC964A57, ___SelectedColorSelector)),static_cast<int32_t>(offsetof(CarCore_tF7BD50CC11C1D8BF6C0884133A3C39EEBC964A57, ___UnityMessageManager)),static_cast<int32_t>(offsetof(CarCore_tF7BD50CC11C1D8BF6C0884133A3C39EEBC964A57, ___CarModels)),static_cast<int32_t>(offsetof(CarCore_tF7BD50CC11C1D8BF6C0884133A3C39EEBC964A57, ___CurrentCarIndex)),static_cast<int32_t>(offsetof(CarCore_tF7BD50CC11C1D8BF6C0884133A3C39EEBC964A57, ___SelectedWheelNameTMP)),static_cast<int32_t>(offsetof(CarCore_tF7BD50CC11C1D8BF6C0884133A3C39EEBC964A57, ___PriceTMP)),static_cast<int32_t>(offsetof(CarCore_tF7BD50CC11C1D8BF6C0884133A3C39EEBC964A57, ___AddToCartBtn)),static_cast<int32_t>(offsetof(CarCore_tF7BD50CC11C1D8BF6C0884133A3C39EEBC964A57, ___allWheelHandlers)),static_cast<int32_t>(offsetof(CarCore_tF7BD50CC11C1D8BF6C0884133A3C39EEBC964A57, ___SelectedMaterial)),static_cast<int32_t>(offsetof(CarCore_tF7BD50CC11C1D8BF6C0884133A3C39EEBC964A57, ___isDisplayingWheels)),static_cast<int32_t>(offsetof(CarCore_tF7BD50CC11C1D8BF6C0884133A3C39EEBC964A57, ___WheelsPanel)),static_cast<int32_t>(offsetof(CarCore_tF7BD50CC11C1D8BF6C0884133A3C39EEBC964A57, ___PaintJobPanel)),static_cast<int32_t>(offsetof(CarCore_tF7BD50CC11C1D8BF6C0884133A3C39EEBC964A57, ___PurchaseTMP)),static_cast<int32_t>(offsetof(CarCore_tF7BD50CC11C1D8BF6C0884133A3C39EEBC964A57, ___WheelsBtn)),static_cast<int32_t>(offsetof(CarCore_tF7BD50CC11C1D8BF6C0884133A3C39EEBC964A57, ___PaintJobBtn)),};
-IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable6910[3] = 
+IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable6910[5] = 
 {
-	static_cast<int32_t>(offsetof(ColorSelector_t715168799F5EFEBCBD200E8A7DE868340FDD054D, ___CarCore)),static_cast<int32_t>(offsetof(ColorSelector_t715168799F5EFEBCBD200E8A7DE868340FDD054D, ___LabelTMP)),static_cast<int32_t>(offsetof(ColorSelector_t715168799F5EFEBCBD200E8A7DE868340FDD054D, ___paintJobData)),};
+	static_cast<int32_t>(offsetof(ColorSelector_t715168799F5EFEBCBD200E8A7DE868340FDD054D, ___CarCore)),static_cast<int32_t>(offsetof(ColorSelector_t715168799F5EFEBCBD200E8A7DE868340FDD054D, ___CarColorImage)),static_cast<int32_t>(offsetof(ColorSelector_t715168799F5EFEBCBD200E8A7DE868340FDD054D, ___LabelTMP)),static_cast<int32_t>(offsetof(ColorSelector_t715168799F5EFEBCBD200E8A7DE868340FDD054D, ___PriceTMP)),static_cast<int32_t>(offsetof(ColorSelector_t715168799F5EFEBCBD200E8A7DE868340FDD054D, ___paintJobData)),};
 IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable6911[7] = 
 {
 	static_cast<int32_t>(offsetof(SwipeRotate_t909B00F7A1067C6B4B247EE38AC8FAB67C09B407, ___rotationSpeed)),static_cast<int32_t>(offsetof(SwipeRotate_t909B00F7A1067C6B4B247EE38AC8FAB67C09B407, ___swipeThreshold)),static_cast<int32_t>(offsetof(SwipeRotate_t909B00F7A1067C6B4B247EE38AC8FAB67C09B407, ___momentum)),static_cast<int32_t>(offsetof(SwipeRotate_t909B00F7A1067C6B4B247EE38AC8FAB67C09B407, ___lastTouchPosition)),static_cast<int32_t>(offsetof(SwipeRotate_t909B00F7A1067C6B4B247EE38AC8FAB67C09B407, ___horizontalSwipeDistance)),static_cast<int32_t>(offsetof(SwipeRotate_t909B00F7A1067C6B4B247EE38AC8FAB67C09B407, ___horizontalVelocity)),static_cast<int32_t>(offsetof(SwipeRotate_t909B00F7A1067C6B4B247EE38AC8FAB67C09B407, ___isHolding)),};

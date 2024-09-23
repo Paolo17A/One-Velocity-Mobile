@@ -16,11 +16,14 @@ public class SwipeRotate : MonoBehaviour
     private float horizontalSwipeDistance;
     private float horizontalVelocity;
     private bool isHolding = false;
+
     //======================================================================================================================
 
     void Update()
     {
         if (!gameObject.activeSelf) return;
+
+        
 
         if ((Input.touchCount == 1 && !EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
             || (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject()))
@@ -42,6 +45,8 @@ public class SwipeRotate : MonoBehaviour
 
             if (isTouching)
             {
+                if (touchPosition.y < Screen.height / 2)
+                    return; 
                 if (!isHolding)
                 {
                     lastTouchPosition = touchPosition;

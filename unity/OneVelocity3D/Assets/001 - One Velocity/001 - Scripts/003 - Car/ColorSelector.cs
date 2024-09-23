@@ -7,13 +7,18 @@ using UnityEngine.UI;
 public class ColorSelector : MonoBehaviour
 {
     [SerializeField] private CarCore CarCore;
+    [SerializeField] private Image CarColorImage;
     [SerializeField] private TextMeshProUGUI LabelTMP;
+    [SerializeField] private TextMeshProUGUI PriceTMP;
    public PaintJobData paintJobData;
 
     private void Start()
     {
-        gameObject.GetComponent<Image>().color = paintJobData.color;
+        if(CarColorImage != null)
+            CarColorImage.color = paintJobData.color;
         LabelTMP.text = paintJobData.serviceName;
+        if(PriceTMP != null ) 
+            PriceTMP.text = "PHP " + paintJobData.price.ToString("n0");
     }
     public void SelectThisColor()
     {
