@@ -95,11 +95,29 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            buildProfileImage(
-                profileImageURL:
-                    ref.read(profileImageURLProvider).profileImageURL,
-                radius: MediaQuery.of(context).size.width * 0.15),
-            Column(
+            Stack(
+              children: [
+                buildProfileImage(
+                    profileImageURL:
+                        ref.read(profileImageURLProvider).profileImageURL),
+                Positioned(
+                    right: 0,
+                    bottom: 0,
+                    child: GestureDetector(
+                      onTap: () => uploadProfilePicture(context, ref),
+                      child: Container(
+                        width: 40,
+                        height: 40,
+                        decoration: BoxDecoration(
+                            border: Border.all(),
+                            color: CustomColors.ultimateGray,
+                            shape: BoxShape.circle),
+                        child: Icon(Icons.photo_camera),
+                      ),
+                    ))
+              ],
+            ),
+            /*Column(
               children: [
                 if (ref
                     .read(profileImageURLProvider)
@@ -114,7 +132,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                     child: whiteSarabunRegular('UPLOAD\nPROFILE PICTURE',
                         fontSize: 14))
               ],
-            ),
+            ),*/
           ],
         ),
         blackSarabunBold(formattedName, fontSize: 22),

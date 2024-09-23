@@ -59,24 +59,28 @@ Drawer appDrawer(BuildContext context, WidgetRef ref, {required String route}) {
             children: [
               _drawerTile(context,
                   label: 'Home',
+                  iconData: Icons.home,
                   onPress: () => route == NavigatorRoutes.home
                       ? null
                       : Navigator.of(context).pushNamed(NavigatorRoutes.home)),
               if (hasLoggedInUser())
                 _drawerTile(context,
                     label: '3D Customization',
+                    iconData: Icons.car_crash,
                     onPress: () => route == NavigatorRoutes.help
                         ? null
                         : Navigator.of(context)
                             .pushNamed(NavigatorRoutes.unity)),
               _drawerTile(context,
                   label: 'Products',
+                  iconData: Icons.inventory,
                   onPress: () => route == NavigatorRoutes.products
                       ? null
                       : Navigator.of(context)
                           .pushNamed(NavigatorRoutes.products)),
               _drawerTile(context,
                   label: 'Services',
+                  iconData: Icons.home_repair_service,
                   onPress: () => route == NavigatorRoutes.services
                       ? null
                       : Navigator.of(context)
@@ -84,6 +88,7 @@ Drawer appDrawer(BuildContext context, WidgetRef ref, {required String route}) {
               if (hasLoggedInUser())
                 _drawerTile(context,
                     label: 'View Cart',
+                    iconData: Icons.shopping_cart,
                     onPress: () => route == NavigatorRoutes.productCart ||
                             route == NavigatorRoutes.serviceCart
                         ? null
@@ -118,11 +123,13 @@ Drawer appDrawer(BuildContext context, WidgetRef ref, {required String route}) {
         ),
         _drawerTile(context,
             label: 'Help',
+            iconData: Icons.help,
             onPress: () => route == NavigatorRoutes.help
                 ? null
                 : Navigator.of(context).pushNamed(NavigatorRoutes.help)),
         if (hasLoggedInUser())
-          _drawerTile(context, label: 'Log-Out', onPress: () {
+          _drawerTile(context, label: 'Log-Out', iconData: Icons.exit_to_app,
+              onPress: () {
             ref.read(profileImageURLProvider).setImageURL('');
             ref.read(userDataProvider).setName('');
             ref.read(userDataProvider).setEmail('');
@@ -136,10 +143,14 @@ Drawer appDrawer(BuildContext context, WidgetRef ref, {required String route}) {
 }
 
 Widget _drawerTile(BuildContext context,
-    {required String label, required Function onPress}) {
+    {required String label,
+    required IconData iconData,
+    required Function onPress}) {
   return ListTile(
     title: Row(
       children: [
+        Icon(iconData, color: Colors.white, size: 20),
+        Gap(8),
         whiteSarabunBold(label, fontSize: 16, textAlign: TextAlign.left),
       ],
     ),

@@ -2,11 +2,12 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gap/gap.dart';
 import 'package:one_velocity_mobile/widgets/custom_button_widgets.dart';
 import 'package:one_velocity_mobile/widgets/text_widgets.dart';
 
 import '../providers/loading_provider.dart';
+import '../providers/profile_image_url_provider.dart';
+import '../providers/user_data_provider.dart';
 import '../utils/firebase_util.dart';
 import '../utils/navigator_util.dart';
 import '../utils/string_util.dart';
@@ -58,7 +59,16 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         return serviceData[ServiceFields.category] ==
             ServiceCategories.paintJob;
       }).toList();
-
+      if (hasLoggedInUser()) {
+        final user = await getCurrentUserDoc();
+        final userData = user.data() as Map<dynamic, dynamic>;
+        ref
+            .read(profileImageURLProvider)
+            .setImageURL(userData[UserFields.profileImageURL]);
+        ref.read(userDataProvider).setName(
+            '${userData[UserFields.firstName]} ${userData[UserFields.lastName]}');
+        ref.read(userDataProvider).setEmail(userData[UserFields.email]);
+      }
       ref.read(loadingProvider.notifier).toggleLoading(false);
     });
   }
@@ -87,7 +97,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   //_topProducts(),
                   //const Divider(color: CustomColors.blackBeauty),
                   _topServices(),
-                  Gap(20)
                 ],
               ))),
         ),
@@ -131,21 +140,16 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         label: 'NEED BATTERIES?', itemDocs: batteryProductDocs);
   }
 
-  Widget _topProducts() {
-    productDocs.shuffle();
-    return slidingProductsTemplate(context, ref,
-        label: 'TOP PRODUCTS', itemDocs: productDocs);
-  }
-
   Widget _topServices() {
     serviceDocs.shuffle();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        all20Pix(child: blackSarabunBold('WANT A PAINT JOB?', fontSize: 25)),
+        all10Pix(child: blackSarabunBold('WANT A PAINT JOB?', fontSize: 25)),
         Container(
           width: MediaQuery.of(context).size.width,
-          //color: Colors.blue,
+          height: 280,
+          padding: EdgeInsets.symmetric(vertical: 10),
           child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
@@ -160,18 +164,16 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         .map((item) => Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 10),
-                              child: itemEntry(context,
+                              child: curvedItemEntry(context,
                                   itemDoc: item,
                                   onPress: () =>
                                       NavigatorRoutes.selectedService(context,
-                                          serviceID: item.id),
-                                  fontColor: Colors.white),
+                                          serviceID: item.id)),
                             ))
                         .toList()
                     : [blackSarabunBold('NO AVAILABLE SERVICES TO DISPLAY')]),
           ),
         ),
-        const Gap(10),
       ],
     );
   }

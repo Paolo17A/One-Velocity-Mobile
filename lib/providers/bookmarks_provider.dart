@@ -35,6 +35,9 @@ class BookMarksNotifier extends ChangeNotifier {
 
   void removeServiceFromBookmarks(dynamic service) {
     _bookmarkedServices.remove(service);
+    bookmarkedServices.forEach((element) {
+      print(element);
+    });
     notifyListeners();
   }
 }

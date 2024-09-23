@@ -385,6 +385,31 @@ Future addBookmarkedProduct(BuildContext context, WidgetRef ref,
   }
 }
 
+Future addBookmarkedService(BuildContext context, WidgetRef ref,
+    {required String service}) async {
+  final scaffoldMessenger = ScaffoldMessenger.of(context);
+  if (!hasLoggedInUser()) {
+    scaffoldMessenger.showSnackBar(
+        SnackBar(content: Text('Please log-in to your account first.')));
+    return;
+  }
+  try {
+    await FirebaseFirestore.instance
+        .collection(Collections.users)
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .update({
+      UserFields.bookmarkedServices: FieldValue.arrayUnion([service])
+    });
+    ref.read(bookmarksProvider).addServiceToBookmarks(service);
+    scaffoldMessenger.showSnackBar(
+        SnackBar(content: Text('Sucessfully added service to bookmarks.')));
+  } catch (error) {
+    scaffoldMessenger.showSnackBar(
+        SnackBar(content: Text('Error adding service to bookmarks: $error')));
+    ref.read(loadingProvider.notifier).toggleLoading(false);
+  }
+}
+
 Future removeBookmarkedProduct(BuildContext context, WidgetRef ref,
     {required String productID}) async {
   final scaffoldMessenger = ScaffoldMessenger.of(context);
@@ -425,7 +450,7 @@ Future removeBookmarkedService(BuildContext context, WidgetRef ref,
         .update({
       UserFields.bookmarkedServices: FieldValue.arrayRemove([serviceID])
     });
-    ref.read(bookmarksProvider).removeProductFromBookmarks(serviceID);
+    ref.read(bookmarksProvider).removeServiceFromBookmarks(serviceID);
     scaffoldMessenger.showSnackBar(const SnackBar(
         content: Text('Sucessfully removed service from bookmarks.')));
   } catch (error) {
@@ -685,6 +710,7 @@ Future purchaseSelectedCartItems(BuildContext context, WidgetRef ref,
         PurchaseFields.clientID: cartData[CartFields.clientID],
         PurchaseFields.quantity: cartData[CartFields.quantity],
         PurchaseFields.purchaseStatus: PurchaseStatuses.pending,
+        PurchaseFields.dateCreated: DateTime.now(),
         PurchaseFields.datePickedUp: DateTime(1970),
         PurchaseFields.rating: ''
       });
@@ -711,14 +737,14 @@ Future purchaseSelectedCartItems(BuildContext context, WidgetRef ref,
         await FirebaseFirestore.instance.collection(Collections.payments).add({
       PaymentFields.clientID: FirebaseAuth.instance.currentUser!.uid,
       PaymentFields.paidAmount: paidAmount,
-      //PaymentFields.proofOfPayment: downloadURL,
       PaymentFields.paymentVerified: false,
       PaymentFields.paymentStatus: PaymentStatuses.pending,
       PaymentFields.paymentMethod: ref.read(cartProvider).selectedPaymentMethod,
       PaymentFields.dateCreated: DateTime.now(),
       PaymentFields.dateApproved: DateTime(1970),
       PaymentFields.invoiceURL: '',
-      PaymentFields.purchaseIDs: purchaseIDs
+      PaymentFields.purchaseIDs: purchaseIDs,
+      PaymentFields.paymentType: PaymentTypes.product
     });
 
     //  2. Upload the proof of payment image to Firebase Storage
@@ -809,6 +835,7 @@ Future createNewBookingRequest(BuildContext context, WidgetRef ref,
     await FirebaseFirestore.instance.collection(Collections.bookings).add({
       BookingFields.serviceIDs: serviceIDs,
       BookingFields.clientID: FirebaseAuth.instance.currentUser!.uid,
+      BookingFields.paymentID: '',
       BookingFields.dateCreated: DateTime.now(),
       BookingFields.dateRequested: datePicked,
       BookingFields.serviceStatus: ServiceStatuses.pendingApproval
@@ -842,10 +869,8 @@ Future settleBookingRequestPayment(BuildContext context, WidgetRef ref,
   try {
     ref.read(loadingProvider.notifier).toggleLoading(true);
     //  1. Generate a payment document in Firestore
-    await FirebaseFirestore.instance
-        .collection(Collections.payments)
-        .doc(bookingID)
-        .set({
+    final paymentReference =
+        await FirebaseFirestore.instance.collection(Collections.payments).add({
       PaymentFields.clientID: FirebaseAuth.instance.currentUser!.uid,
       PaymentFields.paidAmount: servicePrice,
       PaymentFields.paymentVerified: false,
@@ -862,22 +887,24 @@ Future settleBookingRequestPayment(BuildContext context, WidgetRef ref,
     final storageRef = FirebaseStorage.instance
         .ref()
         .child(StorageFields.payments)
-        .child('${bookingID}.png');
+        .child('${paymentReference.id}.png');
     final uploadTask =
         storageRef.putFile(ref.read(cartProvider).proofOfPaymentFile!);
     final taskSnapshot = await uploadTask;
     final downloadURL = await taskSnapshot.ref.getDownloadURL();
     await FirebaseFirestore.instance
         .collection(Collections.payments)
-        .doc(bookingID)
+        .doc(paymentReference.id)
         .update({PaymentFields.proofOfPayment: downloadURL});
 
     //  2. Change bookings status
     await FirebaseFirestore.instance
         .collection(Collections.bookings)
         .doc(bookingID)
-        .update(
-            {BookingFields.serviceStatus: ServiceStatuses.processingPayment});
+        .update({
+      BookingFields.serviceStatus: ServiceStatuses.processingPayment,
+      BookingFields.paymentID: paymentReference.id
+    });
     scaffoldMessenger.showSnackBar(SnackBar(
         content: Text('Successfully settled booking request payment!')));
     navigator.pop();
@@ -885,7 +912,7 @@ Future settleBookingRequestPayment(BuildContext context, WidgetRef ref,
     ref.read(loadingProvider.notifier).toggleLoading(false);
   } catch (error) {
     scaffoldMessenger.showSnackBar(SnackBar(
-        content: Text('Error seetling booking request payment: $error')));
+        content: Text('Error settling booking request payment: $error')));
     ref.read(loadingProvider.notifier).toggleLoading(false);
   }
 }

@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:one_velocity_mobile/utils/string_util.dart';
 import '../providers/loading_provider.dart';
-import '../utils/color_util.dart';
 import '../utils/firebase_util.dart';
 import '../utils/navigator_util.dart';
 import '../widgets/app_bar_widget.dart';
@@ -59,10 +58,18 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                           children: [
                             vertical10Pix(
                                 child: Image.asset(ImagePaths.logo, scale: 5)),
-                            all20Pix(
-                              child: Row(children: [
-                                blackSarabunBold('Where Quality Meets Velocity')
-                              ]),
+                            vertical20Pix(
+                              child: Row(
+                                children: [
+                                  SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.width - 40,
+                                    child: blackSarabunBold(
+                                        'Where Quality Meets Velocity',
+                                        textAlign: TextAlign.left),
+                                  ),
+                                ],
+                              ),
                             ),
                             _logInContainer(),
                           ],
@@ -102,7 +109,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   onPress: () => logInUser(context, ref,
                       emailController: emailController,
                       passwordController: passwordController)),
-              const Divider(color: CustomColors.blackBeauty),
               GestureDetector(
                   onTap: () => Navigator.of(context)
                       .pushNamed(NavigatorRoutes.forgotPassword),

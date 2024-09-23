@@ -65,10 +65,11 @@ class _ServiceCartScreenState extends ConsumerState<ServiceCartScreen> {
             actions: hasLoggedInUser()
                 ? [popUpMenu(context, currentPath: NavigatorRoutes.serviceCart)]
                 : [loginButton(context)]),
-        bottomNavigationBar: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [_timeSelector(), _checkoutBar()],
-        ),
+        bottomNavigationBar: ref.read(loadingProvider).isLoading
+            ? null
+            : Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [_timeSelector(), _checkoutBar()]),
         body: switchedLoadingContainer(
             ref.read(loadingProvider).isLoading,
             SingleChildScrollView(
@@ -121,8 +122,8 @@ class _ServiceCartScreenState extends ConsumerState<ServiceCartScreen> {
                       disabledBackgroundColor: CustomColors.ultimateGray),
                   onPressed: ref.read(cartProvider).selectedCartItemIDs.isEmpty
                       ? null
-                      : () => Navigator.of(context)
-                          .pushNamed(NavigatorRoutes.checkout),
+                      : () => createNewBookingRequest(context, ref,
+                          datePicked: proposedDateTime!),
                   child: whiteSarabunRegular('REQUEST', fontSize: 10)))
         ],
       ),

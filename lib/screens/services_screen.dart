@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:one_velocity_mobile/utils/string_util.dart';
 import 'package:one_velocity_mobile/widgets/text_widgets.dart';
 
 import '../providers/loading_provider.dart';
+import '../utils/color_util.dart';
 import '../utils/firebase_util.dart';
 import '../utils/navigator_util.dart';
 import '../widgets/app_bar_widget.dart';
@@ -11,6 +13,7 @@ import '../widgets/app_drawer_widget.dart';
 import '../widgets/custom_button_widgets.dart';
 import '../widgets/custom_miscellaneous_widgets.dart';
 import '../widgets/custom_padding_widgets.dart';
+import '../widgets/dropdown_widget.dart';
 import '../widgets/item_entry_widget.dart';
 
 class ServicesScreen extends ConsumerStatefulWidget {
@@ -22,6 +25,8 @@ class ServicesScreen extends ConsumerStatefulWidget {
 
 class _ServicesScreenState extends ConsumerState<ServicesScreen> {
   List<DocumentSnapshot> allServiceDocs = [];
+  List<DocumentSnapshot> filteredServiceDocs = [];
+  String selectedCategory = 'VIEW ALL';
   @override
   void initState() {
     super.initState();
@@ -30,6 +35,7 @@ class _ServicesScreenState extends ConsumerState<ServicesScreen> {
       final scaffoldMessenger = ScaffoldMessenger.of(context);
       try {
         allServiceDocs = await getAllServices();
+        filteredServiceDocs = allServiceDocs;
         ref.read(loadingProvider.notifier).toggleLoading(false);
       } catch (error) {
         scaffoldMessenger.showSnackBar(
@@ -56,7 +62,11 @@ class _ServicesScreenState extends ConsumerState<ServicesScreen> {
               child: all20Pix(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [servicesHeader(), _availableServices()],
+                  children: [
+                    servicesHeader(),
+                    _serviceCategoryWidget(),
+                    _availableServices()
+                  ],
                 ),
               ),
             )),
@@ -69,16 +79,58 @@ class _ServicesScreenState extends ConsumerState<ServicesScreen> {
         children: [blackSarabunBold('ALL AVAILABLE SERVICES', fontSize: 24)]);
   }
 
+  Widget _serviceCategoryWidget() {
+    return vertical20Pix(
+      child: Column(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+                color: Colors.white, borderRadius: BorderRadius.circular(5)),
+            child: dropdownWidget(selectedCategory, (newVal) {
+              setState(() {
+                selectedCategory = newVal!;
+                if (selectedCategory == 'VIEW ALL') {
+                  filteredServiceDocs = allServiceDocs;
+                } else {
+                  filteredServiceDocs = allServiceDocs.where((serviceDoc) {
+                    final serviceData =
+                        serviceDoc.data() as Map<dynamic, dynamic>;
+                    return serviceData[ServiceFields.category] ==
+                        selectedCategory;
+                  }).toList();
+                }
+              });
+            },
+                [
+                  'VIEW ALL',
+                  ServiceCategories.paintJob,
+                  ServiceCategories.repair,
+                ],
+                selectedCategory.isNotEmpty
+                    ? selectedCategory
+                    : 'Select a category',
+                false),
+          ),
+          vertical10Pix(
+              child: Container(
+                  width: double.infinity,
+                  height: 8,
+                  color: CustomColors.grenadine))
+        ],
+      ),
+    );
+  }
+
   Widget _availableServices() {
     return Column(
       children: [
-        allServiceDocs.isNotEmpty
+        filteredServiceDocs.isNotEmpty
             ? Wrap(
                 alignment: WrapAlignment.start,
                 spacing: 40,
                 runSpacing: 40,
-                children: allServiceDocs.asMap().entries.map((item) {
-                  DocumentSnapshot thisService = allServiceDocs[item.key];
+                children: filteredServiceDocs.asMap().entries.map((item) {
+                  DocumentSnapshot thisService = filteredServiceDocs[item.key];
                   return itemEntry(context,
                       itemDoc: thisService,
                       onPress: () => NavigatorRoutes.selectedService(context,

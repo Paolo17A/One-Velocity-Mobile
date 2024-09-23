@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gap/gap.dart';
 import '../providers/bookmarks_provider.dart';
 import '../providers/cart_provider.dart';
 import '../providers/loading_provider.dart';
 import '../providers/pages_provider.dart';
+import '../utils/color_util.dart';
 import '../utils/firebase_util.dart';
 import '../utils/navigator_util.dart';
 import '../utils/string_util.dart';
@@ -56,8 +56,9 @@ class _SelectedServiceScreenState extends ConsumerState<SelectedServiceScreen> {
 
           ref
               .read(cartProvider)
-              .setCartItems(await getProductCartEntries(context));
+              .setCartItems(await getServiceCartEntries(context));
         }
+        setState(() {});
         ref.read(loadingProvider.notifier).toggleLoading(false);
       } catch (error) {
         scaffoldMessenger.showSnackBar(
@@ -100,43 +101,73 @@ class _SelectedServiceScreenState extends ConsumerState<SelectedServiceScreen> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                //crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Column(
                     //crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      blackSarabunBold(name, fontSize: 60),
-                      blackSarabunBold('PHP ${formatPrice(price.toDouble())}',
-                          fontSize: 40),
-                      const Gap(30),
-                      SizedBox(
-                          height: 40,
-                          child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                  shape: const RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.zero),
-                                  disabledBackgroundColor: Colors.blueGrey),
-                              onPressed: isAvailable
-                                  ? () async {
-                                      if (!hasLoggedInUser()) {
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(SnackBar(
-                                                content: Text(
-                                                    'Please log-in to your account first.')));
-                                        return;
+                      blackSarabunBold(name, fontSize: 48),
+                      blackSarabunRegular(
+                          'PHP ${formatPrice(price.toDouble())}',
+                          fontSize: 32),
+                      vertical20Pix(
+                        child: SizedBox(
+                            height: 40,
+                            child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    shape: const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.zero),
+                                    disabledBackgroundColor: Colors.blueGrey),
+                                onPressed: isAvailable
+                                    ? () async {
+                                        if (!hasLoggedInUser()) {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(SnackBar(
+                                                  content: Text(
+                                                      'Please log-in to your account first.')));
+                                          return;
+                                        }
+                                        addServiceToCart(context, ref,
+                                            serviceID: widget.serviceID);
                                       }
-                                      addServiceToCart(context, ref,
-                                          serviceID: widget.serviceID);
-                                    }
-                                  : null,
-                              child: whiteSarabunRegular('REQUEST THIS SERVICE',
-                                  textAlign: TextAlign.center))),
+                                    : null,
+                                child: whiteSarabunRegular(
+                                    'REQUEST THIS SERVICE',
+                                    textAlign: TextAlign.center))),
+                      ),
                     ],
                   ),
                   blackSarabunBold(
                       'Is Available: ${isAvailable ? 'YES' : ' NO'}',
                       fontSize: 16),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      IconButton(
+                          onPressed: () => ref
+                                  .read(bookmarksProvider)
+                                  .bookmarkedServices
+                                  .contains(widget.serviceID)
+                              ? removeBookmarkedService(context, ref,
+                                  serviceID: widget.serviceID)
+                              : addBookmarkedService(context, ref,
+                                  service: widget.serviceID),
+                          icon: Icon(ref
+                                  .read(bookmarksProvider)
+                                  .bookmarkedServices
+                                  .contains(widget.serviceID)
+                              ? Icons.bookmark
+                              : Icons.bookmark_outline)),
+                      blackSarabunRegular(ref
+                              .read(bookmarksProvider)
+                              .bookmarkedServices
+                              .contains(widget.serviceID)
+                          ? 'Remove from Bookmarks'
+                          : 'Add to Bookmarks')
+                    ],
+                  ),
+                  Divider(color: CustomColors.blackBeauty),
                   all20Pix(child: blackSarabunRegular(description)),
                 ],
               ),
@@ -150,28 +181,18 @@ class _SelectedServiceScreenState extends ConsumerState<SelectedServiceScreen> {
   Widget _itemImagesDisplay() {
     return Column(
       children: [
-        MouseRegion(
-          cursor: SystemMouseCursors.click,
-          child: GestureDetector(
-            onTap: () {
-              showOtherPics(context,
-                  selectedImage: imageURLs[currentImageIndex]);
-            },
-            child: Column(
-              children: [
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.5,
-                  height: MediaQuery.of(context).size.width * 0.5,
-                  decoration: BoxDecoration(
-                      border: Border.all(),
-                      image: DecorationImage(
-                          fit: BoxFit.fill,
-                          image:
-                              NetworkImage(imageURLs[currentImageIndex - 1]))),
-                ),
-              ],
+        Column(
+          children: [
+            Container(
+              width: MediaQuery.of(context).size.width * 0.5,
+              height: MediaQuery.of(context).size.width * 0.5,
+              decoration: BoxDecoration(
+                  border: Border.all(),
+                  image: DecorationImage(
+                      fit: BoxFit.fill,
+                      image: NetworkImage(imageURLs[currentImageIndex - 1]))),
             ),
-          ),
+          ],
         ),
         if (imageURLs.length > 1)
           vertical10Pix(

@@ -91,7 +91,6 @@ class _ProductsScreenState extends ConsumerState<ProductsScreen> {
             child: dropdownWidget(selectedCategory, (newVal) {
               setState(() {
                 selectedCategory = newVal!;
-                print(selectedCategory);
                 if (selectedCategory == 'VIEW ALL') {
                   filteredProductDocs = allProductDocs;
                 } else {
@@ -101,7 +100,6 @@ class _ProductsScreenState extends ConsumerState<ProductsScreen> {
                     return productData[ProductFields.category] ==
                         selectedCategory;
                   }).toList();
-                  print('products found: ${filteredProductDocs.length}');
                 }
               });
             },

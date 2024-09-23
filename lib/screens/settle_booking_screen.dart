@@ -114,50 +114,48 @@ class _SettleBookingScreenState extends ConsumerState<SettleBookingScreen> {
   Widget _serviceDataWidgets() {
     return SizedBox(
       width: double.infinity,
-      child: all10Pix(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            blackSarabunBold('REQUESTED SERVICES: ', fontSize: 32),
-            Column(
-                children: serviceDocs.map((serviceDoc) {
-              final serviceData = serviceDoc.data() as Map<dynamic, dynamic>;
-              String name = serviceData[ServiceFields.name];
-              List<dynamic> imageURLs = serviceData[ServiceFields.imageURLs];
-              num price = serviceData[ServiceFields.price];
-              String description = serviceData[ServiceFields.description];
-              return vertical10Pix(
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    if (imageURLs.isNotEmpty)
-                      Container(
-                          decoration: BoxDecoration(border: Border.all()),
-                          child: Image.network(imageURLs[0],
-                              width: 100, height: 100, fit: BoxFit.cover)),
-                    Gap(20),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        blackSarabunBold(name, fontSize: 20),
-                        blackSarabunRegular(
-                            'PHP: ${formatPrice(price.toDouble())}',
-                            fontSize: 20),
-                        Gap(12),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.55,
-                          child: blackSarabunRegular(description,
-                              textAlign: TextAlign.left,
-                              textOverflow: TextOverflow.ellipsis),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              );
-            }).toList())
-          ],
-        ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          blackSarabunBold('REQUESTED SERVICES: ', fontSize: 32),
+          Column(
+              children: serviceDocs.map((serviceDoc) {
+            final serviceData = serviceDoc.data() as Map<dynamic, dynamic>;
+            String name = serviceData[ServiceFields.name];
+            List<dynamic> imageURLs = serviceData[ServiceFields.imageURLs];
+            num price = serviceData[ServiceFields.price];
+            String description = serviceData[ServiceFields.description];
+            return vertical10Pix(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (imageURLs.isNotEmpty)
+                    Container(
+                        decoration: BoxDecoration(border: Border.all()),
+                        child: Image.network(imageURLs[0],
+                            width: 100, height: 100, fit: BoxFit.cover)),
+                  Gap(20),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      blackSarabunBold(name, fontSize: 20),
+                      blackSarabunRegular(
+                          'PHP: ${formatPrice(price.toDouble())}',
+                          fontSize: 20),
+                      Gap(12),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.55,
+                        child: blackSarabunRegular(description,
+                            textAlign: TextAlign.left,
+                            textOverflow: TextOverflow.ellipsis),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            );
+          }).toList())
+        ],
       ),
     );
   }
