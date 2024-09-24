@@ -15329,6 +15329,7 @@ struct WheelDataHandler_t17DD18118476EC301C1F28FCEA0552BE5CE0CAD4  : public Mono
 	GameObject_t76FEDD663AB33C991A9C9A23129337651094216F* ___wheelGameObject;
 	Image_tBC1D03F63BF71132E9A5E472B8742F172A011E7E* ___buttonImage;
 	TextMeshProUGUI_t101091AF4B578BB534C92E9D1EEAF0611636D957* ___wheelName;
+	TextMeshProUGUI_t101091AF4B578BB534C92E9D1EEAF0611636D957* ___priceTMP;
 };
 struct DropdownItem_t3D307172264EF209B266052B655D7D4314E660F8  : public MonoBehaviour_t532A11E69716D348D8AA7F854AFCBFCB8AD17F71
 {
@@ -20339,9 +20340,9 @@ IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable6910[5] =
 IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable6911[7] = 
 {
 	static_cast<int32_t>(offsetof(SwipeRotate_t909B00F7A1067C6B4B247EE38AC8FAB67C09B407, ___rotationSpeed)),static_cast<int32_t>(offsetof(SwipeRotate_t909B00F7A1067C6B4B247EE38AC8FAB67C09B407, ___swipeThreshold)),static_cast<int32_t>(offsetof(SwipeRotate_t909B00F7A1067C6B4B247EE38AC8FAB67C09B407, ___momentum)),static_cast<int32_t>(offsetof(SwipeRotate_t909B00F7A1067C6B4B247EE38AC8FAB67C09B407, ___lastTouchPosition)),static_cast<int32_t>(offsetof(SwipeRotate_t909B00F7A1067C6B4B247EE38AC8FAB67C09B407, ___horizontalSwipeDistance)),static_cast<int32_t>(offsetof(SwipeRotate_t909B00F7A1067C6B4B247EE38AC8FAB67C09B407, ___horizontalVelocity)),static_cast<int32_t>(offsetof(SwipeRotate_t909B00F7A1067C6B4B247EE38AC8FAB67C09B407, ___isHolding)),};
-IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable6912[5] = 
+IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable6912[6] = 
 {
-	static_cast<int32_t>(offsetof(WheelDataHandler_t17DD18118476EC301C1F28FCEA0552BE5CE0CAD4, ___carCore)),static_cast<int32_t>(offsetof(WheelDataHandler_t17DD18118476EC301C1F28FCEA0552BE5CE0CAD4, ___wheelData)),static_cast<int32_t>(offsetof(WheelDataHandler_t17DD18118476EC301C1F28FCEA0552BE5CE0CAD4, ___wheelGameObject)),static_cast<int32_t>(offsetof(WheelDataHandler_t17DD18118476EC301C1F28FCEA0552BE5CE0CAD4, ___buttonImage)),static_cast<int32_t>(offsetof(WheelDataHandler_t17DD18118476EC301C1F28FCEA0552BE5CE0CAD4, ___wheelName)),};
+	static_cast<int32_t>(offsetof(WheelDataHandler_t17DD18118476EC301C1F28FCEA0552BE5CE0CAD4, ___carCore)),static_cast<int32_t>(offsetof(WheelDataHandler_t17DD18118476EC301C1F28FCEA0552BE5CE0CAD4, ___wheelData)),static_cast<int32_t>(offsetof(WheelDataHandler_t17DD18118476EC301C1F28FCEA0552BE5CE0CAD4, ___wheelGameObject)),static_cast<int32_t>(offsetof(WheelDataHandler_t17DD18118476EC301C1F28FCEA0552BE5CE0CAD4, ___buttonImage)),static_cast<int32_t>(offsetof(WheelDataHandler_t17DD18118476EC301C1F28FCEA0552BE5CE0CAD4, ___wheelName)),static_cast<int32_t>(offsetof(WheelDataHandler_t17DD18118476EC301C1F28FCEA0552BE5CE0CAD4, ___priceTMP)),};
 IL2CPP_EXTERN_C const int32_t g_FieldOffsetTable6913[4] = 
 {
 	static_cast<int32_t>(offsetof(PaintJobData_t14B68A218832BCCFEA6563F10FAE5766048E6886, ___U3CserviceIDU3Ek__BackingField)),static_cast<int32_t>(offsetof(PaintJobData_t14B68A218832BCCFEA6563F10FAE5766048E6886, ___U3CserviceNameU3Ek__BackingField)),static_cast<int32_t>(offsetof(PaintJobData_t14B68A218832BCCFEA6563F10FAE5766048E6886, ___U3CcolorU3Ek__BackingField)),static_cast<int32_t>(offsetof(PaintJobData_t14B68A218832BCCFEA6563F10FAE5766048E6886, ___U3CpriceU3Ek__BackingField)),};

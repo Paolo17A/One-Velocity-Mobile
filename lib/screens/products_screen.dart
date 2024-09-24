@@ -134,7 +134,7 @@ class _ProductsScreenState extends ConsumerState<ProductsScreen> {
                 spacing: 40,
                 runSpacing: 40,
                 children: filteredProductDocs.asMap().entries.map((item) {
-                  DocumentSnapshot thisProduct = allProductDocs[item.key];
+                  DocumentSnapshot thisProduct = filteredProductDocs[item.key];
                   return itemEntry(context,
                       itemDoc: thisProduct,
                       onPress: () => NavigatorRoutes.selectedProduct(

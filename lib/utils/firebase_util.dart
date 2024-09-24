@@ -768,6 +768,7 @@ Future purchaseSelectedCartItems(BuildContext context, WidgetRef ref,
           .doc(purchaseID)
           .update({PurchaseFields.paymentID: paymentReference.id});
     }
+    ref.read(cartProvider).resetProofOfPaymentFile();
     ref.read(cartProvider).cartItems = await getProductCartEntries(context);
 
     scaffoldMessenger.showSnackBar(const SnackBar(
@@ -907,6 +908,7 @@ Future settleBookingRequestPayment(BuildContext context, WidgetRef ref,
     });
     scaffoldMessenger.showSnackBar(SnackBar(
         content: Text('Successfully settled booking request payment!')));
+    ref.read(cartProvider).resetProofOfPaymentFile();
     navigator.pop();
     navigator.pushReplacementNamed(NavigatorRoutes.bookings);
     ref.read(loadingProvider.notifier).toggleLoading(false);

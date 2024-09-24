@@ -14,12 +14,14 @@ public class WheelDataHandler : MonoBehaviour
     [SerializeField] private GameObject wheelGameObject;
     [SerializeField] private Image buttonImage;
     [SerializeField] private TextMeshProUGUI wheelName;
+    [SerializeField] private TextMeshProUGUI priceTMP;
     //=============================================================================================
 
     private void Start()
     {
         wheelName.text = wheelData.productName;
         buttonImage.sprite = wheelData.wheelSprite;
+        priceTMP.text = "PHP " + wheelData.price.ToString("n0");
     }
 
     public void DisplayWheel()
