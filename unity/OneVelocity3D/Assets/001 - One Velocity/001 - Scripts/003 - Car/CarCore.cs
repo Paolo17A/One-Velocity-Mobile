@@ -161,6 +161,6 @@ public class CarCore : MonoBehaviour
         if(isDisplayingWheels)
             UnityMessageManager.SendMessageToFlutter("PRODUCT/" + SelectedWheel.wheelData.productID);
         else
-            UnityMessageManager.SendMessageToFlutter("SERVICE/" + SelectedColorSelector.paintJobData.serviceName);
+            UnityMessageManager.SendMessageToFlutter("SERVICE/" + SelectedColorSelector.paintJobData.serviceID);
     }
 }

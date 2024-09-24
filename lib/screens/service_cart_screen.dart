@@ -241,10 +241,12 @@ class _ServiceCartScreenState extends ConsumerState<ServiceCartScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 whiteSarabunBold(name,
-                                    fontSize: 16,
+                                    fontSize: 14,
+                                    textAlign: TextAlign.left,
                                     textOverflow: TextOverflow.ellipsis),
-                                whiteSarabunBold(
+                                whiteSarabunRegular(
                                     'PHP ${formatPrice(price.toDouble())}',
+                                    textAlign: TextAlign.left,
                                     fontSize: 14),
                               ],
                             ),
