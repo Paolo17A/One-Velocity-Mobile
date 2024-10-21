@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: PaintJobData 9
   m_EditorClassIdentifier: 
   <serviceID>k__BackingField: 1727101993406
-  <serviceName>k__BackingField: Brown
+  <serviceName>k__BackingField: Brown Paint Job
   <color>k__BackingField: {r: 0.2830189, g: 0.1781268, b: 0.1241545, a: 1}
   <price>k__BackingField: 1700

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FlutterUnityIntegration;
+
 
 /* The GameManager is the central core of the game. It persists all throughout run-time 
  * and stores universal game objects and variables that need to be used in multiple scenes. */
@@ -40,6 +42,8 @@ public class UnityGameManager : MonoBehaviour
     [field: Header("MISCELLANEOUS SCRIPTS")]
     [field: SerializeField] public UnitySceneController SceneController { get; set; }
     [field: SerializeField] public AnimationsLT AnimationsLT { get; set; }
+    [field: SerializeField] public UnityMessageManager UnityMessageManager { get; set; }
+
     //===========================================================
     #endregion
 

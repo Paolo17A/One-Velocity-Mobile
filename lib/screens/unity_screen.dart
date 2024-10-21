@@ -33,19 +33,26 @@ class _UnityScreenState extends ConsumerState<UnityScreen> {
   @override
   Widget build(BuildContext context) {
     ref.watch(loadingProvider);
-    return Scaffold(
-      appBar: appBarWidget(),
-      body: stackedLoadingContainer(
-          context,
-          ref.read(loadingProvider).isLoading,
-          UnityWidget(
-              unloadOnDispose: true,
-              onUnityCreated: onUnityCreated,
-              onUnityMessage: onUnityMessage)),
+    return PopScope(
+      canPop: false,
+      child: Scaffold(
+        appBar: appBarWidget(mayPop: false),
+        body: stackedLoadingContainer(
+            context,
+            ref.read(loadingProvider).isLoading,
+            UnityWidget(
+                unloadOnDispose: true,
+                onUnityCreated: onUnityCreated,
+                onUnityMessage: onUnityMessage)),
+      ),
     );
   }
 
   void onUnityMessage(message) async {
+    if (message == 'QUIT') {
+      Navigator.of(context).pop();
+      return;
+    }
     ref.read(loadingProvider).toggleLoading(true);
     List<String> splitMessages = message.split('/');
     if (splitMessages.first == PaymentTypes.product) {

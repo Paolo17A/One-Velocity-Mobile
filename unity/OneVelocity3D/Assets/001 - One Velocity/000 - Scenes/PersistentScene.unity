@@ -334,7 +334,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 206074190}
   m_HandleRect: {fileID: 0}
@@ -810,7 +810,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &890239908
 RectTransform:
   m_ObjectHideFlags: 0
@@ -911,6 +911,7 @@ GameObject:
   - component: {fileID: 1170744951}
   - component: {fileID: 1170744950}
   - component: {fileID: 1170744952}
+  - component: {fileID: 1170744953}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -941,12 +942,13 @@ MonoBehaviour:
   - {fileID: 126056084}
   - {fileID: 1566619191}
   <DebugMode>k__BackingField: 1
-  SceneToLoad: CarScene
+  SceneToLoad: StartScene
   <CanUseButtons>k__BackingField: 0
   <MainCamera>k__BackingField: {fileID: 1879988193}
   <MyUICamera>k__BackingField: {fileID: 380094852}
   <SceneController>k__BackingField: {fileID: 458658884}
   <AnimationsLT>k__BackingField: {fileID: 1170744952}
+  <UnityMessageManager>k__BackingField: {fileID: 1170744953}
 --- !u!4 &1170744951
 Transform:
   m_ObjectHideFlags: 0
@@ -979,6 +981,18 @@ MonoBehaviour:
   easeType: 14
   speedButton: 0.25
   easeTypeButton: 14
+--- !u!114 &1170744953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1170744949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8f0d555a552e429a9e36a2bec4c1faf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1177421580
 GameObject:
   m_ObjectHideFlags: 0
@@ -1029,7 +1043,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.740566, b: 0.740566, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

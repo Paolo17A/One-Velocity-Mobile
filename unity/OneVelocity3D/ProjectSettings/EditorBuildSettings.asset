@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/001 - One Velocity/000 - Scenes/PersistentScene.unity
     guid: 678b6415f074a4643b165c410e97e73c
   - enabled: 1
+    path: Assets/001 - One Velocity/000 - Scenes/StartScene.unity
+    guid: f0144cadff6b7714eaf1d1f888699c42
+  - enabled: 1
     path: Assets/001 - One Velocity/000 - Scenes/CarScene.unity
     guid: 79bb428383d647e4cb281fecad1aabd2
   - enabled: 1

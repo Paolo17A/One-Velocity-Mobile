@@ -574,8 +574,14 @@ Future addProductToCart(BuildContext context, WidgetRef ref,
   }
   try {
     if (ref.read(cartProvider).cartContainsThisItem(productID)) {
-      scaffoldMessenger.showSnackBar(
-          const SnackBar(content: Text('This item is already in your cart.')));
+      await FirebaseFirestore.instance
+          .collection(Collections.cart)
+          .doc(ref.read(cartProvider).getCartIDofThisItem(productID))
+          .update({CartFields.quantity: FieldValue.increment(1)});
+      ref.read(cartProvider).setCartItems(await getProductCartEntries(context));
+      scaffoldMessenger.showSnackBar(const SnackBar(
+          content: Text(
+              'This item is already in your cart. The quantity has been incremeneted.')));
       return;
     }
 
@@ -606,7 +612,7 @@ Future addServiceToCart(BuildContext context, WidgetRef ref,
   try {
     if (ref.read(cartProvider).cartContainsThisItem(serviceID)) {
       scaffoldMessenger.showSnackBar(
-          SnackBar(content: Text('This service is already in your cart.')));
+          SnackBar(content: Text('This service has been added to your cart.')));
       return;
     }
 

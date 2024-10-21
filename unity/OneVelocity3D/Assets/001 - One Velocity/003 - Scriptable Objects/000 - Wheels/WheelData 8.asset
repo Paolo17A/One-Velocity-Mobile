@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4aa50d901bc99e4a882311b830cdc91, type: 3}
+  m_Name: WheelData 8
+  m_EditorClassIdentifier: 
+  <productID>k__BackingField: 1729169531665
+  <productName>k__BackingField: Vossen Wheel
+  <wheelSprite>k__BackingField: {fileID: 21300000, guid: 9b8a38d9199183347a267938178a0a1a,
+    type: 3}
+  <price>k__BackingField: 2880
+  <description>k__BackingField: 

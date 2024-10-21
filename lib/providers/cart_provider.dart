@@ -68,6 +68,16 @@ class CartNotifier extends ChangeNotifier {
     });
   }
 
+  String getCartIDofThisItem(String itemID) {
+    return cartItems
+        .where((cartItem) {
+          final cartData = cartItem.data() as Map<dynamic, dynamic>;
+          return cartData[CartFields.itemID] == itemID;
+        })
+        .first
+        .id;
+  }
+
   void setSelectedPaymentMethod(String paymentMethod) {
     selectedPaymentMethod = paymentMethod;
     notifyListeners();

@@ -38,10 +38,13 @@ app.*.symbols
 app.*.map.json
 
 # Android Studio will place build artifacts here
+
 /android/app/debug
 /android/app/profile
 /android/app/release
 /android/unityLibrary/
 unity/OneVelocity3D/Library
 unity/OneVelocity3D/Temp
-unity/OneVelocity3D/Assets/001 - One Velocity/002 - Models/000 -Car/2023+Honda+Civic+Type+R.fbx
+unity/OneVelocity3D/.vs
+unity/OneVelocity3D/Assets/001 - One Velocity/002 - Models/000 -Car/Honda Civic/2023+Honda+Civic+Type+R.fbx
+unity/OneVelocity3D/Assets/001 - One Velocity/002 - Models/000 -Car/Honda Civic/2023+Honda+Civic+Type+R.fbx.meta
