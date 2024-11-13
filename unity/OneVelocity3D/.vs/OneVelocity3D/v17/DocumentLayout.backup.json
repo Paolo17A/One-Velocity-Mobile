@@ -3,16 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\paolo\\Documents\\GitHub\\one_velocity_mobile\\unity\\OneVelocity3D\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{959E7569-78C1-39CE-1ABB-0AD3732389BA}|Assembly-CSharp.csproj|C:\\Users\\paolo\\Documents\\GitHub\\one_velocity_mobile\\unity\\OneVelocity3D\\assets\\001 - one velocity\\001 - scripts\\003 - car\\carcore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{959E7569-78C1-39CE-1ABB-0AD3732389BA}|Assembly-CSharp.csproj|c:\\users\\paolo\\documents\\github\\one_velocity_mobile\\unity\\onevelocity3d\\assets\\001 - one velocity\\001 - scripts\\003 - car\\carcore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{959E7569-78C1-39CE-1ABB-0AD3732389BA}|Assembly-CSharp.csproj|solutionrelative:assets\\001 - one velocity\\001 - scripts\\003 - car\\carcore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{959E7569-78C1-39CE-1ABB-0AD3732389BA}|Assembly-CSharp.csproj|c:\\users\\paolo\\documents\\github\\one_velocity_mobile\\unity\\onevelocity3d\\assets\\001 - one velocity\\001 - scripts\\003 - car\\swiperotate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{959E7569-78C1-39CE-1ABB-0AD3732389BA}|Assembly-CSharp.csproj|solutionrelative:assets\\001 - one velocity\\001 - scripts\\003 - car\\swiperotate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{959E7569-78C1-39CE-1ABB-0AD3732389BA}|Assembly-CSharp.csproj|c:\\users\\paolo\\documents\\github\\one_velocity_mobile\\unity\\onevelocity3d\\assets\\001 - one velocity\\001 - scripts\\003 - car\\carselecthandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{959E7569-78C1-39CE-1ABB-0AD3732389BA}|Assembly-CSharp.csproj|solutionrelative:assets\\001 - one velocity\\001 - scripts\\003 - car\\carselecthandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{959E7569-78C1-39CE-1ABB-0AD3732389BA}|Assembly-CSharp.csproj|C:\\Users\\paolo\\Documents\\GitHub\\one_velocity_mobile\\unity\\OneVelocity3D\\assets\\001 - one velocity\\001 - scripts\\003 - car\\carcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{959E7569-78C1-39CE-1ABB-0AD3732389BA}|Assembly-CSharp.csproj|solutionrelative:assets\\001 - one velocity\\001 - scripts\\003 - car\\carcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{959E7569-78C1-39CE-1ABB-0AD3732389BA}|Assembly-CSharp.csproj|c:\\users\\paolo\\documents\\github\\one_velocity_mobile\\unity\\onevelocity3d\\assets\\001 - one velocity\\001 - scripts\\000 - gamemanager\\animationslt.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{959E7569-78C1-39CE-1ABB-0AD3732389BA}|Assembly-CSharp.csproj|solutionrelative:assets\\001 - one velocity\\001 - scripts\\000 - gamemanager\\animationslt.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{959E7569-78C1-39CE-1ABB-0AD3732389BA}|Assembly-CSharp.csproj|C:\\Users\\paolo\\Documents\\GitHub\\one_velocity_mobile\\unity\\OneVelocity3D\\assets\\001 - one velocity\\001 - scripts\\000 - gamemanager\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -26,42 +30,56 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "AnimationsLT.cs",
-              "DocumentMoniker": "C:\\Users\\paolo\\Documents\\GitHub\\one_velocity_mobile\\unity\\OneVelocity3D\\Assets\\001 - One Velocity\\001 - Scripts\\000 - GameManager\\AnimationsLT.cs",
-              "RelativeDocumentMoniker": "Assets\\001 - One Velocity\\001 - Scripts\\000 - GameManager\\AnimationsLT.cs",
-              "ToolTip": "C:\\Users\\paolo\\Documents\\GitHub\\one_velocity_mobile\\unity\\OneVelocity3D\\Assets\\001 - One Velocity\\001 - Scripts\\000 - GameManager\\AnimationsLT.cs",
-              "RelativeToolTip": "Assets\\001 - One Velocity\\001 - Scripts\\000 - GameManager\\AnimationsLT.cs",
-              "ViewState": "AgIAADgAAAAAAAAAAAAwwAAAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "SwipeRotate.cs",
+              "DocumentMoniker": "C:\\Users\\paolo\\Documents\\GitHub\\one_velocity_mobile\\unity\\OneVelocity3D\\Assets\\001 - One Velocity\\001 - Scripts\\003 - Car\\SwipeRotate.cs",
+              "RelativeDocumentMoniker": "Assets\\001 - One Velocity\\001 - Scripts\\003 - Car\\SwipeRotate.cs",
+              "ToolTip": "C:\\Users\\paolo\\Documents\\GitHub\\one_velocity_mobile\\unity\\OneVelocity3D\\Assets\\001 - One Velocity\\001 - Scripts\\003 - Car\\SwipeRotate.cs",
+              "RelativeToolTip": "Assets\\001 - One Velocity\\001 - Scripts\\003 - Car\\SwipeRotate.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-20T18:09:12.31Z",
+              "WhenOpened": "2024-10-21T06:25:48.305Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
+              "Title": "CarSelectHandler.cs",
+              "DocumentMoniker": "C:\\Users\\paolo\\Documents\\GitHub\\one_velocity_mobile\\unity\\OneVelocity3D\\Assets\\001 - One Velocity\\001 - Scripts\\003 - Car\\CarSelectHandler.cs",
+              "RelativeDocumentMoniker": "Assets\\001 - One Velocity\\001 - Scripts\\003 - Car\\CarSelectHandler.cs",
+              "ToolTip": "C:\\Users\\paolo\\Documents\\GitHub\\one_velocity_mobile\\unity\\OneVelocity3D\\Assets\\001 - One Velocity\\001 - Scripts\\003 - Car\\CarSelectHandler.cs",
+              "RelativeToolTip": "Assets\\001 - One Velocity\\001 - Scripts\\003 - Car\\CarSelectHandler.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-21T05:34:41.673Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "GameManager.cs",
               "DocumentMoniker": "C:\\Users\\paolo\\Documents\\GitHub\\one_velocity_mobile\\unity\\OneVelocity3D\\Assets\\001 - One Velocity\\001 - Scripts\\000 - GameManager\\GameManager.cs",
               "RelativeDocumentMoniker": "Assets\\001 - One Velocity\\001 - Scripts\\000 - GameManager\\GameManager.cs",
               "ToolTip": "C:\\Users\\paolo\\Documents\\GitHub\\one_velocity_mobile\\unity\\OneVelocity3D\\Assets\\001 - One Velocity\\001 - Scripts\\000 - GameManager\\GameManager.cs",
               "RelativeToolTip": "Assets\\001 - One Velocity\\001 - Scripts\\000 - GameManager\\GameManager.cs",
-              "ViewState": "AgIAABYAAAAAAAAAAAAgwCoAAABVAAAAAAAAAA==",
+              "ViewState": "AgIAACYAAAAAAAAAAAAIwEgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-02T13:56:32.634Z"
+              "WhenOpened": "2024-10-02T13:56:32.634Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "CarController.cs",
               "DocumentMoniker": "C:\\Users\\paolo\\Documents\\GitHub\\one_velocity_mobile\\unity\\OneVelocity3D\\Assets\\001 - One Velocity\\001 - Scripts\\003 - Car\\CarController.cs",
               "RelativeDocumentMoniker": "Assets\\001 - One Velocity\\001 - Scripts\\003 - Car\\CarController.cs",
               "ToolTip": "C:\\Users\\paolo\\Documents\\GitHub\\one_velocity_mobile\\unity\\OneVelocity3D\\Assets\\001 - One Velocity\\001 - Scripts\\003 - Car\\CarController.cs",
               "RelativeToolTip": "Assets\\001 - One Velocity\\001 - Scripts\\003 - Car\\CarController.cs",
-              "ViewState": "AgIAABAAAAAAAAAAAAAQwC0AAAAUAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-08-05T12:59:56.527Z",
               "EditorCaption": ""
@@ -74,7 +92,7 @@
               "RelativeDocumentMoniker": "Assets\\001 - One Velocity\\001 - Scripts\\003 - Car\\CarCore.cs",
               "ToolTip": "C:\\Users\\paolo\\Documents\\GitHub\\one_velocity_mobile\\unity\\OneVelocity3D\\Assets\\001 - One Velocity\\001 - Scripts\\003 - Car\\CarCore.cs",
               "RelativeToolTip": "Assets\\001 - One Velocity\\001 - Scripts\\003 - Car\\CarCore.cs",
-              "ViewState": "AgIAAI0AAAAAAAAAAAAQwJ8AAABPAAAAAAAAAA==",
+              "ViewState": "AgIAANYAAAAAAAAAAAAuwOYAAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-12T12:56:04.316Z",
               "EditorCaption": ""
