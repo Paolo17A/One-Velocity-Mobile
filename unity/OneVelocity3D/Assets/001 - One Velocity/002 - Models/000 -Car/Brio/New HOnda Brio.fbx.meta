@@ -1,0 +1,439 @@
+fileFormatVersion: 2
+guid: 73e9ab7e214ad564c977ef9bc5b1a8f7
+ModelImporter:
+  serializedVersion: 22200
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ALCANTARA_NERO
+    second: {fileID: 2100000, guid: 529e7eca3cf80e044b1ca74dd7341d4d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ALCANTARA_tetto
+    second: {fileID: 2100000, guid: b98ce02e722efaf459572939c56b3f63, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BanZ2
+    second: {fileID: 2100000, guid: d5fc93ba1db9a084ebb40fe2473b9c4c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Color_003
+    second: {fileID: 2100000, guid: 26d373daf58c970449d82d5ff0e83110, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Color_004
+    second: {fileID: 2100000, guid: 2108c016cfcd04b46a60ff75cc74f3bb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Color_005
+    second: {fileID: 2100000, guid: f3d6d8a293047ba4c9581bff6fe2956a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Color_007
+    second: {fileID: 2100000, guid: 55e4b3c64b9e52141bb88875cbfe45e0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Color_008
+    second: {fileID: 2100000, guid: bbe883be9a3f8b449bde817664f673e3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Color_009
+    second: {fileID: 2100000, guid: b10bb6cd47cf7b147b7d2a74da6f09ae, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Color_M04
+    second: {fileID: 2100000, guid: b8ebe8d9d07adf843999f3db7da82513, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Color_M08
+    second: {fileID: 2100000, guid: 743c38f1cd618b647a2afb1e6d209e7c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Componenti_interni_carrozzeria
+    second: {fileID: 2100000, guid: b51b15d73557d5a4da99d883d78f002c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Faro_Posteriore_Rosso
+    second: {fileID: 2100000, guid: 906efbcabd648844f8d6386656bac4df, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Fencing_Mesh_Blue
+    second: {fileID: 2100000, guid: 105ed2d820e06244f8c0fd392411e62f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Ferrari_F12___As_Roda
+    second: {fileID: 2100000, guid: 27ad5b60a16d20c438242da1b91ed9f7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Ferrari_F12___Piringan_Rem_Cakram
+    second: {fileID: 2100000, guid: 1cf7c291dfef7aa4db1e6fc11bacdb20, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Freccia
+    second: {fileID: 2100000, guid: b6f8dc4c0dc94474d9eef0117def0562, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FrontColor
+    second: {fileID: 2100000, guid: e96671a097abd96428acede96b0d6317, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Grigio_Chiaro
+    second: {fileID: 2100000, guid: 087c6c453ccd48642bd28ef6f5ba180b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Honda_Brio_RS_2019___Color_44A06
+    second: {fileID: 2100000, guid: d6689f19705a1d74d94f437490d8539f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Honda_Brio_RS_2019___kaca_lampu_belakang
+    second: {fileID: 2100000, guid: cbfae61049c0bae4180b5e1b6bbacb3e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Honda_Brio_RS_2021___0136_Charcoal_1
+    second: {fileID: 2100000, guid: b53076786cd50564e8bf127dcea03186, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Honda_Brio_RS_2021___Charcoal___5
+    second: {fileID: 2100000, guid: fcccc741d4fe2a043afe99324e05d71c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Honda_Brio_RS_2021___DRL
+    second: {fileID: 2100000, guid: 178e007925c50614aa059d6e479477fc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Honda_Brio_RS_2021___Gray
+    second: {fileID: 2100000, guid: f5c84934b2b1fcf4dbc84e5c79e4f878, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Honda_Brio_RS_2021___Mirrors
+    second: {fileID: 2100000, guid: 4d600a1445be4cf4fa28f9aa8a606ac8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Honda_Brio_RS_2021___UnderCarrier
+    second: {fileID: 2100000, guid: a30c995ce62bb5547b26aaaafd6e2a64, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Honda_Brio_RS_2021____auto_10
+    second: {fileID: 2100000, guid: 7e504115be37c7f43ad5cda5642c68da, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Honda_Brio_RS_2021____auto_3
+    second: {fileID: 2100000, guid: fcc35cf21ea9c3247a62358ac15b21f5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Honda_Brio_RS_2021___black1
+    second: {fileID: 2100000, guid: c5b535963151d494487aeb9998d1db04, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Honda_Brio_RS_2021___black2
+    second: {fileID: 2100000, guid: 0d216292d082c194e89e965536e279cc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Honda_Brio_RS_2021___black4
+    second: {fileID: 2100000, guid: 1023d3c344ca6c24d9a14db331728465, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Honda_Brio_RS_2021___black_lamp
+    second: {fileID: 2100000, guid: 1ad60fd0e7b8f8149b0c41da50eb49bb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Honda_Brio_RS_2021___body
+    second: {fileID: 2100000, guid: 0a5cbe8eee86e0d48b315404ac3c306f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Honda_Brio_RS_2021___frame
+    second: {fileID: 2100000, guid: 40b0fc7feb730334e8e8dff97fa29908, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Honda_Brio_RS_2021___grill
+    second: {fileID: 2100000, guid: c3ac8f8a66e6bbe499470ecace0655de, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Honda_Brio_RS_2021___kaca_lampu_depan
+    second: {fileID: 2100000, guid: ad0e4d924ed8a3c4983c14ae12d50a23, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Honda_Brio_RS_2021___logo
+    second: {fileID: 2100000, guid: 883c2a040b0ce514b9d439c15e0e096b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Honda_Brio_RS_2021___reflector_lamp
+    second: {fileID: 2100000, guid: 0ad711b6b88e4814ea78b5649e2df155, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Honda_Brio_RS_2021___rem_red
+    second: {fileID: 2100000, guid: b27c1eb70176c3d4ca64d1b96b805a41, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Honda_Brio_RS_2021___spion
+    second: {fileID: 2100000, guid: cd07c0e24e75be0448a6ef3facfce5e6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Honda_Brio_RS_2021___tangkai_spion
+    second: {fileID: 2100000, guid: 306129e063e989c4c87dfa36fe5cf83c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Honda_Brio_RS_2021___windows
+    second: {fileID: 2100000, guid: 493dc0cafab7da54db4ff1a8b367471b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Honda_Jazz_1___Material16
+    second: {fileID: 2100000, guid: 78a7bb4aae372724c826edbee117b8ac, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Honda_Jazz_1___metal1
+    second: {fileID: 2100000, guid: d616ff4e9939ab64a8dd3f72669a4016, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Honda_Jazz_1___plt2
+    second: {fileID: 2100000, guid: af6271d383c7c7c46a673f78c2e7df9c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_0132_LightGray
+    second: {fileID: 2100000, guid: 82c0ee0b7bb83a945ab2f1a1154c06f5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_0133_Gray
+    second: {fileID: 2100000, guid: 59840c9039a85164fa34637ada2d320b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_2021_Audi_A1_S_Line_ChromeTrims
+    second: {fileID: 2100000, guid: 5a4ad42cfa2a5eb4dbb837e26be91935, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_2021_Audi_A1_S_Line_DRLs
+    second: {fileID: 2100000, guid: 21219592020e3f746a5a0681a2c4c3c3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_2021_Audi_A1_S_Line_HeadLightsGlass
+    second: {fileID: 2100000, guid: 4dddee762e99c074ba68aca2f77796f0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Rosso_Faro
+    second: {fileID: 2100000, guid: 27b547e04615c57409122c27f0081dbc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Rosso_Stop
+    second: {fileID: 2100000, guid: 60fe0156fafb4024bad5ae2ea1457c5a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: VELG_14
+    second: {fileID: 2100000, guid: 46ef7e04f0d9c244f8241bc48ebe0dd8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: VELG___13
+    second: {fileID: 2100000, guid: 2f55fdcbafbca3b46aa6b573e3ac1316, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: VELG___Lug_Nuts
+    second: {fileID: 2100000, guid: 0b03449c8cf0f0f43bbbe5ca958d886b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Vetro_Anteriore
+    second: {fileID: 2100000, guid: 15072299da7ea5340b29347d92351366, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Vetro_Fari_Interno
+    second: {fileID: 2100000, guid: 124b1b1e89f450648afab8c3ab3ccf84, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Wheels___X2
+    second: {fileID: 2100000, guid: 48f56dd9aba27f44986f5ed2298abfd2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: _0136_Charcoal_2
+    second: {fileID: 2100000, guid: aaae25218f9042f4c94b8c9da2f74a8e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: _0137_Black_1
+    second: {fileID: 2100000, guid: e09a50ec4e71bb94cbd79ff74f7bd400, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: _9
+    second: {fileID: 2100000, guid: 24dc3f840b9ebd74b8521e5fe7056f94, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: caliper___X2
+    second: {fileID: 2100000, guid: d4c18e4ca16b633419d6ee9b65c8ecab, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: cromature
+    second: {fileID: 2100000, guid: 4048d6f7f01e2f14294d5de22a26e1bd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pelle_ne
+    second: {fileID: 2100000, guid: 013641800ebd15246bf8df1c89730957, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wheels___x21
+    second: {fileID: 2100000, guid: c05a384a6c84fb84badca5fe1f372798, type: 2}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    strictVertexDataChecks: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 0.01
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
