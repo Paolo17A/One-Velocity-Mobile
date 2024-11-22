@@ -66,6 +66,7 @@ public class CarCore : MonoBehaviour
     [SerializeField] private TextMeshProUGUI SelectedCarNameTMP;
     [SerializeField] private TextMeshProUGUI SelectedItemTMP;
     [SerializeField] private TextMeshProUGUI SelectedPriceTMP;
+    [SerializeField][ReadOnly] private bool DoingBoth;
 
     [Header("CAR SELECT VARIABLES")]
     [SerializeField] private List<GameObject> CarModels;
@@ -134,7 +135,10 @@ public class CarCore : MonoBehaviour
 
     public void ShowConfirmPanel()
     {
-        ConfirmMessageTMP.text = "Do you wish to add " + SelectedItemTMP.text + " to your cart?";
+        if(DoingBoth)
+            ConfirmMessageTMP.text = "Do you wish to add " + SelectedWheel.wheelData.productName + " and " + SelectedColorSelector.paintJobData.serviceName + " to your carts?";
+        else
+            ConfirmMessageTMP.text = "Do you wish to add " + SelectedItemTMP.text + " to your cart?";
         UnityGameManager.Instance.AnimationsLT.FadePanel(ConfirmRT, null, ConfirmCG, 0, 1, () => { });
     }
 
@@ -220,6 +224,20 @@ public class CarCore : MonoBehaviour
     }
     #endregion
 
+    #region OPTIONS
+    public void SelectBothWheelsAndPaint()
+    {
+        DoingBoth = true;
+        HideOptionsPanel();
+        CurrentCarState = CarStates.WHEELS;
+    }
+
+    public void DeselectBothWheelsAndPaint()
+    {
+        DoingBoth = false;
+    }
+    #endregion
+
     #region WHEELS
     public void SetSelectedWheel(WheelDataHandler wheelDataHandler)
     {
@@ -238,6 +256,21 @@ public class CarCore : MonoBehaviour
         foreach (var wheel in allWheelHandlers)
             wheel.HideWheel();
     }
+
+    public void GoToPanelAfterWheels()
+    {
+        HideWheelsPanel();
+        if (DoingBoth)
+            CurrentCarState = CarStates.COLORS;
+        else
+            CurrentCarState = CarStates.CONFIRM;
+    }
+
+    public void DisplayRandomWheel()
+    {
+        int randomIndex = UnityEngine.Random.Range(0,allWheelHandlers.Count);
+        allWheelHandlers[randomIndex].DisplayWheel();
+    }
     #endregion
 
     #region COLOR
@@ -246,8 +279,17 @@ public class CarCore : MonoBehaviour
         SelectedColorSelector = colorSelector;
         SelectedItemTMP.gameObject.SetActive(true);
         SelectedPriceTMP.gameObject.SetActive(true);
-        SelectedItemTMP.text = SelectedColorSelector.paintJobData.serviceName;
-        SelectedPriceTMP.text = "PHP " + SelectedColorSelector.paintJobData.price.ToString("n0");
+        if (DoingBoth)
+        {
+            SelectedItemTMP.text += "\n" + SelectedColorSelector.paintJobData.serviceName;
+            SelectedPriceTMP.text += "\n" + "PHP " + SelectedColorSelector.paintJobData.price.ToString("n0");
+        }
+        else
+        {
+            SelectedItemTMP.text = SelectedColorSelector.paintJobData.serviceName;
+            SelectedPriceTMP.text = "PHP " + SelectedColorSelector.paintJobData.price.ToString("n0");
+        }
+        
         SetSelectedMaterialColor(SelectedColorSelector.paintJobData.color);
         SelectColorBtn.gameObject.SetActive(true);  
     }
@@ -255,6 +297,25 @@ public class CarCore : MonoBehaviour
     public void SetSelectedMaterialColor(Color color)
     {
         SelectedMaterial.color = color; 
+    }
+
+    public void LeaveColorsPanel()
+    {
+        HideColorsPanel();
+        ResetCarColor();
+        HideAllWheels();
+        if (DoingBoth)
+        {
+            CurrentCarState = CarStates.WHEELS;
+            ToggleSelectedItemText(true);
+            SelectedItemTMP.text = SelectedColorSelector.paintJobData.serviceName;
+            SelectedPriceTMP.text = "PHP " + SelectedColorSelector.paintJobData.price.ToString("n0");
+        }
+        else
+        {
+            ToggleSelectedItemText(false);
+            CurrentCarState = CarStates.OPTIONS;
+        }
     }
     #endregion
 
@@ -266,11 +327,18 @@ public class CarCore : MonoBehaviour
 
     public void SendMessageToFlutter()
     {
-        if (isDisplayingWheels)
+        if (DoingBoth)
+        {
             UnityMessageManager.SendMessageToFlutter("PRODUCT/" + SelectedWheel.wheelData.productID);
-        else
             UnityMessageManager.SendMessageToFlutter("SERVICE/" + SelectedColorSelector.paintJobData.serviceID);
-
+        }
+        else
+        {
+            if (isDisplayingWheels)
+                UnityMessageManager.SendMessageToFlutter("PRODUCT/" + SelectedWheel.wheelData.productID);
+            else
+                UnityMessageManager.SendMessageToFlutter("SERVICE/" + SelectedColorSelector.paintJobData.serviceID);
+        }
         HideConfirmPanel();
         CurrentCarState = CarStates.DONE;
     }
